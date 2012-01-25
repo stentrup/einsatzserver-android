@@ -1,1 +1,3 @@
 Show message when username and password are not set
+
+Check Greendroid dependency (available as jar file?)
