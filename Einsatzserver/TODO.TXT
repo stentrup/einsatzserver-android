@@ -1,0 +1,1 @@
+Show message when username and password are not set

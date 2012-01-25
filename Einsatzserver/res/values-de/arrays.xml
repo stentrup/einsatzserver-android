@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="location">
+	    <item name="report">Meldeort</item>
+		<item name="operation">Einsatzort</item>
+	</string-array>
+
+	<string-array name="starttime">
+	    <item name="report">Meldezeitpunkt</item>
+		<item name="operation">Einsatzbeginn</item>
+	</string-array>
+</resources>

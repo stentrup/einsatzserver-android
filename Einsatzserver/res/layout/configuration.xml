@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/configuration.login">
+		<EditTextPreference
+			android:key="configuration.username"
+			android:title="@string/configuration.username" />
+		<EditTextPreference
+			android:key="configuration.password"
+			android:title="@string/configuration.password"
+			android:singleLine="true"
+			android:password="true" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/configuration.calendar">
+	    <ListPreference
+            android:key="configuration.calendar.location"
+            android:title="@string/configuration.calendar.location"
+            android:defaultValue="report"
+            android:entries="@array/location"
+            android:entryValues="@array/locationValues"
+		    />
+	    <ListPreference
+            android:key="configuration.calendar.starttime"
+            android:title="@string/configuration.calendar.starttime"
+            android:defaultValue="report"
+            android:entries="@array/starttime"
+            android:entryValues="@array/starttimeValues"
+		    />	  
+	</PreferenceCategory>
+</PreferenceScreen>

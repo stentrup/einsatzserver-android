@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="location">
+	    <item name="report">Report location</item>
+		<item name="operation">Operation location</item>
+	</string-array>
+	<string-array name="locationValues">
+	    <item name="report">report</item>
+		<item name="operation">operation</item>
+	</string-array>
+
+	<string-array name="starttime">
+	    <item name="report">Report time</item>
+		<item name="operation">Operation time</item>
+	</string-array>
+	<string-array name="starttimeValues">
+	    <item name="report">report</item>
+		<item name="operation">operation</item>
+	</string-array>
+</resources>

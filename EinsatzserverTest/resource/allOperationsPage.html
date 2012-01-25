@@ -1,0 +1,136 @@
+
+	<head> 
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"> 
+		<link rel="shortcut icon" href="grafik/drk.ico"> 
+	<title>DRK Düsseldorf - Einsatzserver</title> 
+	<style type="text/css"> 
+		body{ 
+		background-image: url(grafik/1drk_logo_kompakt.png); 
+		}
+	</style> 
+		</head> 
+	
+<link rel="stylesheet" media="screen" href="eis.css"> 
+<link rel="stylesheet" media="print" href="eis_druck.css"> 
+ 
+<style type="text/css"> 
+.eingabe_suchen{
+	padding:0;
+	margin:0;
+	font-size:12px;
+	height:22px;
+	}
+.aktion_suchen {
+	padding:0;
+	margin:0;
+	font-size:12px;
+	width:22px;	
+	height:22px;
+	background-image:url(grafik/b_search.png); 
+	background-repeat:no-repeat;
+	background-position: 2px 2px;
+	}
+	
+</style> 
+ 
+	
+<h1>&nbsp;</h1> 
+<hr> 
+ 
+<!-- rechtes Fenster --> 
+<div id="rechtesFenster"> 
+ 
+Anzahl angezeigter Datensätze: 3<br><br><table cellpadding="4" cellspacing="1">
+<tr bgcolor=#CFCFCF><td>&nbsp;</td><td>Typ</td><td>BS</td><td align=center>EK</td><td>WT</td><td>Datum</td><td>Zeit</td><td>Bezeichnung - Einsatzort</td><td>Letzte Bearbeitung</td></tr>
+<tr bgcolor=#DFDFDF><td><a href="einsatz_uebersicht.php?einsatz_id=7714"><img src="grafik/b_edit.png" border="0" TITLE="bearbeiten"></a></td><td>DIE</td><td align=center>&nbsp;</td><td align=center><font color=red>0/5</td><td>SO</td><td>18.09.2011</td><td>12:30<br>16:30</td><td>Fortuna II gegen Schalke 04 II<br>Paul-Janes-Stadion, Flinger Broich</td><td>L, M<br>16.08.2011&nbsp;11:16</td></tr>
+<tr bgcolor=#DFDFDF><td><a href="einsatz_uebersicht.php?einsatz_id=7505"><img src="grafik/b_edit.png" border="0" TITLE="bearbeiten"></a></td><td>DIE</td><td align=center>&nbsp;</td><td align=center><font color=green>2/2</td><td>MO</td><td>19.09.2011</td><td>14:00<br>19:00</td><td>Schützenfest Unterrath<br>Festplatz Karthäuser Straße</td><td>M, T<br>13.09.2011&nbsp;20:52</td></tr>
+<tr bgcolor=#DFDFDF><td><a href="einsatz_uebersicht.php?einsatz_id=7507"><img src="grafik/b_edit.png" border="0" TITLE="bearbeiten"></a></td><td>DIE</td><td align=center>&nbsp;</td><td align=center><font color=green>1/1</td><td>DI</td><td>20.09.2011</td><td>14:00<br>19:00</td><td>Schützenfest Unterrath<br>Festplatz Karthäuser Straße</td><td>M, T<br>13.09.2011&nbsp;20:52</td></tr>
+</table></div> 
+
+<!-- linkes Fenster --> 
+<div id="linkesFenster"> 
+ 
+<script language="JavaScript1.2"> 
+<!--
+var da=new Array("SO","MO","DI","MI","DO","FR","SA");
+ 
+function JSClock()
+{
+  var time=new Date();
+  var hour=time.getHours();
+  var minute=time.getMinutes();
+  var second=time.getSeconds();
+  var t=time.getDay();
+  var date=time.getDate();
+  var month=time.getMonth()+1;
+  var tag=da[t];
+ 
+  
+  msie4 = ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4 ));
+	if (msie4) {
+	    var year = time.getYear()
+	}
+	else {
+	     var year = time.getYear() +1900
+	}
+  
+  
+  
+  var temp=tag+" "+date+"."+month+"."+year+" "+hour;
+  temp+=((minute<10)? ":0" : ":")+minute
+  temp+=((second<10)? ":0" : ":")+second
+ 
+  document.clockform.digits.value=temp;
+  var id=setTimeout("JSClock()",1000);
+  
+  
+  
+  
+  
+  
+  
+}   
+//-->
+</script> 
+ 
+ 
+<body onLoad="JSClock()"> 
+ 
+<form name="clockform"> 
+  <input type="text" name="digits" size="25"></p> 
+</form> 
+ 
+ 
+Name: Tentrup, Stephan<br><a href="logout.php">Abmelden</a> <a href="index.php?Kennwort">Kennwort ändern</a><br><br><a href="index.php">Übersicht</a><br><br><a href="information_dokumente.php">Information</a> <br><br><a href="einsatz.php">Einsatzverwaltung</a><br><form action="einsatz.php"> 
+  <p> 
+	  Einsatzfilter
+	  <select name="efilter[]" size="6" multiple> 
+	  <option value="1" selected>VER - Gremien/Verwaltung</option> 
+<option value="2" selected>DIE - Dienste/Sanitätsdienste</option> 
+<option value="3" selected>KAT - Einsätze/KatS</option> 
+<option value="4" selected>AUS - Ausbildung</option> 
+<option value="5" selected>GEM - Gemeinschaftsdienste</option> 
+<option value="6" selected>UNT - Unterstützung</option> 
+<option value="7" selected>BER - Bereitschaftsdienste</option> 
+	  </select> 
+	  <br> 
+	  <input type="submit" name="filtern" value="OK" style="width: 50px"> 
+	  <input type="submit" name="filtern" value="Alle Anzeigen" style="width: 146px"> 
+	  	  
+  </p> 
+</form> 
+ 
+ 
+ 
+ 
+ 
+<form action="einsatz.php" method="post" name="form1" autocomplete="off"> 
+<table> 
+<tr> 
+<td><input class="eingabe_suchen" type="text" size="28" name="suchen"></td> 
+<td><input class="aktion_suchen" type="submit" name="aktion_suchen" alt="Suchen" value="" title="Suchen nach Datum, Einsatz und Einsatzort"></td> 
+</tr> 
+</table> 
+</form> 
+<br><hr><span style="font-size:10px">Version: 04.12.2010 22:41:06</span> 
+</div>
