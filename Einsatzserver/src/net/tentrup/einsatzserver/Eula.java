@@ -16,7 +16,8 @@ import android.preference.PreferenceManager;
 
 public class Eula {
 
-	private String EULA_PREFIX = "eula_";
+	// EULA_KEY should be changed with every new version of the EULA to ensure that EULA has to be accepted at program start
+	public static final String EULA_KEY = "eula_1";
 	private Activity m_activity;
 
 	public Eula(Activity context) {
@@ -35,10 +36,7 @@ public class Eula {
 
 	public void show() {
 		PackageInfo versionInfo = getPackageInfo();
-
-		// the eulaKey changes every time you increment the version number in
-		// the AndroidManifest.xml
-		final String eulaKey = EULA_PREFIX + versionInfo.versionCode;
+		final String eulaKey = EULA_KEY;
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_activity);
 		boolean hasBeenShown = prefs.getBoolean(eulaKey, false);
 		if (hasBeenShown == false) {

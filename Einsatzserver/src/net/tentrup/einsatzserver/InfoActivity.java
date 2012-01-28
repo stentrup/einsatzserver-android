@@ -40,28 +40,12 @@ public class InfoActivity extends GDActivity {
 //		resetEulaInfo();
 	}
 
-	private String EULA_PREFIX = "eula_";
 	private void resetEulaInfo() {
-		PackageInfo versionInfo = getPackageInfo();
-
-		// the eulaKey changes every time you increment the version number in
-		// the AndroidManifest.xml
-		final String eulaKey = EULA_PREFIX + versionInfo.versionCode;
+		final String eulaKey = Eula.EULA_KEY;
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		
 		Editor editor = prefs.edit();
 		editor.remove(eulaKey);
 		editor.commit();
-	}
-
-	private PackageInfo getPackageInfo() {
-		PackageInfo pi = null;
-		try {
-			pi = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES);
-		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return pi;
 	}
 
 }
