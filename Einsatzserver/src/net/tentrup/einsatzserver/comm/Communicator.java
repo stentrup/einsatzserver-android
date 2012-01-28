@@ -100,7 +100,7 @@ public class Communicator {
 			return false;
 		}
 		try {
-			String commentEncoded = URLEncoder.encode(comment, "UTF-8");
+			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
 			executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
 			return true; //TODO parse response
 		} catch (UnsupportedEncodingException e) {
