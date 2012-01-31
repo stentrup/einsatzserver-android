@@ -1,11 +1,11 @@
 package net.tentrup.einsatzserver;
 
-import net.tentrup.einsatzserver.comm.Communicator;
 import greendroid.app.GDListActivity;
 import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.NormalActionBarItem;
+import net.tentrup.einsatzserver.comm.Communicator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
