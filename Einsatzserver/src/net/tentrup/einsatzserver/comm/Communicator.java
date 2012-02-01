@@ -65,11 +65,11 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<List<Operation>>(null, loginResult);
 		}
-		String htmlErgebnis = executeHttpGetRequest(getBaseUrl() + URL_ALL_OPERATIONS);
-		if (htmlErgebnis == null) {
+		String response = executeHttpGetRequest(getBaseUrl() + URL_ALL_OPERATIONS);
+		if (response == null) {
 			return new ResultWrapper<List<Operation>>(null, ResultStateEnum.LOADING_ERROR);
 		}
-		return new HtmlParser().parseAllOperationsPage(htmlErgebnis);
+		return new HtmlParser().parseAllOperationsPage(response);
 	}
 
 	public ResultWrapper<List<Operation>> getMyOperations() {
@@ -77,11 +77,11 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<List<Operation>>(null, loginResult);
 		}
-		String htmlErgebnis = executeHttpGetRequest(getBaseUrl() + URL_MY_OPERATIONS);
-		if (htmlErgebnis == null) {
+		String response = executeHttpGetRequest(getBaseUrl() + URL_MY_OPERATIONS);
+		if (response == null) {
 			return new ResultWrapper<List<Operation>>(null, ResultStateEnum.LOADING_ERROR);
 		}
-		return new HtmlParser().parseMyOperationsPage(htmlErgebnis);
+		return new HtmlParser().parseMyOperationsPage(response);
 	}
 
 	public ResultWrapper<OperationDetails> getOperationDetails(int operationId) {
@@ -89,11 +89,11 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
-		String htmlErgebnis = executeHttpGetRequest(getBaseUrl() + URL_OPERATION_DETAILS + operationId);
-		if (htmlErgebnis == null) {
+		String response = executeHttpGetRequest(getBaseUrl() + URL_OPERATION_DETAILS + operationId);
+		if (response == null) {
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 		}
-		return new HtmlParser().parseOperationDetailsPage(operationId, htmlErgebnis);
+		return new HtmlParser().parseOperationDetailsPage(operationId, response);
 	}
 
 	public boolean executeBooking(int operationId, String comment) {
@@ -102,8 +102,8 @@ public class Communicator {
 		}
 		try {
 			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
-			executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
-			return true; //TODO parse response
+			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
+			return response != null;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return false;
