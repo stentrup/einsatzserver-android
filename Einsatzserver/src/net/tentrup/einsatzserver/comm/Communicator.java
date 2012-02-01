@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
@@ -118,8 +119,8 @@ public class Communicator {
 		// Add login
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
-		nameValuePairs.add(new BasicNameValuePair("username", prefs.getString("configuration.username", "")));
-		nameValuePairs.add(new BasicNameValuePair("password", prefs.getString("configuration.password", "")));
+		nameValuePairs.add(new BasicNameValuePair("username", prefs.getString(PreferenceKeys.CONFIGURATION_USERNAME, "")));
+		nameValuePairs.add(new BasicNameValuePair("password", prefs.getString(PreferenceKeys.CONFIGURATION_PASSWORD, "")));
 
 		try {
 			tempRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));

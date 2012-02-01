@@ -8,6 +8,7 @@ import greendroid.widget.NormalActionBarItem;
 import java.util.List;
 
 import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
@@ -318,7 +319,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 	private LocalDate getStartDate(OperationDetails operationDetails) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String starttime = prefs.getString("configuration.calendar.starttime", "report");
+		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
 		if ("operation".equals(starttime)) {
 			return operationDetails.getStartDate();
 		} else {
@@ -328,7 +329,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 	private LocalTime getStartTime(OperationDetails operationDetails) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String starttime = prefs.getString("configuration.calendar.starttime", "report");
+		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
 		if ("operation".equals(starttime)) {
 			return operationDetails.getStartTime();
 		} else {
@@ -339,13 +340,13 @@ public class OperationDetailsActivity extends GDActivity {
 	private String getDescription(OperationDetails operationDetails) {
 		StringBuilder result = new StringBuilder();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String location = prefs.getString("configuration.calendar.location", "report");
+		String location = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_LOCATION, "report");
 		if ("operation".equals(location)) {
 			result.append(getText(R.string.operation_report_location)).append(": ").append(operationDetails.getReportLocation());
 		} else {
 			result.append(getText(R.string.operation_location)).append(": ").append(operationDetails.getLocation());
 		}
-		String starttime = prefs.getString("configuration.calendar.starttime", "report");
+		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
 		result.append(", ");
 		if ("operation".equals(starttime)) {
 			result.append(getText(R.string.operation_report_time)).append(": ").append(operationDetails.getReportDateComplete(false));
@@ -357,7 +358,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 	private String getLocation(OperationDetails operationDetails) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String location = prefs.getString("configuration.calendar.location", "report");
+		String location = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_LOCATION, "report");
 		if ("operation".equals(location)) {
 			return operationDetails.getLocation();
 		} else {
