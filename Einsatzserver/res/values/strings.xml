@@ -7,7 +7,7 @@
     <string name="menu.my">My operations</string>
     <string name="configuration.username">Username</string>
     <string name="configuration.password">Password</string>
-    <string name="configuration.login">Login for the Einsatzserver</string>
+    <string name="configuration.login">Login data for the Einsatzserver</string>
     <string name="configuration.title">Configuration</string>
     <string name="my.title">My operations</string>
     <string name="all.title">All operations</string>
@@ -49,4 +49,5 @@
     <string name="alert.loading_error">Error during loading</string>
     <string name="alert.parse_error">Parse error</string>
     <string name="booking.progress">Booking. Please wait...</string>
+    <string name="alert.configuration_error">Please configure your login data for the Einsatzserver</string>
 </resources>

@@ -49,4 +49,5 @@
     <string name="alert.loading_error">Fehler beim Laden</string>
     <string name="alert.parse_error">Fehler bei der Verarbeitung</string>
     <string name="booking.progress">Merke vor. Bitte warten...</string>
+    <string name="alert.configuration_error">Bitte konfigurieren Sie Ihre Zugangsdaten für den Einsatzserver</string>
 </resources>
