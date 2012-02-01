@@ -159,6 +159,8 @@ public class OperationDetailsActivity extends GDActivity {
 		if (result) {
 			Toast.makeText(getApplicationContext(), R.string.booking_successful, Toast.LENGTH_LONG).show();
 			startLoadingTask(); //refresh view
+		} else {
+			//TODO show error dialog (or toast?)
 		}
 	}
 
