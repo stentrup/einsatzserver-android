@@ -39,7 +39,7 @@ public class Eula {
 		final String eulaKey = EULA_KEY;
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_activity);
 		boolean hasBeenShown = prefs.getBoolean(eulaKey, false);
-		if (hasBeenShown == false) {
+		if (!hasBeenShown) {
 
 			// Show the Eula
 			String title = m_activity.getString(R.string.eula_title);

@@ -44,6 +44,7 @@ public class HomeScreenActivity extends GDListActivity {
 		setTitle(R.string.app_name);
 		// show EULA
 		new Eula(this).show();
+		// check if app was started in test mode
 		boolean testmode = getIntent().getBooleanExtra(Communicator.PREF_TESTMODE, false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
