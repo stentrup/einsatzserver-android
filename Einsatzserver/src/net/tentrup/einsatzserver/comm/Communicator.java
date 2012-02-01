@@ -103,6 +103,7 @@ public class Communicator {
 		try {
 			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
 			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
+			//TODO parse response?
 			return response != null;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

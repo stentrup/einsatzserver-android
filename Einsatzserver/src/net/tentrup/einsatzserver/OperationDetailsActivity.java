@@ -50,6 +50,7 @@ public class OperationDetailsActivity extends GDActivity {
 	private static final int ALERT_DIALOG_LOGIN_FAILED = 4;
 	private static final int ALERT_DIALOG_LOADING_ERROR = 5;
 	private static final int ALERT_DIALOG_PARSE_ERROR = 6;
+	private static final int ALERT_DIALOG_BOOKING_FAILED = 7;
 
 	private ActivityTask m_task;
 	private int m_dialogShown;
@@ -160,7 +161,7 @@ public class OperationDetailsActivity extends GDActivity {
 			Toast.makeText(getApplicationContext(), R.string.booking_successful, Toast.LENGTH_LONG).show();
 			startLoadingTask(); //refresh view
 		} else {
-			//TODO show error dialog (or toast?)
+			showDialog(ALERT_DIALOG_BOOKING_FAILED);
 		}
 	}
 
@@ -236,6 +237,17 @@ public class OperationDetailsActivity extends GDActivity {
 			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			        	   OperationDetailsActivity.this.finish();
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			return alert;
+		} else if (id == ALERT_DIALOG_BOOKING_FAILED) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.alert_booking_failed)
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   dialog.dismiss();
 			           }
 			       });
 			AlertDialog alert = builder.create();
