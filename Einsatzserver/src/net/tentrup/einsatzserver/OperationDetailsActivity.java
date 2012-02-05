@@ -112,35 +112,7 @@ public class OperationDetailsActivity extends GDActivity {
 			removeDialog(LOADING_PROGRESS_DIALOG);
 		}
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
-			m_operationDetails = result.getResult();
-			TextView tvDescription = (TextView) findViewById(R.id.operation_details_description_text);
-			tvDescription.setText(m_operationDetails.getDescription());
-			TextView tvLocation = (TextView) findViewById(R.id.operation_details_location_text);
-			tvLocation.setText(m_operationDetails.getLocation());
-			TextView tvBegin = (TextView) findViewById(R.id.operation_details_begin_text);
-			tvBegin.setText(m_operationDetails.getBegin(true));
-			TextView tvEnd = (TextView) findViewById(R.id.operation_details_end_text);
-			tvEnd.setText(m_operationDetails.getEnd(true));
-			TextView tvReportLocation = (TextView) findViewById(R.id.operation_details_report_location_text);
-			tvReportLocation.setText(m_operationDetails.getReportLocation());
-			TextView tvReportTime = (TextView) findViewById(R.id.operation_details_report_time_text);
-			tvReportTime.setText(m_operationDetails.getReportDateComplete(true));
-			TextView tvComment = (TextView) findViewById(R.id.operation_details_comment_text);
-			String comment = m_operationDetails.getComment();
-			if (comment != null) {
-				tvComment.setText(comment);
-			} else {
-				TableRow trComment = (TableRow) findViewById(R.id.operation_details_comment_row);
-				trComment.setVisibility(View.GONE);
-			}
-			TextView tvPersonnelRequested = (TextView) findViewById(R.id.operation_details_personnel_requested_text);
-			tvPersonnelRequested.setText(""  + m_operationDetails.getPersonnelRequested());
-			TextView tvPersonnel = (TextView) findViewById(R.id.operation_details_personnel_text);
-			tvPersonnel.setText(toText(m_operationDetails.getPersonnel()));
-			TextView tvCatering = (TextView) findViewById(R.id.operation_details_catering_text);
-			tvCatering.setText(toText(m_operationDetails.isCatering()));
-			ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
-			scrollView.setVisibility(View.VISIBLE);
+			setOperationDetails(result.getResult());
 		} else {
 			if (result.getState() == ResultStateEnum.LOGIN_FAILED) {
 				showDialog(ALERT_DIALOG_LOGIN_FAILED);
@@ -152,17 +124,49 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 	}
 
-	private void onBookingTaskCompleted(boolean result) {
+	private void onBookingTaskCompleted(ResultWrapper<OperationDetails> result) {
 		Log.i(TAG, "Activity " + this + " has been notified the booking task is complete.");
 		if (m_dialogShown == BOOKING_PROGRESS_DIALOG) {
 			removeDialog(BOOKING_PROGRESS_DIALOG);
 		}
-		if (result) {
+		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
 			Toast.makeText(getApplicationContext(), R.string.booking_successful, Toast.LENGTH_LONG).show();
-			startLoadingTask(); //refresh view
+			setOperationDetails(result.getResult());
 		} else {
 			showDialog(ALERT_DIALOG_BOOKING_FAILED);
 		}
+	}
+
+	private void setOperationDetails(OperationDetails result) {
+		m_operationDetails = result;
+		TextView tvDescription = (TextView) findViewById(R.id.operation_details_description_text);
+		tvDescription.setText(m_operationDetails.getDescription());
+		TextView tvLocation = (TextView) findViewById(R.id.operation_details_location_text);
+		tvLocation.setText(m_operationDetails.getLocation());
+		TextView tvBegin = (TextView) findViewById(R.id.operation_details_begin_text);
+		tvBegin.setText(m_operationDetails.getBegin(true));
+		TextView tvEnd = (TextView) findViewById(R.id.operation_details_end_text);
+		tvEnd.setText(m_operationDetails.getEnd(true));
+		TextView tvReportLocation = (TextView) findViewById(R.id.operation_details_report_location_text);
+		tvReportLocation.setText(m_operationDetails.getReportLocation());
+		TextView tvReportTime = (TextView) findViewById(R.id.operation_details_report_time_text);
+		tvReportTime.setText(m_operationDetails.getReportDateComplete(true));
+		TextView tvComment = (TextView) findViewById(R.id.operation_details_comment_text);
+		String comment = m_operationDetails.getComment();
+		if (comment != null) {
+			tvComment.setText(comment);
+		} else {
+			TableRow trComment = (TableRow) findViewById(R.id.operation_details_comment_row);
+			trComment.setVisibility(View.GONE);
+		}
+		TextView tvPersonnelRequested = (TextView) findViewById(R.id.operation_details_personnel_requested_text);
+		tvPersonnelRequested.setText(""  + m_operationDetails.getPersonnelRequested());
+		TextView tvPersonnel = (TextView) findViewById(R.id.operation_details_personnel_text);
+		tvPersonnel.setText(toText(m_operationDetails.getPersonnel()));
+		TextView tvCatering = (TextView) findViewById(R.id.operation_details_catering_text);
+		tvCatering.setText(toText(m_operationDetails.isCatering()));
+		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
+		scrollView.setVisibility(View.VISIBLE);
 	}
 
 	private String toText(List<Person> personnel) {
@@ -496,7 +500,7 @@ public class OperationDetailsActivity extends GDActivity {
 		private OperationDetailsActivity m_activity;
 		private final int m_operationId;
 		private final String m_comment;
-		private boolean m_result;
+		private ResultWrapper<OperationDetails> m_result;
 
 		public BookingTask(OperationDetailsActivity activity, int operationId, String comment) {
 			m_activity = activity;

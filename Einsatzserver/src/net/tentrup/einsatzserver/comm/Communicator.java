@@ -96,18 +96,21 @@ public class Communicator {
 		return new HtmlParser().parseOperationDetailsPage(operationId, response);
 	}
 
-	public boolean executeBooking(int operationId, String comment) {
-		if (login() != ResultStateEnum.SUCCESSFUL) {
-			return false;
+	public ResultWrapper<OperationDetails> executeBooking(int operationId, String comment) {
+		ResultStateEnum loginResult = login();
+		if (loginResult != ResultStateEnum.SUCCESSFUL) {
+			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
 		try {
 			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
 			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
-			//TODO parse response?
-			return response != null;
+			if (response == null) {
+				return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
+			}
+			return new HtmlParser().parseOperationDetailsPage(operationId, response);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			return false;
+			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 		}
 	}
 
