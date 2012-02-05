@@ -155,6 +155,22 @@ public class HtmlParserTest {
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, 4, personnel);
 	}
 
+	@Test
+	public void testParseBookingPage() throws Exception {
+		FileInputStream inputStream = new FileInputStream("resource/booking_successful.html");
+		byte[] byteContent = new byte[inputStream.available()];
+		inputStream.read(byteContent);
+		String content = new String(byteContent);
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(8560, content).getResult();
+		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.");
+		List<Person> personnel = new ArrayList<Person>(); 	 
+		personnel.add(getPerson("M", "H", BookingState.REQUESTED));
+		personnel.add(getPerson("R", "R", BookingState.REQUESTED));
+		personnel.add(getPerson("T", "S", BookingState.REQUESTED));
+		personnel.add(getPerson("V", "K", BookingState.REQUESTED));
+		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 9), new LocalTime(22, 0), "D-Z", new LocalDate(2011, 12, 9), new LocalTime(19, 30), false, null, 0, personnel);
+	}
+
 	private Person getPerson(String name, String surname, BookingState bookingState) {
 		Person person = new Person();
 		person.setName(name);
