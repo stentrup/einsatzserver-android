@@ -1,1 +1,3 @@
 Check Greendroid dependency (available as jar file?)
+
+English translation of help text
