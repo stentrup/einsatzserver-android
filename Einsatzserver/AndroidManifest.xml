@@ -19,6 +19,7 @@
         <activity android:name="AllOperationsActivity" android:label="@string/all.title"></activity>
         <activity android:name="InfoActivity" android:label="@string/about.title"></activity>
         <activity android:name="OperationDetailsActivity" android:label="@string/details.title"></activity>
+        <activity android:name="HelpActivity" android:label="@string/help.title"></activity>
 
     </application>
 </manifest>

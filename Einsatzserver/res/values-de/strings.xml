@@ -51,4 +51,6 @@
     <string name="booking.progress">Merke vor. Bitte warten...</string>
     <string name="alert.configuration_error">Bitte konfigurieren Sie Ihre Zugangsdaten für den Einsatzserver</string>
     <string name="alert.booking_failed">Vormerken fehlgeschlagen!</string>
+    <string name="menu.help">Hilfe</string>
+    <string name="help.title">Hilfe</string>
 </resources>

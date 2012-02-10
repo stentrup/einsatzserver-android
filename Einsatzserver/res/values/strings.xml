@@ -51,4 +51,6 @@
     <string name="booking.progress">Booking. Please wait...</string>
     <string name="alert.configuration_error">Please configure your login data for the Einsatzserver</string>
     <string name="alert.booking_failed">Booking failed!</string>
+    <string name="menu.help">Help</string>
+    <string name="help.title">Help</string>
 </resources>

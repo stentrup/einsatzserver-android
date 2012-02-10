@@ -30,6 +30,7 @@ public class HomeScreenAdapter extends BaseAdapter {
 		m_items.add(new HomeScreenItem(R.string.menu_my, MyOperationsActivity.class));
 		m_items.add(new HomeScreenItem(R.string.menu_all, AllOperationsActivity.class));
 		m_items.add(new HomeScreenItem(R.string.menu_configuration, ConfigurationActivity.class));
+		m_items.add(new HomeScreenItem(R.string.menu_help, HelpActivity.class));
 		m_inflater = (LayoutInflater)applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 

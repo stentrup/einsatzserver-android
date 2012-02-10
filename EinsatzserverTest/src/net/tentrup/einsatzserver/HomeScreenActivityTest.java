@@ -15,7 +15,7 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Hom
 	private ListView m_listView;
 
 	public HomeScreenActivityTest() {
-		super("net.tentrup.einsatzsever", HomeScreenActivity.class);
+		super("net.tentrup.einsatzserver", HomeScreenActivity.class);
 	}
 
 	@Override
@@ -27,6 +27,6 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Hom
 	}
 
 	public void testPreConditions() {
-		assertEquals(3, m_listView.getChildCount());
+		assertEquals(4, m_listView.getChildCount());
 	}
 }

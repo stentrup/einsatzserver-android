@@ -1,0 +1,26 @@
+<h1>Meine Einsätze</h1>
+Zeigt die Einsätze, für die Sie vorgemerkt oder gebucht sind.
+
+<h1>Alle Einsätze</h1>
+Zeigt alle Einsätze, die für Sie sichtbar sind.
+
+<h1>Einstellungen</h1>
+<h3>Zugangsdaten für den Einsatzserver</h3>
+Konfigurieren Sie hier Ihre Zugangsdaten (Benutzername und Passwort) für den Einsatzserver
+<h3>Kalendereinstellungen</h3>
+Hier können Sie konfigurieren, welche Einsatzdaten als Ort und Startzeitpunkt in den 
+Kalendereintrag übernommen werden sollen.
+Für den Ort stehen Einsatz- und Meldeort zu Auswahl. Für den Startzeitpunkt stehen Meldezeit und Einsatzbeginn zur Auswahl.
+
+<h1>Einsatzliste (Meine Einsätze/Alle Einsätze)</h1>
+Es wird eine Liste der Einsätze angezeigt. Diese enthält Wochentag, Datum und Bezeichnung der Einsätze.<br/>
+Durch Antippen eines Eintrags werden die Einsatzdetails angezeigt.
+
+<h1>Einsatzdetails</h1>
+Zeigt weitere Daten des Einsatzes an.<br/>
+Mit Hilfe von Symbolen im Optionsmenü und der Actionbar können Sie sich für den Einsatz vormerken lassen 
+und diesen in den Telefonkalender übernehmen.
+<h3>Vormerken</h3>
+Beim Vormerken kann optional eine Bemerkung angegeben werden.
+<h3>In Kalender übernehmen</h3>
+Je nach installierter Kalender-App wird ein Fenster angezeigt, mit dem der Eintrag in den Kalender übernommen werden kann.
