@@ -6,7 +6,9 @@ import net.tentrup.einsatzserver.R;
 public enum BookingState {
 
 	REQUESTED("Teilnahme vorgemerkt", "vorg.", R.string.bookingstate_requested),
-	CONFIRMED("Teilnahme verbindlich", "geb.", R.string.bookingstate_confirmed);
+	CONFIRMED("Teilnahme verbindlich", "geb.", R.string.bookingstate_confirmed),
+	ABSENT("Abwesend", "abw.", R.string.bookingstate_absent),
+	UNKNOWN("Unbekannt", "unb.", R.string.bookingstate_unknown);
 
 	private final String m_text;
 	private final String m_shortText;
@@ -28,7 +30,7 @@ public enum BookingState {
 				return bookingState;
 			}
 		}
-		return null;
+		return UNKNOWN;
 	}
 
 	public static BookingState parseShortText(String shortText) {
@@ -37,6 +39,6 @@ public enum BookingState {
 				return bookingState;
 			}
 		}
-		return null;
+		return UNKNOWN;
 	}
 }

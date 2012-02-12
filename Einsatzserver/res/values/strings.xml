@@ -34,6 +34,8 @@
     <string name="operation.catering.false">No</string>
     <string name="bookingstate.requested">requested</string>
     <string name="bookingstate.confirmed">confirmed</string>
+    <string name="bookingstate.absent">absent</string>
+    <string name="bookingstate.unknown">Unknown booking state</string>
     <string name="booking.title">mandatory booking</string>
     <string name="booking.description">comment (optional, max. 40 characters)</string>
     <string name="booking.ok">OK</string>
