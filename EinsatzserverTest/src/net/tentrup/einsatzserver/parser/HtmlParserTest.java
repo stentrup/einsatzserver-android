@@ -122,7 +122,8 @@ public class HtmlParserTest {
 		commentBuilder.append("2 H. EH");
 		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append("2 H. O.");
-		List<Person> personnel = new ArrayList<Person>(); 	 
+		List<Person> personnel = new ArrayList<Person>();
+		personnel.add(getPerson("A.", "B.", BookingState.ABSENT));
 		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED));
 		personnel.add(getPerson("S.", "H. J.", BookingState.CONFIRMED));
 		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED));

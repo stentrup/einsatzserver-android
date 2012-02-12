@@ -34,6 +34,8 @@
     <string name="operation.catering.false">Nein</string>
     <string name="bookingstate.requested">vorgemerkt</string>
     <string name="bookingstate.confirmed">gebucht</string>
+    <string name="bookingstate.absent">abwesend</string>
+    <string name="bookingstate.unknown">Unbekannter Buchungsstatus</string>
     <string name="booking.title">Verbindlich vormerken</string>
     <string name="booking.description">Bemerkung (optional, max. 40 Zeichen)</string>
     <string name="booking.ok">Vormerken</string>
