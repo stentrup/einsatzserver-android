@@ -1,9 +1,0 @@
-Check Greendroid dependency (available as jar file?)
-
-English translation of help text
-
-Use dashboard pattern on home screen
-
-Get name of user from login page
-
-Disable booking button when user is already booked or has requested booking
