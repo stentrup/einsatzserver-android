@@ -16,14 +16,12 @@
             android:title="@string/configuration.calendar.location"
             android:defaultValue="report"
             android:entries="@array/location"
-            android:entryValues="@array/locationValues"
-		    />
+            android:entryValues="@array/locationValues" />
 	    <ListPreference
             android:key="configuration.calendar.starttime"
             android:title="@string/configuration.calendar.starttime"
             android:defaultValue="report"
             android:entries="@array/starttime"
-            android:entryValues="@array/starttimeValues"
-		    />	  
+            android:entryValues="@array/starttimeValues" />	  
 	</PreferenceCategory>
 </PreferenceScreen>

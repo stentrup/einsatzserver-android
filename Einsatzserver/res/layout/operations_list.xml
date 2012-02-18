@@ -22,17 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            style="@style/ListView"
             android:drawSelectorOnTop="false" />
 
-        <!-- 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:text="No data" />
-         -->
     </FrameLayout>
 
 </greendroid.widget.ActionBarHost>

@@ -3,8 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_weight="1"
-    android:background="@android:color/white">
+    android:layout_weight="1">
     <ScrollView
         android:id="@+id/operation_details.scrollview"
         android:layout_width="match_parent"

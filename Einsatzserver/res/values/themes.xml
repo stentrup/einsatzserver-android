@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gd_action_bar_tint">#cc0000</color>
-    <color name="text_color">#111111</color>
+    <color name="background_color">#ffffff</color>
+    <color name="text_color">#000000</color>
     <style name="Theme.Einsatzserver" parent="@style/Theme.GreenDroid.NoTitleBar">
         <item name="gdActionBarBackground">@color/gd_action_bar_tint</item>
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:colorBackground">@color/background_color</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="ListView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@color/background_color</item>
+        <item name="android:listSelector">@drawable/button</item>
+    </style>
+    <style name="PopupStyle" parent="android:Theme.Dialog">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <style name="Font.Details" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
     <style name="Font.Details.Bold" parent="@style/Font.Details">
         <item name="android:textStyle">bold</item>

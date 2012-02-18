@@ -12,7 +12,7 @@ public class AsyncTaskProgressDialog extends ProgressDialog {
 	private final AsyncTask<Void, Void, Void> m_task;
 
 	public AsyncTaskProgressDialog(Context context, AsyncTask<Void, Void, Void> task) {
-		super(context);
+		super(context, R.style.PopupStyle);
 		m_task = task;
 	}
 
