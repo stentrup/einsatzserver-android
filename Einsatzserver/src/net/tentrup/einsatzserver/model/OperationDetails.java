@@ -129,4 +129,16 @@ public class OperationDetails extends Operation {
 		textBuilder.append(getLocation()).append("\n");
 		return textBuilder.toString(); 
 	}
+
+	public boolean isInPersonnel(String aName) {
+		if (aName == null) {
+			return false;
+		}
+		for (Person person : m_personnel) {
+			if (aName.equals(person.getName() + ", " + person.getSurname())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

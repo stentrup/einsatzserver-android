@@ -53,9 +53,11 @@ public class OperationDetailsActivity extends GDActivity {
 	private static final int ALERT_DIALOG_BOOKING_FAILED = 7;
 
 	private ActivityTask m_task;
+	private ActionBarItem m_calendarAction;
+	private ActionBarItem m_bookingAction;
 	private int m_dialogShown;
 	private int m_operationId;
-	private OperationDetails m_operationDetails;
+	private ResultWrapper<OperationDetails> m_resultWrapper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +66,8 @@ public class OperationDetailsActivity extends GDActivity {
 		setActionBarContentView(R.layout.operation_details);
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.GONE);
-        addActionBarItem(getActionBar()
-                .newActionBarItem(NormalActionBarItem.class)
-                .setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_checkmark)), R.id.action_bar_check);
-        addActionBarItem(getActionBar()
-                .newActionBarItem(NormalActionBarItem.class)
-                .setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_calendar)), R.id.action_bar_calendar);
+		m_bookingAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_checkmark));
+		m_calendarAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_calendar));
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ActivityTask) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -112,7 +110,7 @@ public class OperationDetailsActivity extends GDActivity {
 			removeDialog(LOADING_PROGRESS_DIALOG);
 		}
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
-			setOperationDetails(result.getResult());
+			setOperationDetails(result);
 		} else {
 			if (result.getState() == ResultStateEnum.LOGIN_FAILED) {
 				showDialog(ALERT_DIALOG_LOGIN_FAILED);
@@ -131,28 +129,29 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
 			Toast.makeText(getApplicationContext(), R.string.booking_successful, Toast.LENGTH_LONG).show();
-			setOperationDetails(result.getResult());
+			setOperationDetails(result);
 		} else {
 			showDialog(ALERT_DIALOG_BOOKING_FAILED);
 		}
 	}
 
-	private void setOperationDetails(OperationDetails result) {
-		m_operationDetails = result;
+	private void setOperationDetails(ResultWrapper<OperationDetails> result) {
+		m_resultWrapper = result;
+		OperationDetails operationDetails = result.getResult();
 		TextView tvDescription = (TextView) findViewById(R.id.operation_details_description_text);
-		tvDescription.setText(m_operationDetails.getDescription());
+		tvDescription.setText(operationDetails.getDescription());
 		TextView tvLocation = (TextView) findViewById(R.id.operation_details_location_text);
-		tvLocation.setText(m_operationDetails.getLocation());
+		tvLocation.setText(operationDetails.getLocation());
 		TextView tvBegin = (TextView) findViewById(R.id.operation_details_begin_text);
-		tvBegin.setText(m_operationDetails.getBegin(true));
+		tvBegin.setText(operationDetails.getBegin(true));
 		TextView tvEnd = (TextView) findViewById(R.id.operation_details_end_text);
-		tvEnd.setText(m_operationDetails.getEnd(true));
+		tvEnd.setText(operationDetails.getEnd(true));
 		TextView tvReportLocation = (TextView) findViewById(R.id.operation_details_report_location_text);
-		tvReportLocation.setText(m_operationDetails.getReportLocation());
+		tvReportLocation.setText(operationDetails.getReportLocation());
 		TextView tvReportTime = (TextView) findViewById(R.id.operation_details_report_time_text);
-		tvReportTime.setText(m_operationDetails.getReportDateComplete(true));
+		tvReportTime.setText(operationDetails.getReportDateComplete(true));
 		TextView tvComment = (TextView) findViewById(R.id.operation_details_comment_text);
-		String comment = m_operationDetails.getComment();
+		String comment = operationDetails.getComment();
 		if (comment != null) {
 			tvComment.setText(comment);
 		} else {
@@ -160,13 +159,20 @@ public class OperationDetailsActivity extends GDActivity {
 			trComment.setVisibility(View.GONE);
 		}
 		TextView tvPersonnelRequested = (TextView) findViewById(R.id.operation_details_personnel_requested_text);
-		tvPersonnelRequested.setText(""  + m_operationDetails.getPersonnelRequested());
+		tvPersonnelRequested.setText(""  + operationDetails.getPersonnelRequested());
 		TextView tvPersonnel = (TextView) findViewById(R.id.operation_details_personnel_text);
-		tvPersonnel.setText(toText(m_operationDetails.getPersonnel()));
+		tvPersonnel.setText(toText(operationDetails.getPersonnel()));
 		TextView tvCatering = (TextView) findViewById(R.id.operation_details_catering_text);
-		tvCatering.setText(toText(m_operationDetails.isCatering()));
+		tvCatering.setText(toText(operationDetails.isCatering()));
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.VISIBLE);
+		// Populate action bar
+		getActionBar().removeItem(m_bookingAction);
+		getActionBar().removeItem(m_calendarAction);
+		if (!m_resultWrapper.getResult().isInPersonnel(m_resultWrapper.getUsername())) {
+			addActionBarItem(m_bookingAction, R.id.action_bar_check);
+		}
+		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);
 	}
 
 	private String toText(List<Person> personnel) {
@@ -292,6 +298,12 @@ public class OperationDetailsActivity extends GDActivity {
 	}
 
 	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.book).setEnabled(!m_resultWrapper.getResult().isInPersonnel(m_resultWrapper.getUsername()));
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.layout.operation_details_menu, menu);
@@ -301,10 +313,10 @@ public class OperationDetailsActivity extends GDActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.add_to_calendar) {
-			addToCalendar(m_operationDetails);
+			addToCalendar();
 			return true;
 		} else if (item.getItemId() == R.id.book) {
-			book(m_operationDetails);
+			book();
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
@@ -315,18 +327,19 @@ public class OperationDetailsActivity extends GDActivity {
 	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
         switch (item.getItemId()) {
         case R.id.action_bar_calendar:
-        	addToCalendar(m_operationDetails);
+        	addToCalendar();
             return true;
         case R.id.action_bar_check:
-        	book(m_operationDetails);
+        	book();
         	return true;
         default:
             return super.onHandleActionBarItemClick(item, position);
         }
 	}
 
-	private void addToCalendar(OperationDetails operationDetails) {
+	private void addToCalendar() {
 		Log.i(TAG, "Add to calendar.");
+		OperationDetails operationDetails = m_resultWrapper.getResult();
 		String title = operationDetails.getDescription();
 		String location = getLocation(operationDetails);
 		String description = getDescription(operationDetails);
@@ -412,7 +425,7 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 	}
 
-	private void book(OperationDetails operationDetails) {
+	private void book() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle(R.string.booking_title);
 		alert.setMessage(R.string.booking_description);

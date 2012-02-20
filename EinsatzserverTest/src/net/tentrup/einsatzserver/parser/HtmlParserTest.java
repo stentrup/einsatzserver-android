@@ -8,6 +8,7 @@ import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
+import net.tentrup.einsatzserver.model.ResultWrapper;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -76,7 +77,9 @@ public class HtmlParserTest {
 		byte[] byteContent = new byte[inputStream.available()];
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
-		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(7894, content).getResult();
+		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(7894, content);
+		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
+		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 7894, null, null, new LocalDate(2011, 9, 25), new LocalTime(13, 0), "B. Düsseldorf", "Düsseldorf");
 		StringBuilder commentBuilder = new StringBuilder();
 		commentBuilder.append("....");
@@ -116,7 +119,9 @@ public class HtmlParserTest {
 		byte[] byteContent = new byte[inputStream.available()];
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
-		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(8516, content).getResult();
+		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(8516, content);
+		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
+		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8516, null, null, new LocalDate(2011, 12, 3), new LocalTime(16, 0), "E/W:R. o. C.", "E. A.");
 		StringBuilder commentBuilder = new StringBuilder();
 		commentBuilder.append("2 H. EH");
@@ -137,7 +142,9 @@ public class HtmlParserTest {
 		byte[] byteContent = new byte[inputStream.available()];
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
-		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(8152, content).getResult();
+		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(8152, content);
+		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
+		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8152, null, null, new LocalDate(2012, 7, 8), null, "B. 2012 -V.-", "A. P.");
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("T.", "T.", BookingState.CONFIRMED));
@@ -150,7 +157,9 @@ public class HtmlParserTest {
 		byte[] byteContent = new byte[inputStream.available()];
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
-		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(8690, content).getResult();
+		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(8690, content);
+		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
+		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8690, null, null, new LocalDate(2011, 12, 16), new LocalTime(16, 0), "F. gegen P.", "Arena, Arena-Str.");
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, 4, personnel);
@@ -162,7 +171,9 @@ public class HtmlParserTest {
 		byte[] byteContent = new byte[inputStream.available()];
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
-		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(8560, content).getResult();
+		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(8560, content);
+		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
+		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.");
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("M", "H", BookingState.REQUESTED));

@@ -41,6 +41,35 @@ public class HtmlParser {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
 	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH:mm");
 
+	private String parseName(String htmlContent) {
+		try {
+			Document root = new DomSerializer(new CleanerProperties()).createDOM(new HtmlCleaner().clean(htmlContent));
+			XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//div[@id='linkesFenster']");
+			Node tbody = (Node) xpath.evaluate(root, XPathConstants.NODE);
+			NodeList childNodes = tbody.getChildNodes();
+			return getNameFromChildNodes(childNodes);
+		} catch (ParserConfigurationException exc) {
+			return null;
+		} catch (XPathExpressionException exc) {
+			return null;
+		}
+	}
+
+	private String getNameFromChildNodes(NodeList childNodes) {
+		for (int i = 0; i < childNodes.getLength(); i++) {
+			Node child = childNodes.item(i);
+			String nodeValue = child.getNodeValue();
+			if (nodeValue != null) {
+				nodeValue = nodeValue.trim();
+				if (nodeValue.startsWith("Name: ")) {
+					return nodeValue.substring("Name: ".length());
+				}
+			}
+			getNameFromChildNodes(child.getChildNodes());
+		}
+		return null;
+	}
+
 	public ResultWrapper<List<Operation>> parseAllOperationsPage(String htmlContent) {
 		List<Operation> result = new ArrayList<Operation>();
 		HtmlCleaner cleaner = new HtmlCleaner();
@@ -218,7 +247,7 @@ public class HtmlParser {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);
 		}
-		return new ResultWrapper<OperationDetails>(result, ResultStateEnum.SUCCESSFUL);
+		return new ResultWrapper<OperationDetails>(result, ResultStateEnum.SUCCESSFUL, parseName(htmlContent));
 	}
 
 	private LocalDate parseDate(String dateString) {
@@ -270,5 +299,4 @@ public class HtmlParser {
 		NodeList node = (NodeList) xpath.evaluate(root, XPathConstants.NODESET);
 		return node;
 	}
-
 }
