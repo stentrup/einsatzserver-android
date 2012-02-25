@@ -41,7 +41,7 @@ public class OperationDetails extends Operation {
 
 	public String getEnd(boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getEndDate() == null ? "" : printDate(getEndDate(), includeDayOfWeek));
+		builder.append(getEndDate() == null ? "" : printDate(getEndDate(), includeDayOfWeek, true));
 		builder.append(" ");
 		builder.append(getEndTime() == null ? "" : printTime(getEndTime()));
 		return builder.toString().trim();
@@ -105,7 +105,7 @@ public class OperationDetails extends Operation {
 
 	public String getReportDateComplete(boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getReportDate() == null ? "" : printDate(getReportDate(), includeDayOfWeek));
+		builder.append(getReportDate() == null ? "" : printDate(getReportDate(), includeDayOfWeek, true));
 		builder.append(" ");
 		builder.append(getReportTime() == null ? "" : printTime(getReportTime()));
 		return builder.toString().trim();

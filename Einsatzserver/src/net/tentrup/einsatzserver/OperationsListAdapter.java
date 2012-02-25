@@ -34,7 +34,7 @@ public class OperationsListAdapter extends BaseAdapter {
 			return null;
 		}
 		Operation operation = m_operations.get(position);
-		return Operation.printDate(operation.getStartDate(), true) + " " + operation.getDescription();
+		return Operation.printDate(operation.getStartDate(), true, false) + " " + operation.getDescription();
 	}
 
 	@Override

@@ -2,8 +2,6 @@ package net.tentrup.einsatzserver.model;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 
 /**
@@ -14,9 +12,10 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class Operation {
 
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
-	private static final DateTimeFormatter DATE_WITH_DAY_OF_WEEK_FORMATTER = DateTimeFormat.forPattern("EE dd.MM.yyyy");
-	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH:mm");
+	private static final String DATE_FORMAT = "dd.MM.yy";
+	private static final String DATE_WITH_DAY_OF_WEEK_FORMAT = "EE dd.MM.yy";
+	private static final String DATE_FORMAT_POSTFIX = "yy";
+	private static final String TIME_FORMAT = "HH:mm";
 
 	private int m_id;
 	private String m_type;
@@ -56,7 +55,7 @@ public class Operation {
 
 	public String getBegin(boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getStartDate() == null ? "" : printDate(getStartDate(), includeDayOfWeek));
+		builder.append(getStartDate() == null ? "" : printDate(getStartDate(), includeDayOfWeek, true));
 		builder.append(" ");
 		builder.append(getStartTime() == null ? "" : printTime(getStartTime()));
 		return builder.toString().trim();
@@ -95,15 +94,18 @@ public class Operation {
 		return m_startDate + " " + m_description;
 	}
 
-	public static String printDate(LocalDate localDate, boolean includeDayOfWeek) {
-		DateTimeFormatter formatter = DATE_FORMATTER;
+	public static String printDate(LocalDate localDate, boolean includeDayOfWeek, boolean longFormat) {
+		String format = DATE_FORMAT;
 		if (includeDayOfWeek) {
-			formatter = DATE_WITH_DAY_OF_WEEK_FORMATTER;
+			format = DATE_WITH_DAY_OF_WEEK_FORMAT;
 		}
-		return localDate.toString(formatter);
+		if (longFormat) {
+			format += DATE_FORMAT_POSTFIX;
+		}
+		return localDate.toString(format);
 	}
 
 	public static String printTime(LocalTime localTime) {
-		return localTime.toString(TIME_FORMATTER);
+		return localTime.toString(TIME_FORMAT);
 	}
 }
