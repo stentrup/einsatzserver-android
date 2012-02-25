@@ -143,13 +143,13 @@ public class OperationDetailsActivity extends GDActivity {
 		TextView tvLocation = (TextView) findViewById(R.id.operation_details_location_text);
 		tvLocation.setText(operationDetails.getLocation());
 		TextView tvBegin = (TextView) findViewById(R.id.operation_details_begin_text);
-		tvBegin.setText(operationDetails.getBegin(true));
+		tvBegin.setText(operationDetails.getBegin(this, true));
 		TextView tvEnd = (TextView) findViewById(R.id.operation_details_end_text);
-		tvEnd.setText(operationDetails.getEnd(true));
+		tvEnd.setText(operationDetails.getEnd(this, true));
 		TextView tvReportLocation = (TextView) findViewById(R.id.operation_details_report_location_text);
 		tvReportLocation.setText(operationDetails.getReportLocation());
 		TextView tvReportTime = (TextView) findViewById(R.id.operation_details_report_time_text);
-		tvReportTime.setText(operationDetails.getReportDateComplete(true));
+		tvReportTime.setText(operationDetails.getReportDateComplete(this, true));
 		TextView tvComment = (TextView) findViewById(R.id.operation_details_comment_text);
 		String comment = operationDetails.getComment();
 		if (comment != null) {
@@ -380,9 +380,9 @@ public class OperationDetailsActivity extends GDActivity {
 		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
 		result.append(", ");
 		if ("operation".equals(starttime)) {
-			result.append(getText(R.string.operation_report_time)).append(": ").append(operationDetails.getReportDateComplete(false));
+			result.append(getText(R.string.operation_report_time)).append(": ").append(operationDetails.getReportDateComplete(this, false));
 		} else {
-			result.append(getText(R.string.operation_begin)).append(": ").append(operationDetails.getBegin(false));
+			result.append(getText(R.string.operation_begin)).append(": ").append(operationDetails.getBegin(this, false));
 		}
 		return result.toString();
 	}

@@ -1,7 +1,11 @@
 package net.tentrup.einsatzserver.model;
 
+import net.tentrup.einsatzserver.R;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+
+import android.content.Context;
 
 
 /**
@@ -53,11 +57,17 @@ public class Operation {
 		return m_startDate;
 	}
 
-	public String getBegin(boolean includeDayOfWeek) {
+	public String getBegin(Context context, boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getStartDate() == null ? "" : printDate(getStartDate(), includeDayOfWeek, true));
-		builder.append(" ");
-		builder.append(getStartTime() == null ? "" : printTime(getStartTime()));
+		if (getStartDate() != null) {
+			builder.append(printDate(getStartDate(), includeDayOfWeek, true));
+			builder.append(" ");
+		}
+		if (getStartTime() != null) {
+			builder.append(printTime(getStartTime()));
+			builder.append(" ");
+			builder.append(context.getString(R.string.operation_oclock));
+		}
 		return builder.toString().trim();
 	}
 

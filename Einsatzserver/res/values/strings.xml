@@ -27,6 +27,7 @@
     <string name="operation.end">Einsatzende</string>
     <string name="operation.report_location">Meldeort</string>
     <string name="operation.report_time">Meldezeitpunkt</string>
+    <string name="operation.oclock">Uhr</string>
     <string name="operation.comment">Bemerkung</string>
     <string name="operation.personnel">Einsatzkräfte</string>
     <string name="operation.catering">Verpflegung wird gestellt</string>

@@ -2,8 +2,12 @@ package net.tentrup.einsatzserver.model;
 
 import java.util.List;
 
+import net.tentrup.einsatzserver.R;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+
+import android.content.Context;
 
 /**
  * Model class for operation details.
@@ -39,12 +43,18 @@ public class OperationDetails extends Operation {
 		m_endTime = endTime;
 	}
 
-	public String getEnd(boolean includeDayOfWeek) {
+	public String getEnd(Context context, boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getEndDate() == null ? "" : printDate(getEndDate(), includeDayOfWeek, true));
-		builder.append(" ");
-		builder.append(getEndTime() == null ? "" : printTime(getEndTime()));
-		return builder.toString().trim();
+		if (getEndDate() != null) {
+			builder.append(printDate(getEndDate(), includeDayOfWeek, true));
+			builder.append(" ");
+		}
+		if (getEndTime() != null) {
+			builder.append(printTime(getEndTime()));
+			builder.append(" ");
+			builder.append(context.getString(R.string.operation_oclock));
+		}
+		return builder.toString();
 	}
 
 	public String getReportLocation() {
@@ -103,12 +113,18 @@ public class OperationDetails extends Operation {
 		m_personnel = personnel;
 	}
 
-	public String getReportDateComplete(boolean includeDayOfWeek) {
+	public String getReportDateComplete(Context context, boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(getReportDate() == null ? "" : printDate(getReportDate(), includeDayOfWeek, true));
-		builder.append(" ");
-		builder.append(getReportTime() == null ? "" : printTime(getReportTime()));
-		return builder.toString().trim();
+		if (getReportDate() != null) {
+			builder.append(printDate(getReportDate(), includeDayOfWeek, true));
+			builder.append(" ");
+		}
+		if (getReportTime() != null) {
+			builder.append(printTime(getReportTime()));
+			builder.append(" ");
+			builder.append(context.getString(R.string.operation_oclock));
+		}
+		return builder.toString();
 	}
 
 	@Override
