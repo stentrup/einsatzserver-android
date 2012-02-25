@@ -1,6 +1,6 @@
 package net.tentrup.einsatzserver;
 
-import greendroid.app.GDListActivity;
+import greendroid.app.GDActivity;
 import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
@@ -16,9 +16,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 /**
  * Shows the home screen of the application
@@ -26,20 +23,39 @@ import android.widget.ListView;
  * @author Tentrup
  *
  */
-public class HomeScreenActivity extends GDListActivity {
+public class HomeScreenActivity extends GDActivity {
 
 	private static final int ALERT_DIALOG_CONFIGURATION_ERROR = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final HomeScreenAdapter homeScreenAdapter = new HomeScreenAdapter(getApplicationContext());
-		setListAdapter(homeScreenAdapter);
-		ListView lv = getListView();
-		lv.setTextFilterEnabled(true);
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(HomeScreenActivity.this, homeScreenAdapter.getActivityClass(position));
+		setActionBarContentView(R.layout.home_screen);
+		findViewById(R.id.my_operations).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreenActivity.this, MyOperationsActivity.class);
+				startActivity(intent);
+			}
+		});
+		findViewById(R.id.all_operations).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreenActivity.this, AllOperationsActivity.class);
+				startActivity(intent);
+			}
+		});
+		findViewById(R.id.configuration).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreenActivity.this, ConfigurationActivity.class);
+				startActivity(intent);
+			}
+		});
+		findViewById(R.id.help).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreenActivity.this, HelpActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -86,11 +102,6 @@ public class HomeScreenActivity extends GDListActivity {
 			return alert;
 		}
 		return super.onCreateDialog(id);
-	}
-
-	@Override
-	public int createLayout() {
-		return R.layout.home_screen_list;
 	}
 
     @Override

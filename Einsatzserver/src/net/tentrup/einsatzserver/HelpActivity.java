@@ -1,15 +1,15 @@
 package net.tentrup.einsatzserver;
 
+import greendroid.app.GDActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
-import greendroid.app.GDActivity;
 
 /**
  * Activity that shows the user manual
