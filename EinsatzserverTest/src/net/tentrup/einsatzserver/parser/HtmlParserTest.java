@@ -105,11 +105,11 @@ public class HtmlParserTest {
 		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED));
 		personnel.add(getPerson("N.", "M.", BookingState.CONFIRMED));
 		personnel.add(getPerson("N.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("S.", "T.", BookingState.CONFIRMED));
 		personnel.add(getPerson("S.", "F.", BookingState.CONFIRMED));
+		personnel.add(getPerson("S.", "T.", BookingState.CONFIRMED));
 		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("W.", "K.", BookingState.CONFIRMED));
 		personnel.add(getPerson("W.", "B.", BookingState.CONFIRMED));
+		personnel.add(getPerson("W.", "K.", BookingState.CONFIRMED));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 9, 25), new LocalTime(20, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 9, 25), new LocalTime(13, 0), false, commentBuilder.toString(), 15, personnel);
 	}
 

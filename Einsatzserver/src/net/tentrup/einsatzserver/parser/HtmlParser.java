@@ -1,6 +1,8 @@
 package net.tentrup.einsatzserver.parser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -234,6 +236,22 @@ public class HtmlParser {
 				person.setBookingState(bookingState);
 				personnel.add(person);
 			}
+			Collections.sort(personnel, new Comparator<Person>() {
+				@Override
+				public int compare(Person lhs, Person rhs) {
+					if (lhs.getName() == null || rhs.getName() == null) {
+						return 0;
+					}
+					int nameCompare = lhs.getName().compareTo(rhs.getName());
+					if (nameCompare != 0) {
+						return nameCompare;
+					}
+					if (lhs.getSurname() == null || rhs.getSurname() == null) {
+						return 0;
+					}
+					return lhs.getSurname().compareTo(rhs.getSurname());
+				}
+			});
 		} catch (XPatherException e) {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);
