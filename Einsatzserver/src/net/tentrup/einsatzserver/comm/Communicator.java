@@ -1,8 +1,8 @@
 package net.tentrup.einsatzserver.comm;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -145,21 +145,24 @@ public class Communicator {
 	}
 
 	private String getTextFromResponse(HttpResponse aResponse) throws IllegalStateException, IOException {
-		BufferedReader tempReader = null;
+		InputStream tempContentStream = null;
+		ByteArrayOutputStream tempByteStream = null;
 		try {
 			if (aResponse.getStatusLine().getStatusCode() != 200) {
 				return null;
 			}
-			tempReader = new BufferedReader(new InputStreamReader(aResponse.getEntity().getContent(), "ISO-8859-1"));
-			StringBuilder tempResult = new StringBuilder();
-			String tempLine = null;
-			while ((tempLine = tempReader.readLine()) != null) {
-				tempResult.append(tempLine).append(System.getProperty("line.separator"));
+			tempContentStream = aResponse.getEntity().getContent();
+			tempByteStream = new ByteArrayOutputStream();
+			int tempContentByte;
+			while ((tempContentByte = tempContentStream.read()) != -1) {
+				tempByteStream.write(tempContentByte);
 			}
-			return tempResult.toString();
+			byte[] tempContentByteArray = tempByteStream.toByteArray();
+			String tempResult = new String(tempContentByteArray, "Cp1252");
+			return tempResult;
 		} finally {
-			if (tempReader != null) {
-				tempReader.close();
+			if (tempContentStream != null) {
+				tempContentStream.close();
 			}
 		}
 	}
