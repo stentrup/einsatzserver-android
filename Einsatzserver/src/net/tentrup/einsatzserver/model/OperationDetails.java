@@ -24,7 +24,6 @@ public class OperationDetails extends Operation {
 	private LocalTime m_reportTime;
 	private boolean m_catering;
 	private String m_comment;
-	private int m_personnelRequested;
 	private List<Person> m_personnel;
 
 	public LocalDate getEndDate() {
@@ -95,14 +94,6 @@ public class OperationDetails extends Operation {
 
 	public void setComment(String comment) {
 		m_comment = comment;
-	}
-
-	public int getPersonnelRequested() {
-		return m_personnelRequested;
-	}
-
-	public void setPersonnelRequested(int personnelRequested) {
-		m_personnelRequested = personnelRequested;
 	}
 
 	public List<Person> getPersonnel() {

@@ -28,6 +28,9 @@ public class Operation {
 	private LocalTime m_startTime;
 	private String m_location;
 	private String m_description;
+	private int m_personnelRequested;
+	private int m_personnelBookingConfirmed;
+	private int m_personnelBookingRequested;
 
 	public int getId() {
 		return m_id;
@@ -102,6 +105,30 @@ public class Operation {
 	@Override
 	public String toString() {
 		return m_startDate + " " + m_description;
+	}
+
+	public int getPersonnelRequested() {
+		return m_personnelRequested;
+	}
+
+	public void setPersonnelRequested(int personnelRequested) {
+		m_personnelRequested = personnelRequested;
+	}
+
+	public int getPersonnelBookingConfirmed() {
+		return m_personnelBookingConfirmed;
+	}
+
+	public void setPersonnelBookingConfirmed(int personnelBookingConfirmed) {
+		m_personnelBookingConfirmed = personnelBookingConfirmed;
+	}
+
+	public int getPersonnelBookingRequested() {
+		return m_personnelBookingRequested;
+	}
+
+	public void setPersonnelBookingRequested(int personnelBookingRequested) {
+		m_personnelBookingRequested = personnelBookingRequested;
 	}
 
 	public static String printDate(LocalDate localDate, boolean includeDayOfWeek, boolean longFormat) {

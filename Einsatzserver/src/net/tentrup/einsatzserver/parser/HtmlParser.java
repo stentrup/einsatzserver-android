@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
@@ -107,6 +109,17 @@ public class HtmlParser {
 				}
 				TagNode typeNode = cells[1];
 				operation.setType(typeNode.getText().toString());
+				TagNode personnelCountNode = cells[3];
+				Pattern personnelCountPattern = Pattern.compile("(\\((\\d+)\\)\\s)?(\\d+)/(\\d+)");
+				Matcher personnelCountMatcher = personnelCountPattern.matcher(personnelCountNode.getText().toString());
+				if (personnelCountMatcher.find()) {
+					String personnelBookingRequested = personnelCountMatcher.group(2);
+					operation.setPersonnelBookingRequested(parseInt(personnelBookingRequested));
+					String personnelBookingConfirmed = personnelCountMatcher.group(3);
+					operation.setPersonnelBookingConfirmed(parseInt(personnelBookingConfirmed));
+					String personnelRequested = personnelCountMatcher.group(4);
+					operation.setPersonnelRequested(parseInt(personnelRequested));
+				}
 				TagNode datumNode = cells[5];
 				operation.setDate(parseDate(datumNode.getText().toString()));
 				TagNode uhrzeitNode = cells[6];
@@ -219,6 +232,7 @@ public class HtmlParser {
 			result.setReportDate(parseDate(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Meldezeit\"]/../../td[2]")));
 			result.setReportTime(parseTime(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Meldezeit\"]/../../td[4]")));;
 			result.setPersonnelRequested(getIntForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"anforderung:\"]/../../td[2]"));
+			result.setPersonnelBookingConfirmed(getIntForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"anforderung:\"]/../../td[4]"));
 			result.setCatering(getBooleanForXpath(root, "//div[@id='rechtesFenster']//b[contains(., 'Verpflegung')]/../../td[4]/input/@checked"));
 			result.setComment(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Bemerkung\"]/../../td[2]"));
 			List<Person> personnel = new ArrayList<Person>();
@@ -316,5 +330,12 @@ public class HtmlParser {
 		XPathExpression xpath = XPathFactory.newInstance().newXPath().compile(xpathExpression);
 		NodeList node = (NodeList) xpath.evaluate(root, XPathConstants.NODESET);
 		return node;
+	}
+
+	private int parseInt(String intValue) {
+		if (intValue == null) {
+			return 0;
+		}
+		return Integer.parseInt(intValue);
 	}
 }
