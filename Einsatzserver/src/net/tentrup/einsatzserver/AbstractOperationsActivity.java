@@ -12,7 +12,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -144,7 +143,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			textView.setText(operation.getDescription());
 			table.addView(tableRow);
 			textView = new TextView(this);
-			textView.setBackgroundColor(Color.parseColor("#80808080"));
+			textView.setBackgroundResource(R.color.color_hr);
 			textView.setHeight(1);
 			table.addView(textView);
 		}
