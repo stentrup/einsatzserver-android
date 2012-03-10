@@ -122,9 +122,9 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		TableLayout table = (TableLayout) findViewById(R.id.operations_table);
 		table.removeAllViews();
 		for (final Operation operation : result) {
-			TextView tv;
-			TableRow tr2 = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
-			tr2.setOnClickListener(new View.OnClickListener() {
+			TextView textView;
+			TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
+			tableRow.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
@@ -134,28 +134,23 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 					startActivity(intent);
 				}
 			});
-			tv = (TextView) tr2.findViewById(R.id.cell_day_of_week);
-			tv.setText(Operation.printDayOfWeek(operation.getStartDate()));
-			tv = (TextView) tr2.findViewById(R.id.cell_date);
-			tv.setText(Operation.printDate(operation.getStartDate(), false, false));
-			//TODO personnel only on all operations page
-			tv = (TextView) tr2.findViewById(R.id.cell_personnel);
-			String personnelText = operation.getPersonnelBookingConfirmed() + "/" + operation.getPersonnelRequested();
-			if (operation.getPersonnelBookingConfirmed() < operation.getPersonnelRequested()) {
-				tv.setBackgroundResource(R.color.color_operation_red);
-			} else {
-				tv.setBackgroundResource(R.color.color_operation_green);
-			}
-			tv.setText(personnelText);
-			tv = (TextView) tr2.findViewById(R.id.cell_description);
-			tv.setText(operation.getDescription());
-			table.addView(tr2);
-			tv = new TextView(this);
-			tv.setBackgroundColor(Color.parseColor("#80808080"));
-			tv.setHeight(1);
-			table.addView(tv);
+			textView = (TextView) tableRow.findViewById(R.id.cell_day_of_week);
+			textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
+			textView = (TextView) tableRow.findViewById(R.id.cell_date);
+			textView.setText(Operation.printDate(operation.getStartDate(), false, false));
+			textView = (TextView) tableRow.findViewById(R.id.cell_personnel);
+			updatePersonnelTextView(operation, textView);
+			textView = (TextView) tableRow.findViewById(R.id.cell_description);
+			textView.setText(operation.getDescription());
+			table.addView(tableRow);
+			textView = new TextView(this);
+			textView.setBackgroundColor(Color.parseColor("#80808080"));
+			textView.setHeight(1);
+			table.addView(textView);
 		}
 	}
+
+	protected abstract void updatePersonnelTextView(Operation operation, TextView textView);
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
