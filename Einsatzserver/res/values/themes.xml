@@ -3,6 +3,8 @@
     <color name="gd_action_bar_tint">#cc0000</color>
     <color name="background_color">#ffffff</color>
     <color name="text_color">#000000</color>
+    <color name="color_operation_red">#ff0000</color>
+    <color name="color_operation_green">#00ff00</color>
     <style name="Theme.Einsatzserver" parent="@style/Theme.GreenDroid.NoTitleBar">
         <item name="gdActionBarBackground">@color/gd_action_bar_tint</item>
         <item name="android:windowBackground">@color/background_color</item>

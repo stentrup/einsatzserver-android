@@ -123,30 +123,6 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		table.removeAllViews();
 		for (final Operation operation : result) {
 			TextView tv;
-			TableRow tr1 = (TableRow) getLayoutInflater().inflate(R.layout.operations_date, null);
-			tr1.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
-					int operationId = operation.getId();
-					Log.i(TAG, "Details for operation id " + operationId);
-					intent.putExtra(OPERATION_ID, operationId);
-					startActivity(intent);
-				}
-			});
-			tv = (TextView) tr1.findViewById(R.id.cell_day_of_week);
-			tv.setText(Operation.printDayOfWeek(operation.getStartDate()));
-			tv = (TextView) tr1.findViewById(R.id.cell_date);
-			tv.setText(Operation.printDate(operation.getStartDate(), false, false));
-			//TODO personnel only on all operations page
-			tv = (TextView) tr1.findViewById(R.id.cell_personnel);
-			String personnelText = getString(R.string.operation_personnel_short) + " ";
-			if (operation.getPersonnelBookingRequested() > 0) {
-				personnelText = "(" + operation.getPersonnelBookingRequested() + ") ";
-			}
-			personnelText += operation.getPersonnelBookingConfirmed() + "/" + operation.getPersonnelRequested();
-			tv.setText(personnelText);
-			table.addView(tr1);
 			TableRow tr2 = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
 			tr2.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -158,6 +134,19 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 					startActivity(intent);
 				}
 			});
+			tv = (TextView) tr2.findViewById(R.id.cell_day_of_week);
+			tv.setText(Operation.printDayOfWeek(operation.getStartDate()));
+			tv = (TextView) tr2.findViewById(R.id.cell_date);
+			tv.setText(Operation.printDate(operation.getStartDate(), false, false));
+			//TODO personnel only on all operations page
+			tv = (TextView) tr2.findViewById(R.id.cell_personnel);
+			String personnelText = operation.getPersonnelBookingConfirmed() + "/" + operation.getPersonnelRequested();
+			if (operation.getPersonnelBookingConfirmed() < operation.getPersonnelRequested()) {
+				tv.setBackgroundResource(R.color.color_operation_red);
+			} else {
+				tv.setBackgroundResource(R.color.color_operation_green);
+			}
+			tv.setText(personnelText);
 			tv = (TextView) tr2.findViewById(R.id.cell_description);
 			tv.setText(operation.getDescription());
 			table.addView(tr2);
