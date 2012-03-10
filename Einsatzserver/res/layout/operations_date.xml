@@ -19,4 +19,10 @@
         style="@style/Font.Details"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
+    <TextView 
+        android:id="@+id/cell_personnel" 
+        style="@style/Font.Details"
+        android:paddingLeft="3dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 </TableRow>

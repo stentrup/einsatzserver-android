@@ -160,6 +160,8 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 		TextView tvPersonnelRequested = (TextView) findViewById(R.id.operation_details_personnel_requested_text);
 		tvPersonnelRequested.setText(""  + operationDetails.getPersonnelRequested());
+		TextView tvPersonnelCount = (TextView) findViewById(R.id.operation_details_personnel_count_text);
+		tvPersonnelCount.setText("" + operationDetails.getPersonnelBookingConfirmed());
 		TextView tvPersonnel = (TextView) findViewById(R.id.operation_details_personnel_text);
 		tvPersonnel.setText(toText(operationDetails.getPersonnel()));
 		TextView tvCatering = (TextView) findViewById(R.id.operation_details_catering_text);

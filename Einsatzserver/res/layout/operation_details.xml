@@ -8,20 +8,20 @@
         android:id="@+id/operation_details.scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
+
         <TableLayout
             android:id="@+id/operation_details.layout"
             android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
             <TableRow
                 android:id="@+id/operation.details.description.row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
-
+
                 <LinearLayout
                     android:id="@+id/operation.details.description.layout"
                     android:layout_width="wrap_content"
@@ -37,15 +37,14 @@
                         android:id="@+id/operation.details.description.text"
                         style="@style/Font.Details" />
                 </LinearLayout>
-            </TableRow>
-
+            </TableRow>
             <TableRow
                 android:id="@+id/operation.details.location.row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
-
+
                 <LinearLayout
                     android:id="@+id/operation.details.location.layout"
                     android:layout_width="wrap_content"
@@ -61,15 +60,13 @@
                         android:id="@+id/operation.details.location.text"
                         style="@style/Font.Details" />
                 </LinearLayout>
-            </TableRow>
-
+            </TableRow>
             <TableRow
                 android:id="@+id/operation.details.begin.row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp" >
-
+                android:paddingTop="5dp" >
                 <LinearLayout
                     android:id="@+id/operation.details.begin.layout"
                     android:layout_width="wrap_content"
@@ -86,14 +83,14 @@
                         style="@style/Font.Details" />
                 </LinearLayout>
             </TableRow>
-
+
             <TableRow
                 android:id="@+id/operation.details.end.row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
-
+
                 <LinearLayout
                     android:id="@+id/operation.details.end.layout"
                     android:layout_width="wrap_content"
@@ -183,27 +180,51 @@
                 </LinearLayout>
 
             </TableRow>
-
+
             <TableRow
                 android:id="@+id/operation.details.personnel_requested.row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp" >
-
+                android:paddingTop="5dp" >
                 <LinearLayout
                     android:id="@+id/operation.details.personnel_requested.layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
-
+
                     <TextView
                         android:id="@+id/operation.details.personnel_requested.label"
                         style="@style/Font.Details.Bold"
                         android:text="@string/operation.personnel_requested" />
-
+
                     <TextView
                         android:id="@+id/operation.details.personnel_requested.text"
+                        style="@style/Font.Details" />
+
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/operation.details.personnel_count.row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
+
+                <LinearLayout
+                    android:id="@+id/operation.details.personnel_count.layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/operation.details.personnel_count.label"
+                        style="@style/Font.Details.Bold"
+                        android:text="@string/operation.personnel_count" />
+
+                    <TextView
+                        android:id="@+id/operation.details.personnel_count.text"
                         style="@style/Font.Details" />
 
                 </LinearLayout>

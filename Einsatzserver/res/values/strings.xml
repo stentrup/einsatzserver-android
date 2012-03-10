@@ -43,6 +43,8 @@
     <string name="booking.cancel">Abbrechen</string>
     <string name="booking.successful">Teilnahme vorgemerkt</string>
     <string name="operation.personnel_requested">Einsatzkräfteanforderung</string>
+    <string name="operation.personnel_count">Einsatzkräftezahl</string>
+    <string name="operation.personnel_short">EK</string>
     <string name="configuration.calendar">Kalender-Einstellungen</string>
     <string name="configuration.calendar.location">Ort</string>
     <string name="configuration.calendar.starttime">Anfangszeit</string>

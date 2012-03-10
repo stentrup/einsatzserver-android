@@ -138,6 +138,14 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			tv.setText(Operation.printDayOfWeek(operation.getStartDate()));
 			tv = (TextView) tr1.findViewById(R.id.cell_date);
 			tv.setText(Operation.printDate(operation.getStartDate(), false, false));
+			//TODO personnel only on all operations page
+			tv = (TextView) tr1.findViewById(R.id.cell_personnel);
+			String personnelText = getString(R.string.operation_personnel_short) + " ";
+			if (operation.getPersonnelBookingRequested() > 0) {
+				personnelText = "(" + operation.getPersonnelBookingRequested() + ") ";
+			}
+			personnelText += operation.getPersonnelBookingConfirmed() + "/" + operation.getPersonnelRequested();
+			tv.setText(personnelText);
 			table.addView(tr1);
 			TableRow tr2 = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
 			tr2.setOnClickListener(new View.OnClickListener() {
