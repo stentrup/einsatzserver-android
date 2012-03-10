@@ -1,6 +1,6 @@
 package net.tentrup.einsatzserver;
 
-import greendroid.app.GDListActivity;
+import greendroid.app.GDActivity;
 
 import java.util.List;
 
@@ -12,15 +12,16 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-public abstract class AbstractOperationsActivity extends GDListActivity {
+public abstract class AbstractOperationsActivity extends GDActivity {
 
 	private static final String TAG = AbstractOperationsActivity.class.getSimpleName();
 
@@ -33,7 +34,7 @@ public abstract class AbstractOperationsActivity extends GDListActivity {
 
 	private ListRefresher m_task;
 	private boolean m_shownDialog;
-	private OperationsListAdapter m_listAdapter;
+//	private OperationsListAdapter m_listAdapter;
 
 	/**
 	 * After a screen orientation change, we associate the current ( = newly
@@ -43,18 +44,19 @@ public abstract class AbstractOperationsActivity extends GDListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		m_listAdapter = new OperationsListAdapter(getApplicationContext());
-		setListAdapter(m_listAdapter);
-		ListView lv = getListView();
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
-				int operationId = (int) m_listAdapter.getItemId(position);
-				Log.i(TAG, "Details for operation id " + operationId);
-				intent.putExtra(OPERATION_ID, operationId);
-				startActivity(intent);
-			}
-		});
+		setActionBarContentView(R.layout.operations_list);
+//		m_listAdapter = new OperationsListAdapter(getApplicationContext());
+//		setListAdapter(m_listAdapter);
+//		ListView lv = getListView();
+//		lv.setOnItemClickListener(new OnItemClickListener() {
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
+//				int operationId = (int) m_listAdapter.getItemId(position);
+//				Log.i(TAG, "Details for operation id " + operationId);
+//				intent.putExtra(OPERATION_ID, operationId);
+//				startActivity(intent);
+//			}
+//		});
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ListRefresher) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -63,11 +65,6 @@ public abstract class AbstractOperationsActivity extends GDListActivity {
 		} else {
 			startBackgroundTask();
 		}
-	}
-
-	@Override
-	public int createLayout() {
-		return R.layout.operations_list;
 	}
 
 	private void startBackgroundTask() {
@@ -98,7 +95,8 @@ public abstract class AbstractOperationsActivity extends GDListActivity {
 		ResultWrapper<List<Operation>> result = m_task.getResult();
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
 			if (result.getResult().size() > 0) {
-				m_listAdapter.setItems(result.getResult());
+//				m_listAdapter.setItems(result.getResult());
+				updateResult(result.getResult());
 			} else {
 				showDialog(ALERT_DIALOG_NO_OPERATIONS);
 			}
@@ -117,6 +115,48 @@ public abstract class AbstractOperationsActivity extends GDListActivity {
 		// the previous activity bundles up the dialogs to reshow.
 		if (m_shownDialog) {
 			removeDialog(LOADING_DIALOG);
+		}
+	}
+
+	private void updateResult(List<Operation> result) {
+		TableLayout table = (TableLayout) findViewById(R.id.operations_table);
+		table.removeAllViews();
+		for (final Operation operation : result) {
+			TextView tv;
+			TableRow tr1 = (TableRow) getLayoutInflater().inflate(R.layout.operations_date, null);
+			tr1.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
+					int operationId = operation.getId();
+					Log.i(TAG, "Details for operation id " + operationId);
+					intent.putExtra(OPERATION_ID, operationId);
+					startActivity(intent);
+				}
+			});
+			tv = (TextView) tr1.findViewById(R.id.cell_day_of_week);
+			tv.setText(Operation.printDayOfWeek(operation.getStartDate()));
+			tv = (TextView) tr1.findViewById(R.id.cell_date);
+			tv.setText(Operation.printDate(operation.getStartDate(), false, false));
+			table.addView(tr1);
+			TableRow tr2 = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
+			tr2.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
+					int operationId = operation.getId();
+					Log.i(TAG, "Details for operation id " + operationId);
+					intent.putExtra(OPERATION_ID, operationId);
+					startActivity(intent);
+				}
+			});
+			tv = (TextView) tr2.findViewById(R.id.cell_description);
+			tv.setText(operation.getDescription());
+			table.addView(tr2);
+			tv = new TextView(this);
+			tv.setBackgroundColor(Color.parseColor("#80808080"));
+			tv.setHeight(1);
+			table.addView(tv);
 		}
 	}
 

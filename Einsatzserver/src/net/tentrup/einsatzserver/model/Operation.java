@@ -17,7 +17,7 @@ import android.content.Context;
 public class Operation {
 
 	private static final String DATE_FORMAT = "dd.MM.yy";
-	private static final String DATE_WITH_DAY_OF_WEEK_FORMAT = "EE dd.MM.yy";
+	private static final String DAY_OF_WEEK_PREFIX = "EE";
 	private static final String DATE_FORMAT_POSTFIX = "yy";
 	private static final String TIME_FORMAT = "HH:mm";
 
@@ -107,12 +107,16 @@ public class Operation {
 	public static String printDate(LocalDate localDate, boolean includeDayOfWeek, boolean longFormat) {
 		String format = DATE_FORMAT;
 		if (includeDayOfWeek) {
-			format = DATE_WITH_DAY_OF_WEEK_FORMAT;
+			format = DAY_OF_WEEK_PREFIX + " " + format;
 		}
 		if (longFormat) {
 			format += DATE_FORMAT_POSTFIX;
 		}
 		return localDate.toString(format);
+	}
+
+	public static String printDayOfWeek(LocalDate localDate) {
+		return localDate.toString(DAY_OF_WEEK_PREFIX);
 	}
 
 	public static String printTime(LocalTime localTime) {
