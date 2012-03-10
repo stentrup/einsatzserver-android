@@ -137,8 +137,8 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
 			textView = (TextView) tableRow.findViewById(R.id.cell_date);
 			textView.setText(Operation.printDate(operation.getStartDate(), false, false));
-			textView = (TextView) tableRow.findViewById(R.id.cell_personnel);
-			updatePersonnelTextView(operation, textView);
+			textView = (TextView) tableRow.findViewById(R.id.cell_state);
+			updateStateTextView(operation, textView);
 			textView = (TextView) tableRow.findViewById(R.id.cell_description);
 			textView.setText(operation.getDescription());
 			table.addView(tableRow);
@@ -149,7 +149,10 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		}
 	}
 
-	protected abstract void updatePersonnelTextView(Operation operation, TextView textView);
+	/**
+	 * The cell_state text view is used differently in subclasses
+	 */
+	protected abstract void updateStateTextView(Operation operation, TextView textView);
 
 	@Override
 	protected Dialog onCreateDialog(int id) {

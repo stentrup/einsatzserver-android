@@ -2,12 +2,11 @@ package net.tentrup.einsatzserver;
 
 import java.util.List;
 
-import android.view.View;
-import android.widget.TextView;
-
 import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
+import android.widget.TextView;
 
 /**
  * Activity showing my operations.
@@ -23,7 +22,8 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 	}
 
 	@Override
-	protected void updatePersonnelTextView(Operation operation, TextView textView) {
-		textView.setVisibility(View.GONE);
+	protected void updateStateTextView(Operation operation, TextView textView) {
+		BookingState bookingState = operation.getBookingState();
+		textView.setText(getString(bookingState.getResourceIdShort()));
 	}
 }

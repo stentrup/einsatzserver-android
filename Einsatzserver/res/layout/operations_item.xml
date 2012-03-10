@@ -8,7 +8,7 @@
     android:focusableInTouchMode="false"
     android:clickable="true">
     <TextView 
-        android:id="@+id/cell_personnel" 
+        android:id="@+id/cell_state" 
         style="@style/Font.Details"
         android:gravity="right"
         android:paddingLeft="2dp"

@@ -22,7 +22,7 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 	}
 
 	@Override
-	protected void updatePersonnelTextView(Operation operation, TextView textView) {
+	protected void updateStateTextView(Operation operation, TextView textView) {
 		String personnelText = operation.getPersonnelBookingConfirmed() + "/" + operation.getPersonnelRequested();
 		if (operation.getPersonnelBookingConfirmed() < operation.getPersonnelRequested()) {
 			textView.setBackgroundResource(R.color.color_operation_red);
