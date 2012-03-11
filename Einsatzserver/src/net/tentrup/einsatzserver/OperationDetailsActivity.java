@@ -324,6 +324,12 @@ public class OperationDetailsActivity extends GDActivity {
 	private LocalDate getStartDate(OperationDetails operationDetails) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
+		if (operationDetails.getStartDate() == null) {
+			return operationDetails.getReportDate();
+		}
+		if (operationDetails.getReportDate() == null) {
+			return operationDetails.getStartDate();
+		}
 		if ("operation".equals(starttime)) {
 			return operationDetails.getStartDate();
 		} else {
@@ -334,6 +340,12 @@ public class OperationDetailsActivity extends GDActivity {
 	private LocalTime getStartTime(OperationDetails operationDetails) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String starttime = prefs.getString(PreferenceKeys.CONFIGURATION_CALENDAR_STARTTIME, "report");
+		if (operationDetails.getStartTime() == null) {
+			return operationDetails.getReportTime();
+		}
+		if (operationDetails.getReportTime() == null) {
+			return operationDetails.getStartTime();
+		}
 		if ("operation".equals(starttime)) {
 			return operationDetails.getStartTime();
 		} else {
@@ -371,6 +383,9 @@ public class OperationDetailsActivity extends GDActivity {
 	}
 
 	private long parseDate(LocalDate date, LocalTime time) {
+		if (date == null) {
+			date = new LocalDate();
+		}
 		if (time != null) {
 			return date.toDateTime(time).toDate().getTime();
 		}
