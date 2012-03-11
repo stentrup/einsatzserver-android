@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/book"
-        android:icon="@drawable/ic_action_bar_checkmark"
-        android:title="@string/details.book" />
-    <item android:id="@+id/add_to_calendar"
-        android:icon="@drawable/ic_action_bar_calendar"
-        android:title="@string/details.add_to_calendar" />
-</menu>

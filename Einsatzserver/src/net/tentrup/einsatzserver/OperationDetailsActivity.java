@@ -30,9 +30,6 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -296,32 +293,6 @@ public class OperationDetailsActivity extends GDActivity {
 		} else if (id == BOOKING_PROGRESS_DIALOG) {
 			Log.i(TAG, "Booking progress dialog has been prepared.");
 			m_dialogShown = BOOKING_PROGRESS_DIALOG;
-		}
-	}
-
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		menu.findItem(R.id.book).setEnabled(!m_resultWrapper.getResult().isInPersonnel(m_resultWrapper.getUsername()));
-		return super.onPrepareOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.layout.operation_details_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.add_to_calendar) {
-			addToCalendar();
-			return true;
-		} else if (item.getItemId() == R.id.book) {
-			book();
-			return true;
-		} else {
-			return super.onOptionsItemSelected(item);
 		}
 	}
 
