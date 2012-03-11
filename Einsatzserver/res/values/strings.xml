@@ -17,6 +17,7 @@
     <string name="details.title">Einsatzdetails</string>
     <string name="alert.no_operations">Keine Einsätze vorhanden.</string>
     <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
     <string name="alert.login_failed">Anmeldung fehlgeschlagen</string>
     <string name="details.add_to_calendar">In Kalender eintragen</string>
     <string name="details.calendar_error">Kalender-Eintrag konnte nicht erstellt werden</string>
@@ -62,4 +63,7 @@
     <string name="alert.booking_failed">Vormerken fehlgeschlagen!</string>
     <string name="menu.help">Hilfe</string>
     <string name="help.title">Hilfe</string>
+    <string name="filtering.options">Filteroptionen</string>
+    <string name="filtering.filter_occupied_operations">Besetzte Einsätze ausblenden</string>
+    <string name="filtering.filtered">gefiltert</string>
 </resources>

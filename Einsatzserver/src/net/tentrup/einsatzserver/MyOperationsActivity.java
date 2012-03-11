@@ -26,4 +26,15 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 		BookingState bookingState = operation.getBookingState();
 		textView.setText(getString(bookingState.getResourceIdShort()));
 	}
+
+	@Override
+	protected void addToActionBar() {
+		// no action bar item
+	}
+
+	@Override
+	protected boolean showItem(Operation operation) {
+		// no filtering
+		return true;
+	}
 }

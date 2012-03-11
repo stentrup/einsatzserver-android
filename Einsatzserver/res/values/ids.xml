@@ -3,4 +3,5 @@
     <item name="action_bar_view_info" type="id"/>
     <item name="action_bar_calendar" type="id"/>
     <item name="action_bar_check" type="id"/>
+    <item name="action_bar_filter" type="id"/>
 </resources>

@@ -33,6 +33,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 
 	private ListRefresher m_task;
 	private boolean m_shownDialog;
+	private List<Operation> m_result;
 
 	/**
 	 * After a screen orientation change, we associate the current ( = newly
@@ -43,6 +44,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.operations_list);
+		addToActionBar();
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ListRefresher) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -52,6 +54,8 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			startBackgroundTask();
 		}
 	}
+
+	protected abstract void addToActionBar();
 
 	private void startBackgroundTask() {
 		Log.i(TAG, "Creating new background task.");
@@ -81,7 +85,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		ResultWrapper<List<Operation>> result = m_task.getResult();
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
 			if (result.getResult().size() > 0) {
-				updateResult(result.getResult());
+				setResult(result.getResult());
 			} else {
 				showDialog(ALERT_DIALOG_NO_OPERATIONS);
 			}
@@ -103,35 +107,47 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		}
 	}
 
-	private void updateResult(List<Operation> result) {
+	private void setResult(List<Operation> result) {
+		m_result = result;
+		updateView();
+	}
+
+	/**
+	 * Returns true if the given item should be shown.
+	 */
+	protected abstract boolean showItem(Operation operation);
+
+	protected void updateView() {
 		TableLayout table = (TableLayout) findViewById(R.id.operations_table);
 		table.removeAllViews();
-		for (final Operation operation : result) {
-			TextView textView;
-			TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
-			tableRow.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
-					int operationId = operation.getId();
-					Log.i(TAG, "Details for operation id " + operationId);
-					intent.putExtra(OPERATION_ID, operationId);
-					startActivity(intent);
-				}
-			});
-			textView = (TextView) tableRow.findViewById(R.id.cell_day_of_week);
-			textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
-			textView = (TextView) tableRow.findViewById(R.id.cell_date);
-			textView.setText(Operation.printDate(operation.getStartDate(), false, false));
-			textView = (TextView) tableRow.findViewById(R.id.cell_state);
-			updateStateTextView(operation, textView);
-			textView = (TextView) tableRow.findViewById(R.id.cell_description);
-			textView.setText(operation.getDescription());
-			table.addView(tableRow);
-			textView = new TextView(this);
-			textView.setBackgroundResource(R.color.color_hr);
-			textView.setHeight(1);
-			table.addView(textView);
+		for (final Operation operation : m_result) {
+			if (showItem(operation)) {
+				TextView textView;
+				TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.operations_item, null);
+				tableRow.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
+						int operationId = operation.getId();
+						Log.i(TAG, "Details for operation id " + operationId);
+						intent.putExtra(OPERATION_ID, operationId);
+						startActivity(intent);
+					}
+				});
+				textView = (TextView) tableRow.findViewById(R.id.cell_day_of_week);
+				textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
+				textView = (TextView) tableRow.findViewById(R.id.cell_date);
+				textView.setText(Operation.printDate(operation.getStartDate(), false, false));
+				textView = (TextView) tableRow.findViewById(R.id.cell_state);
+				updateStateTextView(operation, textView);
+				textView = (TextView) tableRow.findViewById(R.id.cell_description);
+				textView.setText(operation.getDescription());
+				table.addView(tableRow);
+				textView = new TextView(this);
+				textView.setBackgroundResource(R.color.color_hr);
+				textView.setHeight(1);
+				table.addView(textView);
+			}
 		}
 	}
 
@@ -152,7 +168,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_login_failed)
 			       .setCancelable(false)
-			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			                AbstractOperationsActivity.this.finish();
 			           }
@@ -163,7 +179,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_loading_error)
 			       .setCancelable(false)
-			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			                AbstractOperationsActivity.this.finish();
 			           }
@@ -174,7 +190,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_parse_error)
 			       .setCancelable(false)
-			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			                AbstractOperationsActivity.this.finish();
 			           }
@@ -185,7 +201,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_no_operations)
 			       .setCancelable(false)
-			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			                AbstractOperationsActivity.this.finish();
 			           }

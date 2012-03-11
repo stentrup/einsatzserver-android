@@ -1,12 +1,23 @@
 package net.tentrup.einsatzserver;
 
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
+
 import java.util.List;
 
-import android.widget.TextView;
-
 import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 /**
  * Activity showing all operations.
@@ -15,6 +26,14 @@ import net.tentrup.einsatzserver.model.ResultWrapper;
  *
  */
 public class AllOperationsActivity extends AbstractOperationsActivity {
+
+	private static final int FILTER_DIALOG = 100;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		updateTitle();
+	}
 
 	@Override
 	protected ResultWrapper<List<Operation>> getActivityResult() {
@@ -30,5 +49,78 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 			textView.setBackgroundResource(R.color.color_operation_green);
 		}
 		textView.setText(personnelText);
+	}
+
+	@Override
+	protected void addToActionBar() {
+		ActionBarItem filterAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_filter));
+		addActionBarItem(filterAction, R.id.action_bar_filter);
+	}
+
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+        case R.id.action_bar_filter:
+        	showDialog(FILTER_DIALOG);
+            return true;
+        default:
+            return super.onHandleActionBarItemClick(item, position);
+        }
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == FILTER_DIALOG) {
+			String[] filterItems = new String[] {getString(R.string.filtering_filter_occupied_operations)};
+			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			boolean prefFilterOccupiedOperations = prefs.getBoolean(PreferenceKeys.CONFIGURATION_FILTER_OCCUPIED_OPERATIONS, false);
+			boolean[] filterState = new boolean[] {prefFilterOccupiedOperations};
+			final FilterChoiceClickListener listener = new FilterChoiceClickListener(filterState);
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.filtering_options)
+			.setMultiChoiceItems(filterItems, filterState, listener)
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok,
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					Editor prefEditor = prefs.edit();
+					prefEditor.putBoolean(PreferenceKeys.CONFIGURATION_FILTER_OCCUPIED_OPERATIONS, listener.getChecked()[0]);
+					prefEditor.commit();
+					removeDialog(FILTER_DIALOG);
+					updateTitle();
+					updateView();
+				}
+			})
+			.setNegativeButton(R.string.cancel,
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					removeDialog(FILTER_DIALOG);
+				}
+			});
+			AlertDialog alert = builder.create();
+			return alert;
+		}
+		return super.onCreateDialog(id);
+	}
+
+	@Override
+	protected boolean showItem(Operation operation) {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		boolean prefFilterOccupiedOperations = prefs.getBoolean(PreferenceKeys.CONFIGURATION_FILTER_OCCUPIED_OPERATIONS, false);
+		if (operation.getPersonnelBookingConfirmed() < operation.getPersonnelRequested() || !prefFilterOccupiedOperations) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void updateTitle() {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		boolean prefFilterOccupiedOperations = prefs.getBoolean(PreferenceKeys.CONFIGURATION_FILTER_OCCUPIED_OPERATIONS, false);
+		String title = getString(R.string.all_title);
+		if (prefFilterOccupiedOperations) {
+			title += " (" + getString(R.string.filtering_filtered) + ")";
+		}
+		setTitle(title);
 	}
 }
