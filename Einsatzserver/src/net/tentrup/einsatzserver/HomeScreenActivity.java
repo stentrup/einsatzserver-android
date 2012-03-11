@@ -71,7 +71,9 @@ public class HomeScreenActivity extends GDActivity {
 		editor.putBoolean(Communicator.PREF_TESTMODE, testmode);
 		editor.commit();
 
+		// dialogs are shown in reverse order
 		checkLoginData();
+		new RecentChanges(this).show();
 		new Eula(this).show();
 	}
 

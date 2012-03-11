@@ -1,0 +1,7 @@
+Version 0.4
+
+* Neuer gestalteter Startbildschirm
+* Anzeige der Einsatzkräfteanzahl in der Liste "Alle Einsätze"
+* Anzeige des eigenen Buchungsstatus in der Liste "Meine Einsätze"
+* Bereits besetzte Einsätze können in der Einsatzliste ausgeblendet werden
+* Buchungsschaltfläche ist deaktiviert, wenn der Benutzer bereits gebucht oder vorgemerkt ist

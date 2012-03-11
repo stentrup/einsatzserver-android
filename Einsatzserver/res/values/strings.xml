@@ -66,4 +66,5 @@
     <string name="filtering.options">Filteroptionen</string>
     <string name="filtering.filter_occupied_operations">Besetzte Einsätze ausblenden</string>
     <string name="filtering.filtered">gefiltert</string>
+    <string name="recent_changes.title">Letzte Änderungen</string>
 </resources>
