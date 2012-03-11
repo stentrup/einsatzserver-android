@@ -14,6 +14,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
+/**
+ * Shows the EULA using a dialog.
+ *
+ * @author Tentrup
+ *
+ */
 public class Eula {
 
 	// EULA_KEY should be changed with every new version of the EULA to ensure that EULA has to be accepted at program start
