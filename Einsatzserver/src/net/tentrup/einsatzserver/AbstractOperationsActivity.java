@@ -33,7 +33,6 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 
 	private ListRefresher m_task;
 	private boolean m_shownDialog;
-//	private OperationsListAdapter m_listAdapter;
 
 	/**
 	 * After a screen orientation change, we associate the current ( = newly
@@ -44,18 +43,6 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.operations_list);
-//		m_listAdapter = new OperationsListAdapter(getApplicationContext());
-//		setListAdapter(m_listAdapter);
-//		ListView lv = getListView();
-//		lv.setOnItemClickListener(new OnItemClickListener() {
-//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//				Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
-//				int operationId = (int) m_listAdapter.getItemId(position);
-//				Log.i(TAG, "Details for operation id " + operationId);
-//				intent.putExtra(OPERATION_ID, operationId);
-//				startActivity(intent);
-//			}
-//		});
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ListRefresher) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -94,7 +81,6 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		ResultWrapper<List<Operation>> result = m_task.getResult();
 		if (result.getState() == ResultStateEnum.SUCCESSFUL) {
 			if (result.getResult().size() > 0) {
-//				m_listAdapter.setItems(result.getResult());
 				updateResult(result.getResult());
 			} else {
 				showDialog(ALERT_DIALOG_NO_OPERATIONS);
