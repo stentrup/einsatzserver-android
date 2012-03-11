@@ -24,16 +24,16 @@ public class Eula {
 
 	// EULA_KEY should be changed with every new version of the EULA to ensure that EULA has to be accepted at program start
 	public static final String EULA_KEY = "eula_1";
-	private Activity m_activity;
+	private final Activity m_parent;
 
 	public Eula(Activity context) {
-		m_activity = context;
+		m_parent = context;
 	}
 
 	private PackageInfo getPackageInfo() {
 		PackageInfo pi = null;
 		try {
-			pi = m_activity.getPackageManager().getPackageInfo(m_activity.getPackageName(), PackageManager.GET_ACTIVITIES);
+			pi = m_parent.getPackageManager().getPackageInfo(m_parent.getPackageName(), PackageManager.GET_ACTIVITIES);
 		} catch (PackageManager.NameNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -43,19 +43,19 @@ public class Eula {
 	public void show() {
 		PackageInfo versionInfo = getPackageInfo();
 		final String eulaKey = EULA_KEY;
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_activity);
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_parent);
 		boolean hasBeenShown = prefs.getBoolean(eulaKey, false);
 		if (!hasBeenShown) {
 
 			// Show the Eula
-			String title = m_activity.getString(R.string.eula_title);
+			String title = m_parent.getString(R.string.eula_title);
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(m_activity)
+			AlertDialog.Builder builder = new AlertDialog.Builder(m_parent)
 			.setTitle(title)
-			.setMessage(m_activity.getString(R.string.app_name) + " v" + versionInfo.versionName + 
+			.setMessage(m_parent.getString(R.string.app_name) + " v" + versionInfo.versionName + 
 					System.getProperty("line.separator") +
 					System.getProperty("line.separator") +
-					readEula(m_activity))
+					readEula(m_parent))
 			.setPositiveButton(R.string.eula_accept,
 					new Dialog.OnClickListener() {
 
@@ -75,7 +75,7 @@ public class Eula {
 				public void onClick(DialogInterface dialog, int which) {
 					// Close the activity as they have declined
 					// the EULA
-					m_activity.finish();
+					m_parent.finish();
 				}
 
 			});
