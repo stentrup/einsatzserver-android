@@ -16,7 +16,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@color/background_color</item>
-        <item name="android:listSelector">@drawable/button</item>
+        <item name="android:listSelector">@drawable/table_row</item>
     </style>
     <style name="PopupStyle" parent="android:Theme.Dialog">
         <item name="android:textColor">#FFFFFFFF</item>
