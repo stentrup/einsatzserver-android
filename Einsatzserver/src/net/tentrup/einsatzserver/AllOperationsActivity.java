@@ -17,6 +17,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -49,6 +51,11 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 			textView.setBackgroundResource(R.color.color_operation_green);
 		}
 		textView.setText(personnelText);
+	}
+
+	@Override
+	protected void updateStateImageView(Operation operation, ImageView imageView) {
+		imageView.setVisibility(View.GONE);
 	}
 
 	@Override

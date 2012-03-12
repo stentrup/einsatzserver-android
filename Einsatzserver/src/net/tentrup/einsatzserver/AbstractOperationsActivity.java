@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -138,8 +139,10 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 				textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
 				textView = (TextView) tableRow.findViewById(R.id.cell_date);
 				textView.setText(Operation.printDate(operation.getStartDate(), false, false));
-				textView = (TextView) tableRow.findViewById(R.id.cell_state);
+				textView = (TextView) tableRow.findViewById(R.id.cell_state_text);
 				updateStateTextView(operation, textView);
+				ImageView imageView = (ImageView) tableRow.findViewById(R.id.cell_state_image);
+				updateStateImageView(operation, imageView);
 				textView = (TextView) tableRow.findViewById(R.id.cell_description);
 				textView.setText(operation.getDescription());
 				table.addView(tableRow);
@@ -152,9 +155,14 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	}
 
 	/**
-	 * The cell_state text view is used differently in subclasses
+	 * The cell_state_text {@link TextView} is used differently in subclasses
 	 */
 	protected abstract void updateStateTextView(Operation operation, TextView textView);
+
+	/**
+	 * The cell_state_image {@link ImageView} is used differently in subclasses
+	 */
+	protected abstract void updateStateImageView(Operation operation, ImageView imageView);
 
 	@Override
 	protected Dialog onCreateDialog(int id) {

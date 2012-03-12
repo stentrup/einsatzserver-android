@@ -6,6 +6,12 @@ import net.tentrup.einsatzserver.comm.Communicator;
 import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
+import android.graphics.drawable.AnimationDrawable;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -23,8 +29,25 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 
 	@Override
 	protected void updateStateTextView(Operation operation, TextView textView) {
+		textView.setVisibility(View.GONE);
+	}
+
+	@Override
+	protected void updateStateImageView(Operation operation, ImageView imageView) {
 		BookingState bookingState = operation.getBookingState();
-		textView.setText(getString(bookingState.getResourceIdShort()));
+		if (bookingState == BookingState.CONFIRMED) {
+			imageView.setImageResource(R.drawable.state_user);
+		} else if (bookingState == BookingState.REQUESTED) {
+			imageView.setImageResource(R.drawable.state_user);
+			Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+		    animation.setDuration(500); // duration - half a second
+		    animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+		    animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+		    animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+		    imageView.startAnimation(animation);
+		} else {
+			imageView.setImageResource(R.drawable.state_unknown);
+		}
 	}
 
 	@Override

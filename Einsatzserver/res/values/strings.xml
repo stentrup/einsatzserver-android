@@ -40,7 +40,7 @@
     <string name="bookingstate.unknown">Unbekannter Buchungsstatus</string>
     <string name="bookingstate.requested.short">vorg.</string>
     <string name="bookingstate.confirmed.short">geb.</string>
-    <string name="bookingstate.absent.short">abw,</string>
+    <string name="bookingstate.absent.short">abw.</string>
     <string name="bookingstate.unknown.short">unbek.</string>
     <string name="booking.title">Verbindlich vormerken</string>
     <string name="booking.description">Bemerkung (optional, max. 40 Zeichen)</string>
