@@ -14,11 +14,14 @@ Für den Ort stehen Einsatz- und Meldeort zu Auswahl. Für den Startzeitpunkt st
 
 <h1>Einsatzliste (Meine Einsätze/Alle Einsätze)</h1>
 Es wird eine Liste der Einsätze angezeigt. Diese enthält Wochentag, Datum und Bezeichnung der Einsätze.
+In der Liste 'Alle Einsätze' wird für jeden Einsatz die Anzahl der gebuchten und angeforderten Einsatzkräfte angezeigt.
+In der Liste 'Meine Einsätze' wird dort Ihr persönlicher Buchungsstatus für diesen Einsatz angezeigt. 
 Durch Antippen eines Eintrags werden die Einsatzdetails angezeigt.
+Die Liste 'Alle Einsätze' kann gefiltert werden, so dass nur noch die nicht besetzten Einsätze angezeigt werden.
 
 <h1>Einsatzdetails</h1>
 Zeigt weitere Daten des Einsatzes an.<br/>
-Mit Hilfe von Symbolen im Optionsmenü und der Actionbar können Sie sich für den Einsatz vormerken lassen 
+Mit Hilfe von Symbolen in der Titelzeile können Sie sich für den Einsatz vormerken lassen 
 und diesen in den Telefonkalender übernehmen.
 <h3>Vormerken</h3>
 Beim Vormerken kann optional eine Bemerkung angegeben werden.
