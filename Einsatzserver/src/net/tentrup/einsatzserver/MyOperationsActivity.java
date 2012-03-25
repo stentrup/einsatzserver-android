@@ -6,7 +6,6 @@ import net.tentrup.einsatzserver.comm.Communicator;
 import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
-import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
