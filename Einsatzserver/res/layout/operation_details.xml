@@ -46,6 +46,12 @@
                 android:paddingTop="5dp" >
 
                 <LinearLayout
+                    android:id="@+id/operation.details.location.outer_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                <LinearLayout
                     android:id="@+id/operation.details.location.layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +66,17 @@
                         android:id="@+id/operation.details.location.text"
                         style="@style/Font.Details" />
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/operation.details.location.image"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/map_marker" />
+                
+                </LinearLayout>
+
             </TableRow>
             <TableRow
                 android:id="@+id/operation.details.begin.row"
@@ -116,6 +133,12 @@
                 android:paddingTop="5dp" >
 
                 <LinearLayout
+                    android:id="@+id/operation.details.location.outer_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                <LinearLayout
                     android:id="@+id/operation.details.report_location.layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,6 +153,17 @@
                         android:id="@+id/operation.details.report_location.text"
                         style="@style/Font.Details" />
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/operation.details.report_location.image"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/map_marker" />
+
+                </LinearLayout>
+
             </TableRow>
 
             <TableRow

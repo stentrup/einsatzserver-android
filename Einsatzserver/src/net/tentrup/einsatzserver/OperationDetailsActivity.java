@@ -24,6 +24,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -32,6 +33,7 @@ import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -132,7 +134,7 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 	}
 
-	private void setOperationDetails(ResultWrapper<OperationDetails> result) {
+	private void setOperationDetails(final ResultWrapper<OperationDetails> result) {
 		m_resultWrapper = result;
 		OperationDetails operationDetails = result.getResult();
 		TextView tvDescription = (TextView) findViewById(R.id.operation_details_description_text);
@@ -172,6 +174,28 @@ public class OperationDetailsActivity extends GDActivity {
 			addActionBarItem(m_bookingAction, R.id.action_bar_check);
 		}
 		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);
+		// add click listeners for map view
+		ImageButton locationRow = (ImageButton) findViewById(R.id.operation_details_location_image);
+		locationRow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String location = result.getResult().getLocation();
+				showOnMap(location);
+			}
+		});
+		ImageButton reportLocationRow = (ImageButton) findViewById(R.id.operation_details_report_location_image);
+		reportLocationRow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String reportLocation = result.getResult().getReportLocation();
+				showOnMap(reportLocation);
+			}
+		});
+	}
+
+	private void showOnMap(String location) {
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + location));
+		startActivity(intent);
 	}
 
 	private String toText(List<Person> personnel) {
