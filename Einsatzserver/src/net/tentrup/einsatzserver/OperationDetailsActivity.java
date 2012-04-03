@@ -32,10 +32,12 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,34 +139,20 @@ public class OperationDetailsActivity extends GDActivity {
 	private void setOperationDetails(final ResultWrapper<OperationDetails> result) {
 		m_resultWrapper = result;
 		OperationDetails operationDetails = result.getResult();
-		TextView tvDescription = (TextView) findViewById(R.id.operation_details_description_text);
-		tvDescription.setText(operationDetails.getDescription());
-		TextView tvLocation = (TextView) findViewById(R.id.operation_details_location_text);
-		tvLocation.setText(operationDetails.getLocation());
-		TextView tvBegin = (TextView) findViewById(R.id.operation_details_begin_text);
-		tvBegin.setText(operationDetails.getBegin(this, true));
-		TextView tvEnd = (TextView) findViewById(R.id.operation_details_end_text);
-		tvEnd.setText(operationDetails.getEnd(this, true));
-		TextView tvReportLocation = (TextView) findViewById(R.id.operation_details_report_location_text);
-		tvReportLocation.setText(operationDetails.getReportLocation());
-		TextView tvReportTime = (TextView) findViewById(R.id.operation_details_report_time_text);
-		tvReportTime.setText(operationDetails.getReportDateComplete(this, true));
-		TextView tvComment = (TextView) findViewById(R.id.operation_details_comment_text);
-		String comment = operationDetails.getComment();
-		if (comment != null) {
-			tvComment.setText(comment);
-		} else {
-			TableRow trComment = (TableRow) findViewById(R.id.operation_details_comment_row);
-			trComment.setVisibility(View.GONE);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.operation_details_layout);
+		addDetailsItem(layout, R.string.operation_description, operationDetails.getDescription(), false);
+		addDetailsItem(layout, R.string.operation_location, operationDetails.getLocation(), true);
+		addDetailsItem(layout, R.string.operation_begin, operationDetails.getBegin(this, true), false);
+		addDetailsItem(layout, R.string.operation_end, operationDetails.getEnd(this, true), false);
+		addDetailsItem(layout, R.string.operation_report_location, operationDetails.getReportLocation(), true);
+		addDetailsItem(layout, R.string.operation_report_time, operationDetails.getReportDateComplete(this, true), false);
+		if (operationDetails.getComment() != null) {
+			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), false);
 		}
-		TextView tvPersonnelRequested = (TextView) findViewById(R.id.operation_details_personnel_requested_text);
-		tvPersonnelRequested.setText(""  + operationDetails.getPersonnelRequested());
-		TextView tvPersonnelCount = (TextView) findViewById(R.id.operation_details_personnel_count_text);
-		tvPersonnelCount.setText("" + operationDetails.getPersonnelBookingConfirmed());
-		TextView tvPersonnel = (TextView) findViewById(R.id.operation_details_personnel_text);
-		tvPersonnel.setText(toText(operationDetails.getPersonnel()));
-		TextView tvCatering = (TextView) findViewById(R.id.operation_details_catering_text);
-		tvCatering.setText(toText(operationDetails.isCatering()));
+		addDetailsItem(layout, R.string.operation_personnel_requested, "" + operationDetails.getPersonnelRequested(), false);
+		addDetailsItem(layout, R.string.operation_personnel_count, "" + operationDetails.getPersonnelBookingConfirmed(), false);
+		addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), false);
+		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), false);
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.VISIBLE);
 		// Populate action bar
@@ -174,28 +162,36 @@ public class OperationDetailsActivity extends GDActivity {
 			addActionBarItem(m_bookingAction, R.id.action_bar_check);
 		}
 		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);
-		// add click listeners for map view
-		ImageButton locationRow = (ImageButton) findViewById(R.id.operation_details_location_image);
-		locationRow.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String location = result.getResult().getLocation();
-				showOnMap(location);
-			}
-		});
-		ImageButton reportLocationRow = (ImageButton) findViewById(R.id.operation_details_report_location_image);
-		reportLocationRow.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String reportLocation = result.getResult().getReportLocation();
-				showOnMap(reportLocation);
-			}
-		});
+	}
+
+	private void addDetailsItem(ViewGroup parent, int labelResourceId, final String text, boolean includeMapsLink) {
+		RelativeLayout itemLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.operation_details_item, null);
+		parent.addView(itemLayout);
+		TextView labelView = (TextView) itemLayout.findViewById(R.id.operation_details_item_label);
+		labelView.setText(labelResourceId);
+		TextView textView = (TextView) itemLayout.findViewById(R.id.operation_details_item_text);
+		textView.setText(text);
+		ImageButton linkButton = (ImageButton) itemLayout.findViewById(R.id.operation_details_item_image);
+		if (includeMapsLink) {
+			linkButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showOnMap(text);
+				}
+			});
+		} else {
+			linkButton.setVisibility(View.GONE);
+		}
 	}
 
 	private void showOnMap(String location) {
 		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + location));
-		startActivity(intent);
+		try {
+			startActivity(intent);
+		} catch (ActivityNotFoundException exc) {
+			//TODO: Show error message (dialog)
+			Toast.makeText(this, "No Activity for map", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private String toText(List<Person> personnel) {
@@ -208,11 +204,11 @@ public class OperationDetailsActivity extends GDActivity {
 		return builder.substring(0, Math.max(builder.length() - System.getProperty("line.separator").length(), 0));
 	}
 
-	private CharSequence toText(boolean bool) {
+	private String toText(boolean bool) {
 		if (bool) {
-			return getResources().getText(R.string.operation_catering_true);
+			return getString(R.string.operation_catering_true);
 		} else {
-			return getResources().getText(R.string.operation_catering_false);
+			return getString(R.string.operation_catering_false);
 		}
 	}
 
