@@ -1,3 +1,7 @@
+Version 0.5
+
+* Google Maps oder ähnliche Applikation starten für Einsatzort oder Meldeort
+
 Version 0.4
 
 * Neuer gestalteter Startbildschirm
