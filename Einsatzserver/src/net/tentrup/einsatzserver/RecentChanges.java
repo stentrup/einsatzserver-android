@@ -14,6 +14,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
+/**
+ * Shows recent changes as a dialog.
+ * 
+ * @author Tentrup
+ *
+ */
 public class RecentChanges {
 
 	public static final String KEY = "recent_changes_";

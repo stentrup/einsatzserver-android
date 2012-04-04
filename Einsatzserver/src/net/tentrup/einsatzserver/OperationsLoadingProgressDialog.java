@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * Dialog which is shown while operations are loaded.
+ * 
+ * @author Tentrup
+ *
+ */
 public class OperationsLoadingProgressDialog extends AsyncTaskProgressDialog {
 
 	private static final String TAG = OperationsLoadingProgressDialog.class.getSimpleName();

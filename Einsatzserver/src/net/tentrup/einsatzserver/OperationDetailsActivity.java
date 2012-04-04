@@ -41,6 +41,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Activity which shows the details of an operation.
+ * 
+ * @author Tentrup
+ *
+ */
 public class OperationDetailsActivity extends GDActivity {
 
 	private static final String TAG = OperationDetailsActivity.class.getSimpleName();

@@ -21,6 +21,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ * Base class for activity list.
+ * 
+ * @author Tentrup
+ * 
+ */
 public abstract class AbstractOperationsActivity extends GDActivity {
 
 	private static final String TAG = AbstractOperationsActivity.class.getSimpleName();
