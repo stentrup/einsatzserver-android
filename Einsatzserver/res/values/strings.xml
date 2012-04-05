@@ -59,7 +59,6 @@
     <string name="alert.loading_error">Fehler beim Laden</string>
     <string name="alert.parse_error">Fehler bei der Verarbeitung</string>
     <string name="booking.progress">Merke vor. Bitte warten...</string>
-    <string name="alert.configuration_error">Bitte konfigurieren Sie Ihre Zugangsdaten für den Einsatzserver</string>
     <string name="alert.booking_failed">Vormerken fehlgeschlagen!</string>
     <string name="menu.help">Hilfe</string>
     <string name="help.title">Hilfe</string>
@@ -67,4 +66,7 @@
     <string name="filtering.filter_occupied_operations">Besetzte Einsätze ausblenden</string>
     <string name="filtering.filtered">gefiltert</string>
     <string name="recent_changes.title">Letzte Änderungen</string>
+    <string name="button.login">Anmelden</string>
+    <string name="initial_configuration.introduction">Bitte geben Sie Ihre Zugangsdaten für den Einsatzserver ein.</string>
+    <string name="initial_configuration">Initiale Konfiguration</string>
 </resources>

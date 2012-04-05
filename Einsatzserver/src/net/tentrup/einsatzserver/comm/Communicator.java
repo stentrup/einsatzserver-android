@@ -114,17 +114,22 @@ public class Communicator {
 		}
 	}
 
+	private ResultStateEnum login() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		return login(prefs.getString(PreferenceKeys.CONFIGURATION_USERNAME, ""), prefs.getString(PreferenceKeys.CONFIGURATION_PASSWORD, ""));
+	}
+
 	/**
 	 * Performs a login.
 	 */
-	private ResultStateEnum login() {
+	public ResultStateEnum login(String username, String password) {
 		HttpPost tempRequest = new HttpPost(getBaseUrl() + URL_LOGIN);
 
 		// Add login
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
-		nameValuePairs.add(new BasicNameValuePair("username", prefs.getString(PreferenceKeys.CONFIGURATION_USERNAME, "")));
-		nameValuePairs.add(new BasicNameValuePair("password", prefs.getString(PreferenceKeys.CONFIGURATION_PASSWORD, "")));
+		
+		nameValuePairs.add(new BasicNameValuePair("username", username));
+		nameValuePairs.add(new BasicNameValuePair("password", password));
 
 		try {
 			tempRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));

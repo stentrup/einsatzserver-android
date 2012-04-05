@@ -8,18 +8,18 @@
 
     <application android:icon="@drawable/icon" android:label="@string/app_name"
         android:name="EinsatzserverApplication" android:theme="@style/Theme.Einsatzserver">
-        <activity android:label="@string/app_name" android:name="HomeScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
-            </intent-filter>
-        </activity><activity android:name="ConfigurationActivity" android:label="@string/configuration.title"></activity>
-        
+        <activity android:label="@string/app_name" android:name="HomeScreenActivity"></activity>
+        <activity android:name="ConfigurationActivity" android:label="@string/configuration.title"></activity>
         <activity android:name="MyOperationsActivity" android:label="@string/my.title"></activity>
         <activity android:name="AllOperationsActivity" android:label="@string/all.title"></activity>
         <activity android:name="InfoActivity" android:label="@string/about.title"></activity>
         <activity android:name="OperationDetailsActivity" android:label="@string/details.title"></activity>
         <activity android:name="HelpActivity" android:label="@string/help.title"></activity>
-
+        <activity android:name="InitialConfigurationActivity" android:label="@string/app_name" android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+                <category android:name="android.intent.category.LAUNCHER"></category>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
