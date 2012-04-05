@@ -1,6 +1,6 @@
 Version 0.5
 
-* Google Maps oder ähnliche Applikation starten für Einsatzort oder Meldeort
+* Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation
 
 Version 0.4
 
