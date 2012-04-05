@@ -37,6 +37,10 @@ public class InitialConfigurationActivity extends GDActivity {
 	private LoginTask m_task;
 	private boolean m_shownDialog;
 
+	private RecentChanges m_recentChanges;
+
+	private Eula m_eula;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,12 +66,20 @@ public class InitialConfigurationActivity extends GDActivity {
 		editor.putBoolean(Communicator.PREF_TESTMODE, testmode);
 		editor.commit();
 
-		// dialogs are shown in reverse order
-		new RecentChanges(this).show();
-		new Eula(this).show();
+		m_recentChanges = new RecentChanges(this);
+		m_recentChanges.show();
+		m_eula = new Eula(this);
+		m_eula.show();
 		if (isLoginDataConfigured()) {
 			showHomeScreen();
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		m_recentChanges.dismiss();
+		m_eula.dismiss();
 	}
 
 	/**

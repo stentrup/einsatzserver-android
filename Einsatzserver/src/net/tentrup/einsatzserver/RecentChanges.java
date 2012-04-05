@@ -24,6 +24,7 @@ public class RecentChanges {
 
 	public static final String KEY = "recent_changes_";
 	private final Activity m_parent;
+	private Dialog m_dialog = null;
 
 	public RecentChanges(Activity context) {
 		m_parent = context;
@@ -51,6 +52,7 @@ public class RecentChanges {
 			AlertDialog.Builder builder = new AlertDialog.Builder(m_parent)
 			.setTitle(title)
 			.setMessage(readRecentChanges(m_parent))
+			.setCancelable(false)
 			.setPositiveButton(R.string.ok,
 					new Dialog.OnClickListener() {
 
@@ -63,7 +65,14 @@ public class RecentChanges {
 					dialogInterface.dismiss();
 				}
 			});
-			builder.create().show();
+			m_dialog = builder.create();
+			m_dialog.show();
+		}
+	}
+
+	public void dismiss() {
+		if (m_dialog != null) {
+			m_dialog.dismiss();
 		}
 	}
 

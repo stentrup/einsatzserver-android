@@ -25,6 +25,7 @@ public class Eula {
 	// EULA_KEY should be changed with every new version of the EULA to ensure that EULA has to be accepted at program start
 	public static final String EULA_KEY = "eula_1";
 	private final Activity m_parent;
+	private Dialog m_dialog = null;
 
 	public Eula(Activity context) {
 		m_parent = context;
@@ -56,6 +57,7 @@ public class Eula {
 					System.getProperty("line.separator") +
 					System.getProperty("line.separator") +
 					readEula(m_parent))
+			.setCancelable(false)
 			.setPositiveButton(R.string.eula_accept,
 					new Dialog.OnClickListener() {
 
@@ -79,7 +81,14 @@ public class Eula {
 				}
 
 			});
-			builder.create().show();
+			m_dialog = builder.create();
+			m_dialog.show();
+		}
+	}
+
+	public void dismiss() {
+		if (m_dialog != null) {
+			m_dialog.dismiss();
 		}
 	}
 
