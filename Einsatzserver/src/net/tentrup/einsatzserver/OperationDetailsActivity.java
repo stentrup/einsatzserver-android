@@ -204,8 +204,7 @@ public class OperationDetailsActivity extends GDActivity {
 		try {
 			startActivity(intent);
 		} catch (ActivityNotFoundException exc) {
-			//TODO: Show error message (dialog)
-			Toast.makeText(this, "No Activity for map", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.alert_map_error, Toast.LENGTH_LONG).show();
 		}
 	}
 
