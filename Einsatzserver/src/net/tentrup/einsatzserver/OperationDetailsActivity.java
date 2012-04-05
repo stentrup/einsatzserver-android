@@ -156,7 +156,16 @@ public class OperationDetailsActivity extends GDActivity {
 			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), false);
 		}
 		addDetailsItem(layout, R.string.operation_personnel_requested, "" + operationDetails.getPersonnelRequested(), false);
-		addDetailsItem(layout, R.string.operation_personnel_count, "" + operationDetails.getPersonnelBookingConfirmed(), false);
+		StringBuilder personnelBookingCountBuilder = new StringBuilder();
+		personnelBookingCountBuilder.append(operationDetails.getPersonnelBookingConfirmed());
+		if (operationDetails.getPersonnelBookingRequested() > 0) {
+			personnelBookingCountBuilder.append(" (");
+			personnelBookingCountBuilder.append(operationDetails.getPersonnelBookingRequested());
+			personnelBookingCountBuilder.append(" ");
+			personnelBookingCountBuilder.append(getString(R.string.bookingstate_requested));
+			personnelBookingCountBuilder.append(")");
+		}
+		addDetailsItem(layout, R.string.operation_personnel_count, personnelBookingCountBuilder.toString(), false);
 		addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), false);
 		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), false);
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);

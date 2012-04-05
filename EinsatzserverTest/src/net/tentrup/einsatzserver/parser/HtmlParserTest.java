@@ -80,7 +80,7 @@ public class HtmlParserTest {
 		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(7894, content);
 		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
 		OperationDetails operationDetails = resultWrapper.getResult();
-		checkOperation(operationDetails, 7894, null, null, new LocalDate(2011, 9, 25), new LocalTime(13, 0), "B. Düsseldorf", "Düsseldorf", 15, 14, 0);
+		checkOperation(operationDetails, 7894, null, null, new LocalDate(2011, 9, 25), new LocalTime(13, 0), "B. Düsseldorf", "Düsseldorf", 15, 13, 1);
 		StringBuilder commentBuilder = new StringBuilder();
 		commentBuilder.append("....");
 		commentBuilder.append(System.getProperty("line.separator"));
@@ -99,7 +99,7 @@ public class HtmlParserTest {
 		personnel.add(getPerson("D.", "M.", BookingState.CONFIRMED));
 		personnel.add(getPerson("E.", "F.", BookingState.CONFIRMED));
 		personnel.add(getPerson("F.", "T.", BookingState.CONFIRMED));
-		personnel.add(getPerson("H.", "S.", BookingState.CONFIRMED));
+		personnel.add(getPerson("H.", "S.", BookingState.REQUESTED));
 		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED));
 		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED));
 		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED));
@@ -174,7 +174,7 @@ public class HtmlParserTest {
 		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(8560, content);
 		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
 		OperationDetails operationDetails = resultWrapper.getResult();
-		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.", 0, 0, 0);
+		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.", 0, 0, 4);
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("M", "H", BookingState.REQUESTED));
 		personnel.add(getPerson("R", "R", BookingState.REQUESTED));

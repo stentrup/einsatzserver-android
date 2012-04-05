@@ -266,6 +266,13 @@ public class HtmlParser {
 					return lhs.getSurname().compareTo(rhs.getSurname());
 				}
 			});
+			int bookingRequestedCount = 0;
+			for (Person person : personnel) {
+				if (person.getBookingState() == BookingState.REQUESTED) {
+					bookingRequestedCount++;
+				}
+			}
+			result.setPersonnelBookingRequested(bookingRequestedCount);
 		} catch (XPatherException e) {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);

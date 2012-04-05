@@ -10,6 +10,14 @@
 			android:singleLine="true"
 			android:password="true" />
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/configuration.ui">
+		<CheckBoxPreference
+			android:key="configuration.ui.showRequestedBookingsCount"
+			android:title="@string/configuration.ui.showRequestedBookingsCount"
+			android:summary="@string/configuration.ui.showRequestedBookingsCountSummary"
+			android:defaultValue="false"
+        />
+	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/configuration.calendar">
 	    <ListPreference
             android:key="configuration.calendar.location"
