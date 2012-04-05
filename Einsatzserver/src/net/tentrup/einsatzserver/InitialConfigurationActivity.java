@@ -119,13 +119,8 @@ public class InitialConfigurationActivity extends GDActivity {
 		m_task.execute();
 	}
 
-	public void onLoginTaskCompleted(ResultStateEnum result) {
+	public void onLoginTaskCompleted(ResultStateEnum result, String username, String password) {
 		if (result == ResultStateEnum.SUCCESSFUL) {
-			//TODO: auslesen zusammenfassen
-			EditText usernameEditText = (EditText) findViewById(R.id.username_editText);
-			EditText passwordEditText = (EditText) findViewById(R.id.password_editText);
-			String username = usernameEditText.getText().toString();
-			String password = passwordEditText.getText().toString();
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			Editor prefsEditor = prefs.edit();
 			prefsEditor.putString(PreferenceKeys.CONFIGURATION_USERNAME, username);
@@ -235,10 +230,6 @@ public class InitialConfigurationActivity extends GDActivity {
 			m_password = password;
 		}
 
-//		private ResultStateEnum getResult() {
-//			return m_result;
-//		}
-
 		@Override
 		protected Void doInBackground(Void... params) {
 			m_result = new Communicator(getApplicationContext()).login(m_username, m_password);
@@ -271,7 +262,7 @@ public class InitialConfigurationActivity extends GDActivity {
 		 */
 		private void notifyActivityTaskCompleted() {
 			if (null != m_activity) {
-				m_activity.onLoginTaskCompleted(m_result);
+				m_activity.onLoginTaskCompleted(m_result, m_username, m_password);
 			}
 		}
 
