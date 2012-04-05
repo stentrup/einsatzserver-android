@@ -65,21 +65,30 @@ public class InitialConfigurationActivity extends GDActivity {
 		Editor editor = prefs.edit();
 		editor.putBoolean(Communicator.PREF_TESTMODE, testmode);
 		editor.commit();
-
-		m_recentChanges = new RecentChanges(this);
-		m_recentChanges.show();
 		m_eula = new Eula(this);
-		m_eula.show();
-		if (isLoginDataConfigured()) {
-			showHomeScreen();
-		}
+		m_eula.show(new Resume() {
+			@Override
+			public void execute() {
+				m_recentChanges = new RecentChanges(InitialConfigurationActivity.this);
+				m_recentChanges.show(new Resume() {
+					@Override
+					public void execute() {
+						if (isLoginDataConfigured()) {
+							showHomeScreen();
+						}
+					}
+				});
+			}
+		});
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		m_recentChanges.dismiss();
 		m_eula.dismiss();
+		if (m_recentChanges != null) {
+			m_recentChanges.dismiss();
+		}
 	}
 
 	/**

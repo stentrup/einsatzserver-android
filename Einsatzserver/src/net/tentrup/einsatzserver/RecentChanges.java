@@ -40,7 +40,12 @@ public class RecentChanges {
 		return pi;
 	}
 
-	public void show() {
+	/**
+	 * Show dialog with Recent Changes
+	 * 
+	 * @param resume a Resume which should be executed after displaying the dialog or if the dialog is not displayed.
+	 */
+	public void show(final Resume resume) {
 		PackageInfo versionInfo = getPackageInfo();
 		
 		final String key = KEY + versionInfo.versionCode;
@@ -63,10 +68,13 @@ public class RecentChanges {
 					editor.putBoolean(key, true);
 					editor.commit();
 					dialogInterface.dismiss();
+					resume.execute();
 				}
 			});
 			m_dialog = builder.create();
 			m_dialog.show();
+		} else {
+			resume.execute();
 		}
 	}
 

@@ -41,7 +41,12 @@ public class Eula {
 		return pi;
 	}
 
-	public void show() {
+	/**
+	 * Show dialog with EULA
+	 * 
+	 * @param resume a Resume which should be executed after displaying the dialog or if the dialog is not displayed.
+	 */
+	public void show(final Resume resume) {
 		PackageInfo versionInfo = getPackageInfo();
 		final String eulaKey = EULA_KEY;
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_parent);
@@ -68,6 +73,7 @@ public class Eula {
 					editor.putBoolean(eulaKey, true);
 					editor.commit();
 					dialogInterface.dismiss();
+					resume.execute();
 				}
 			})
 			.setNegativeButton(R.string.eula_reject,
@@ -83,6 +89,8 @@ public class Eula {
 			});
 			m_dialog = builder.create();
 			m_dialog.show();
+		} else {
+			resume.execute();
 		}
 	}
 
