@@ -1,6 +1,7 @@
 Version 0.5
 
 * Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation
+* Assistent für die initiale Konfiguration
 
 Version 0.4
 
