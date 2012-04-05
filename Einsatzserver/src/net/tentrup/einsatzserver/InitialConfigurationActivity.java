@@ -193,7 +193,9 @@ public class InitialConfigurationActivity extends GDActivity {
 	 */
 	@Override
 	public Object onRetainNonConfigurationInstance() {
-		m_task.setActivity(null);
+		if (m_task != null) {
+			m_task.setActivity(null);
+		}
 		return m_task;
 	}
 
