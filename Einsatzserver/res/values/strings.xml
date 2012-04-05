@@ -73,4 +73,6 @@
     <string name="configuration.ui.showRequestedBookingsCount">Vormerkungen</string>
     <string name="configuration.ui.showRequestedBookingsCountSummary">Anzahl der Vormerkungen in der Einsatzliste anzeigen</string>
     <string name="alert.map_error">Keine geeignete Applikation gefunden!</string>
+    <string name="configuration.ui.showDayOfWeek">Wochentag</string>
+    <string name="configuration.ui.showDayOfWeekSummary">Wochentag in der Einsatzliste anzeigen</string>
 </resources>

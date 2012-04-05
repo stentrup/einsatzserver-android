@@ -12,8 +12,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -143,6 +145,11 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 				});
 				textView = (TextView) tableRow.findViewById(R.id.cell_day_of_week);
 				textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
+				SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+				boolean showDayOfWeek = sharedPreferences.getBoolean("configuration.ui.showDayOfWeek", true);
+				if (!showDayOfWeek) {
+					textView.setVisibility(View.GONE);
+				}
 				textView = (TextView) tableRow.findViewById(R.id.cell_date);
 				textView.setText(Operation.printDate(operation.getStartDate(), false, false));
 				textView = (TextView) tableRow.findViewById(R.id.cell_state_text);

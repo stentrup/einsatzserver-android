@@ -17,6 +17,12 @@
 			android:summary="@string/configuration.ui.showRequestedBookingsCountSummary"
 			android:defaultValue="false"
         />
+		<CheckBoxPreference
+			android:key="configuration.ui.showDayOfWeek"
+			android:title="@string/configuration.ui.showDayOfWeek"
+			android:summary="@string/configuration.ui.showDayOfWeekSummary"
+			android:defaultValue="true"
+        />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/configuration.calendar">
 	    <ListPreference
