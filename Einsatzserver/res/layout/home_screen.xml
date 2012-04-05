@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <net.tentrup.einsatzserver.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/menu.my"
-		android:id="@+id/my_operations" style="@style/DashboardButton" android:drawableTop="@drawable/home_btn_my_operations"
-		android:gravity="center" />
-	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/menu.all"
-		android:id="@+id/all_operations" style="@style/DashboardButton" android:drawableTop="@drawable/home_btn_all_operations"
-		android:gravity="center"/>
-	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/menu.configuration"
-		android:id="@+id/configuration" style="@style/DashboardButton" android:drawableTop="@drawable/home_btn_configuration"
-		android:gravity="center"/>
-	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/menu.help"
-		android:id="@+id/help" style="@style/DashboardButton" android:drawableTop="@drawable/home_btn_help"
-		android:gravity="center"/>
+
+	<Button
+	    android:id="@+id/my_operations"
+	    style="@style/DashboardButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:drawableTop="@drawable/home_btn_my_operations"
+	    android:gravity="center"
+	    android:nextFocusRight="@+id/all_operations"
+	    android:nextFocusDown="@+id/configuration"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:text="@string/menu.my" />
+
+	<Button
+	    android:id="@+id/all_operations"
+	    style="@style/DashboardButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:drawableTop="@drawable/home_btn_all_operations"
+	    android:gravity="center"
+	    android:nextFocusLeft="@+id/my_operations"
+	    android:nextFocusDown="@+id/help"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:text="@string/menu.all" />
+
+	<Button
+	    android:id="@+id/configuration"
+	    style="@style/DashboardButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:drawableTop="@drawable/home_btn_configuration"
+	    android:gravity="center"
+	    android:nextFocusRight="@+id/help"
+	    android:nextFocusUp="@+id/my_operations"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:text="@string/menu.configuration" />
+
+	<Button
+	    android:id="@+id/help"
+	    style="@style/DashboardButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:drawableTop="@drawable/home_btn_help"
+	    android:gravity="center"
+	    android:nextFocusLeft="@+id/configuration"
+	    android:nextFocusUp="@+id/all_operations"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:text="@string/menu.help" />
+
 </net.tentrup.einsatzserver.DashboardLayout>
