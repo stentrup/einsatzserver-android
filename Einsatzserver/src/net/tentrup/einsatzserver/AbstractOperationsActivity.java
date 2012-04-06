@@ -250,11 +250,14 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == COLUMNS_DIALOG) {
-			String[] items = new String[] {getString(R.string.configuration_ui_showRequestedBookingsCount), getString(R.string.configuration_ui_showDayOfWeek)};
+			String[] items = getSwitchableColumnNames();
 			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			boolean prefShowRequestedBookingsCount = prefs.getBoolean(PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, false);
-			boolean prefShowDayOfWeek = prefs.getBoolean(PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK, true);
-			boolean[] state = new boolean[] {prefShowRequestedBookingsCount, prefShowDayOfWeek};
+			final String[] preferenceKeys = getSwitchableColumnPreferenceKeys();
+			boolean[] preferenceDefaultValues = getSwitchableColumnPreferenceDefaultValues();
+			boolean[] state = new boolean[preferenceKeys.length];
+			for (int i = 0; i < preferenceKeys.length; i++) {
+				state[i] = prefs.getBoolean(preferenceKeys[i], preferenceDefaultValues[i]);
+			}
 			final FilterChoiceClickListener listener = new FilterChoiceClickListener(state);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.visible_columns)
@@ -264,8 +267,9 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
 					Editor prefEditor = prefs.edit();
-					prefEditor.putBoolean(PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, listener.getChecked()[0]);
-					prefEditor.putBoolean(PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK, listener.getChecked()[1]);
+					for (int i = 0; i < preferenceKeys.length; i++) {
+						prefEditor.putBoolean(preferenceKeys[i], listener.getChecked()[i]);
+					}
 					prefEditor.commit();
 					removeDialog(COLUMNS_DIALOG);
 					updateView();
@@ -282,6 +286,18 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		}
 		return super.onCreateDialog(id);
 	}
+
+	/**
+	 * Returns the names of the columns whose visibility should be configurable
+	 */
+	protected abstract String[] getSwitchableColumnNames();
+
+	/**
+	 * Returns the keys of the preferences for the visibility of the columns
+	 */
+	protected abstract String[] getSwitchableColumnPreferenceKeys();
+
+	protected abstract boolean[] getSwitchableColumnPreferenceDefaultValues();
 
 	@Override
 	protected void onPause() {

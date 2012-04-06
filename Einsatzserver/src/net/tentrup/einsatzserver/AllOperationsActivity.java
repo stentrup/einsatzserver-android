@@ -139,4 +139,19 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 		}
 		setTitle(title);
 	}
+
+	@Override
+	protected String[] getSwitchableColumnNames() {
+		return new String[] {getString(R.string.configuration_ui_showRequestedBookingsCount), getString(R.string.configuration_ui_showDayOfWeek)};
+	}
+
+	@Override
+	protected String[] getSwitchableColumnPreferenceKeys() {
+		return new String[] {PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK};
+	}
+
+	@Override
+	protected boolean[] getSwitchableColumnPreferenceDefaultValues() {
+		return new boolean[] {false, true};
+	}
 }

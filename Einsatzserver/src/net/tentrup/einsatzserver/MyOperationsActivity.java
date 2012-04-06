@@ -3,6 +3,7 @@ package net.tentrup.einsatzserver;
 import java.util.List;
 
 import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
@@ -53,5 +54,20 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 	protected boolean showItem(Operation operation) {
 		// no filtering
 		return true;
+	}
+
+	@Override
+	protected String[] getSwitchableColumnNames() {
+		return new String[] {getString(R.string.configuration_ui_showDayOfWeek)};
+	}
+
+	@Override
+	protected String[] getSwitchableColumnPreferenceKeys() {
+		return new String[] {PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK};
+	}
+
+	@Override
+	protected boolean[] getSwitchableColumnPreferenceDefaultValues() {
+		return new boolean[] {true};
 	}
 }
