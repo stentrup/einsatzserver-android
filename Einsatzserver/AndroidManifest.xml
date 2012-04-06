@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="net.tentrup.einsatzserver"
-      android:debuggable="false"
-      android:versionCode="50" android:versionName="0.5">
+      android:debuggable="true"
+      android:versionCode="60" android:versionName="0.6">
     <uses-sdk android:minSdkVersion="8"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
