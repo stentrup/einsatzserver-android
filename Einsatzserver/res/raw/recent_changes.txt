@@ -1,9 +1,9 @@
 Version 0.5
 
 * Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation
-* Assistent für die initiale Konfiguration
 * Anzahl der Vormerkungen anzeigen (für die Einsatzliste konfigurierbar)
 * Anzeige des Wochentags in der Einsatzliste konfigurierbar
+* Assistent für die initiale Konfiguration
 
 Version 0.4
 
