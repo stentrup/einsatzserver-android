@@ -44,15 +44,6 @@ public class InitialConfigurationActivity extends GDActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(R.string.initial_configuration);
-		getActionBar().setType(ActionBar.Type.Empty); //do not show home button
-		setActionBarContentView(R.layout.initial_configuration);
-		findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				performLogin();
-			}
-		});
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof LoginTask) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -75,6 +66,16 @@ public class InitialConfigurationActivity extends GDActivity {
 					public void execute() {
 						if (isLoginDataConfigured()) {
 							showHomeScreen();
+						} else {
+							setTitle(R.string.initial_configuration);
+							getActionBar().setType(ActionBar.Type.Empty); //do not show home button
+							setActionBarContentView(R.layout.initial_configuration);
+							findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									performLogin();
+								}
+							});
 						}
 					}
 				});
