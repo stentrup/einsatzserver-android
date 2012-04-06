@@ -25,6 +25,7 @@ Die Liste 'Alle Einsätze' kann gefiltert werden, so dass nur noch die nicht bes
 Zeigt weitere Daten des Einsatzes an.<br/>
 Mit Hilfe von Symbolen in der Titelzeile können Sie sich für den Einsatz vormerken lassen 
 und diesen in den Telefonkalender übernehmen.
+Einsatz- und Meldeort können über eine Schaltfläche in einer Maps-Applikation angezeigt werden. Es hängt dabei vom Ort und der Applikation ab, ob dieser gefunden wird.
 <h3>Vormerken</h3>
 Beim Vormerken kann optional eine Bemerkung angegeben werden.
 <h3>In Kalender übernehmen</h3>
