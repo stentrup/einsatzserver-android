@@ -4,4 +4,5 @@
     <item name="action_bar_calendar" type="id"/>
     <item name="action_bar_check" type="id"/>
     <item name="action_bar_filter" type="id"/>
+    <item name="action_bar_columns" type="id"/>
 </resources>

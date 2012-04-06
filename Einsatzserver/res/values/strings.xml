@@ -75,4 +75,5 @@
     <string name="alert.map_error">Keine geeignete Applikation gefunden!</string>
     <string name="configuration.ui.showDayOfWeek">Wochentag</string>
     <string name="configuration.ui.showDayOfWeekSummary">Wochentag in der Einsatzliste anzeigen</string>
+    <string name="visible_columns">Sichtbare Spalten</string>
 </resources>

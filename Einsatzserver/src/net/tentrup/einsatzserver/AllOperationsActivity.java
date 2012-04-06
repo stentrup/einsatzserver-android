@@ -46,7 +46,7 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 	protected void updateStateTextView(Operation operation, TextView textView) {
 		StringBuilder personnelTextBuilder = new StringBuilder();
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean showRequestedBookingsCount = sharedPreferences.getBoolean("configuration.ui.showRequestedBookingsCount", false);
+		boolean showRequestedBookingsCount = sharedPreferences.getBoolean(PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, false);
 		if (showRequestedBookingsCount && operation.getPersonnelBookingRequested() > 0) {
 			personnelTextBuilder.append("(").append(operation.getPersonnelBookingRequested()).append(") ");
 		}
@@ -68,6 +68,7 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 
 	@Override
 	protected void addToActionBar() {
+		super.addToActionBar();
 		ActionBarItem filterAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_filter));
 		addActionBarItem(filterAction, R.id.action_bar_filter);
 	}

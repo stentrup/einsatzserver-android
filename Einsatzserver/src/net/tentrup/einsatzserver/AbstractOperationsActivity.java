@@ -1,9 +1,13 @@
 package net.tentrup.einsatzserver;
 
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import java.util.List;
 
+import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
@@ -13,6 +17,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -38,6 +43,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	private static final int ALERT_DIALOG_LOADING_ERROR = 2;
 	private static final int ALERT_DIALOG_PARSE_ERROR = 3;
 	private static final int ALERT_DIALOG_NO_OPERATIONS = 4;
+	private static final int COLUMNS_DIALOG = 5;
 	public static final String OPERATION_ID = "operationId";
 
 	private ListRefresher m_task;
@@ -64,7 +70,21 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		}
 	}
 
-	protected abstract void addToActionBar();
+	protected void addToActionBar() {
+		ActionBarItem filterAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_columns));
+		addActionBarItem(filterAction, R.id.action_bar_columns);
+	}
+
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+        case R.id.action_bar_columns:
+        	showDialog(COLUMNS_DIALOG);
+            return true;
+        default:
+            return super.onHandleActionBarItemClick(item, position);
+        }
+	}
 
 	private void startBackgroundTask() {
 		Log.i(TAG, "Creating new background task.");
@@ -146,7 +166,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 				textView = (TextView) tableRow.findViewById(R.id.cell_day_of_week);
 				textView.setText(Operation.printDayOfWeek(operation.getStartDate()));
 				SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-				boolean showDayOfWeek = sharedPreferences.getBoolean("configuration.ui.showDayOfWeek", true);
+				boolean showDayOfWeek = sharedPreferences.getBoolean(PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK, true);
 				if (!showDayOfWeek) {
 					textView.setVisibility(View.GONE);
 				}
@@ -227,6 +247,36 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 			                AbstractOperationsActivity.this.finish();
 			           }
 			       });
+			AlertDialog alert = builder.create();
+			return alert;
+		} else if (id == COLUMNS_DIALOG) {
+			String[] items = new String[] {getString(R.string.configuration_ui_showRequestedBookingsCount), getString(R.string.configuration_ui_showDayOfWeek)};
+			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			boolean prefShowRequestedBookingsCount = prefs.getBoolean(PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, false);
+			boolean prefShowDayOfWeek = prefs.getBoolean(PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK, true);
+			boolean[] state = new boolean[] {prefShowRequestedBookingsCount, prefShowDayOfWeek};
+			final FilterChoiceClickListener listener = new FilterChoiceClickListener(state);
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.visible_columns)
+			.setMultiChoiceItems(items, state, listener)
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok,
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					Editor prefEditor = prefs.edit();
+					prefEditor.putBoolean(PreferenceKeys.CONFIGURATION_UI_SHOW_REQUESTED_BOOKINGS_COUNT, listener.getChecked()[0]);
+					prefEditor.putBoolean(PreferenceKeys.CONFIGURATION_UI_DAY_OF_WEEK, listener.getChecked()[1]);
+					prefEditor.commit();
+					removeDialog(COLUMNS_DIALOG);
+					updateView();
+				}
+			})
+			.setNegativeButton(R.string.cancel,
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					removeDialog(COLUMNS_DIALOG);
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		}

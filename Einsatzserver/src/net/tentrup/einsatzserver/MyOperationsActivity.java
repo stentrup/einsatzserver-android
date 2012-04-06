@@ -50,11 +50,6 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 	}
 
 	@Override
-	protected void addToActionBar() {
-		// no action bar item
-	}
-
-	@Override
 	protected boolean showItem(Operation operation) {
 		// no filtering
 		return true;
