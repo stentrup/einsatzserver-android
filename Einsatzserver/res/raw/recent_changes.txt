@@ -1,3 +1,7 @@
+Version 0.6
+
+* Darstellung der Einsatzdetails nach Vormerken korrigiert
+
 Version 0.5
 
 * Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation

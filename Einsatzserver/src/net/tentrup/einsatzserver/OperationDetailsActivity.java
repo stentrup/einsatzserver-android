@@ -146,6 +146,7 @@ public class OperationDetailsActivity extends GDActivity {
 		m_resultWrapper = result;
 		OperationDetails operationDetails = result.getResult();
 		LinearLayout layout = (LinearLayout) findViewById(R.id.operation_details_layout);
+		layout.removeAllViews();
 		addDetailsItem(layout, R.string.operation_description, operationDetails.getDescription(), false);
 		addDetailsItem(layout, R.string.operation_location, operationDetails.getLocation(), true);
 		addDetailsItem(layout, R.string.operation_begin, operationDetails.getBegin(this, true), false);
