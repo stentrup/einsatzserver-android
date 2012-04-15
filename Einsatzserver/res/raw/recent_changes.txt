@@ -1,3 +1,7 @@
+Version 0.7
+
+* Kompatibilität mit Android 3 und 4 verbessert
+
 Version 0.6
 
 * Darstellung der Einsatzdetails nach Vormerken korrigiert

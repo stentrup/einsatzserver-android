@@ -17,6 +17,10 @@ import android.view.View;
  */
 public class HomeScreenActivity extends GDActivity {
 
+	public HomeScreenActivity() {
+		super(ActionBar.Type.Empty);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +53,6 @@ public class HomeScreenActivity extends GDActivity {
 				startActivity(intent);
 			}
 		});
-		getActionBar().setType(ActionBar.Type.Empty); //do not show home button
         addActionBarItem(getActionBar()
                 .newActionBarItem(NormalActionBarItem.class)
                 .setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_info)), R.id.action_bar_view_info);

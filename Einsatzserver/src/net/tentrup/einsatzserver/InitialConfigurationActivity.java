@@ -41,6 +41,10 @@ public class InitialConfigurationActivity extends GDActivity {
 
 	private Eula m_eula;
 
+	public InitialConfigurationActivity() {
+		super(ActionBar.Type.Empty);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,7 +72,6 @@ public class InitialConfigurationActivity extends GDActivity {
 							showHomeScreen();
 						} else {
 							setTitle(R.string.initial_configuration);
-							getActionBar().setType(ActionBar.Type.Empty); //do not show home button
 							setActionBarContentView(R.layout.initial_configuration);
 							findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
 								@Override
