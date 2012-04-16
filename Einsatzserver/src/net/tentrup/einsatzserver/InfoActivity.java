@@ -1,12 +1,9 @@
 package net.tentrup.einsatzserver;
 
 import greendroid.app.GDActivity;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 /**
@@ -36,15 +33,6 @@ public class InfoActivity extends GDActivity {
 			e.printStackTrace();
 		}
 		tv.setText(infoTextBuilder.toString());
-//		resetEulaInfo();
-	}
-
-	private void resetEulaInfo() {
-		final String eulaKey = Eula.EULA_KEY;
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor editor = prefs.edit();
-		editor.remove(eulaKey);
-		editor.commit();
 	}
 
 }
