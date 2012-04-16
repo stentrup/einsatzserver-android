@@ -76,4 +76,6 @@
     <string name="configuration.ui.showDayOfWeek">Wochentag</string>
     <string name="configuration.ui.showDayOfWeekSummary">Wochentag in der Einsatzliste anzeigen</string>
     <string name="visible_columns">Sichtbare Spalten</string>
+    <string name="license.title">Lizenz</string>
+    <string name="changes.title">Neu</string>
 </resources>

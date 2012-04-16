@@ -1,0 +1,13 @@
+<h3>Android-App für den Einsatzserver des DRK-Kreisverbandes Düsseldorf</h3>
+<p>
+<a href="http://code.google.com/p/einsatzserver-android/">Projektseite bei Google Code</a>
+</p>
+<p>
+<b>Feedback</b><br/><br/>
+<a href="market://details?id=net.tentrup.einsatzserver">App bewerten bei Google Play</a><br/><br/>
+<a href="http://code.google.com/p/einsatzserver-android/issues/list">Fehlerberichte</a><br/><br/>
+<p>
+<p>
+<b>Credits</b><br/><br/>
+Diese Anwendung nutzt Icons von www.androidicons.com
+</p>
