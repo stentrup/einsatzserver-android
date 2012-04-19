@@ -16,8 +16,8 @@ public class OperationsLoadingProgressDialog extends AsyncTaskProgressDialog {
 
 	private final Activity m_parent;
 
-	public OperationsLoadingProgressDialog(Activity parent, AsyncTask<Void, Void, Void> task) {
-		super(parent, task);
+	public OperationsLoadingProgressDialog(Activity parent, AsyncTask<Void, Void, Void> task, String message) {
+		super(parent, task, message);
 		m_parent = parent;
 	}
 

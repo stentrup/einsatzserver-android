@@ -13,7 +13,6 @@ import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -200,11 +199,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == LOADING_DIALOG) {
-			ProgressDialog loadingDialog = new OperationsLoadingProgressDialog(this, m_task);
-			loadingDialog.setMessage(getString(R.string.loading));
-			loadingDialog.setIndeterminate(true);
-			loadingDialog.setCancelable(true);
-			return loadingDialog;
+			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading));
 		} else if (id == ALERT_DIALOG_LOGIN_FAILED) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_login_failed)

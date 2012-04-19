@@ -11,9 +11,13 @@ public class AsyncTaskProgressDialog extends ProgressDialog {
 
 	private final AsyncTask<Void, Void, Void> m_task;
 
-	public AsyncTaskProgressDialog(Context context, AsyncTask<Void, Void, Void> task) {
+	public AsyncTaskProgressDialog(Context context, AsyncTask<Void, Void, Void> task, String message) {
 		super(context, R.style.PopupStyle);
 		m_task = task;
+		setMessage(message);
+		setIndeterminate(true);
+		setCancelable(true);
+		setCanceledOnTouchOutside(false);
 	}
 
 	@Override

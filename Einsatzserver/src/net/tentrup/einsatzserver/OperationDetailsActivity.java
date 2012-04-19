@@ -19,7 +19,6 @@ import org.joda.time.LocalTime;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -230,17 +229,9 @@ public class OperationDetailsActivity extends GDActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == LOADING_PROGRESS_DIALOG) {
-			ProgressDialog loadingDialog = new OperationsLoadingProgressDialog(this, m_task);
-			loadingDialog.setMessage(getString(R.string.loading));
-			loadingDialog.setIndeterminate(true);
-			loadingDialog.setCancelable(true);
-			return loadingDialog;
+			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading));
 		} else if (id == BOOKING_PROGRESS_DIALOG) {
-			ProgressDialog loadingDialog = new AsyncTaskProgressDialog(this, m_task);
-			loadingDialog.setMessage(getString(R.string.booking_progress));
-			loadingDialog.setIndeterminate(true);
-			loadingDialog.setCancelable(true);
-			return loadingDialog;
+			return new AsyncTaskProgressDialog(this, m_task, getString(R.string.booking_progress));
 		} else if (id == ALERT_DIALOG_CALENDAR_ENTRY) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.details_calendar_error)
