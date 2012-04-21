@@ -5,7 +5,7 @@
 <p>
 <b>Feedback</b><br/><br/>
 <a href="mailto:s.tentrup@gmx.net?subject=Einsatzserver%20f%C3%BCr%20Android">Verbesserungsvorschläge und Fehlerberichte</a><br/><br/>
-<a href="market://details?id=net.tentrup.einsatzserver">App bewerten bei Google Play</a><br/><br/>
+<a href="http://play.google.com/store/apps/details?id=net.tentrup.einsatzserver">App bewerten bei Google Play</a><br/><br/>
 <p>
 <p>
 <b>Credits</b><br/><br/>
