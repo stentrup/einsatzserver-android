@@ -1,3 +1,7 @@
+Version 0.8
+
+* Informationen zur App erweitert
+
 Version 0.7
 
 * Kompatibilität mit Android 3 und 4 verbessert
