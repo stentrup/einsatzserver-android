@@ -1,26 +1,41 @@
-Version 0.8
+<p>
+<b>Version 0.8</b>
+<ul>
+<li>Informationen zur App erweitert</li>
+</ul>
+</p>
 
-* Informationen zur App erweitert
+<p>
+<b>Version 0.7</b>
+<ul>
+<li>Kompatibilität mit Android 3 und 4 verbessert</li>
+</ul>
+</p>
 
-Version 0.7
+<p>
+<b>Version 0.6</b>
+<ul>
+<li>Darstellung der Einsatzdetails nach Vormerken korrigiert</li>
+</ul>
+</p>
 
-* Kompatibilität mit Android 3 und 4 verbessert
+<p>
+<b>Version 0.5</b>
+<ul>
+<li>Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation</li>
+<li>Anzahl der Vormerkungen anzeigen (für die Einsatzliste konfigurierbar)</li>
+<li>Anzeige des Wochentags in der Einsatzliste konfigurierbar</li>
+<li>Assistent für die initiale Konfiguration</li>
+</ul>
+</p>
 
-Version 0.6
-
-* Darstellung der Einsatzdetails nach Vormerken korrigiert
-
-Version 0.5
-
-* Einsatzort und Meldeort verknüpft mit Google Maps oder ähnlicher Applikation
-* Anzahl der Vormerkungen anzeigen (für die Einsatzliste konfigurierbar)
-* Anzeige des Wochentags in der Einsatzliste konfigurierbar
-* Assistent für die initiale Konfiguration
-
-Version 0.4
-
-* Neuer gestalteter Startbildschirm
-* Anzeige der Einsatzkräfteanzahl in der Liste "Alle Einsätze"
-* Anzeige des eigenen Buchungsstatus in der Liste "Meine Einsätze"
-* Bereits besetzte Einsätze können in der Einsatzliste ausgeblendet werden
-* Buchungsschaltfläche ist deaktiviert, wenn der Benutzer bereits gebucht oder vorgemerkt ist
+<p>
+<b>Version 0.4</b>
+<ul>
+<li>Neuer gestalteter Startbildschirm</li>
+<li>Anzeige der Einsatzkräfteanzahl in der Liste "Alle Einsätze"</li>
+<li>Anzeige des eigenen Buchungsstatus in der Liste "Meine Einsätze"</li>
+<li>Bereits besetzte Einsätze können in der Einsatzliste ausgeblendet werden</li>
+<li>Buchungsschaltfläche ist deaktiviert, wenn der Benutzer bereits gebucht oder vorgemerkt ist</li>
+</ul>
+</p>

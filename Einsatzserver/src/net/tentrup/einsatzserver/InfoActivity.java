@@ -19,6 +19,8 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.viewpagerindicator.PageIndicator;
@@ -65,18 +67,29 @@ public class InfoActivity extends GDActivity {
 		private List<View> itemViews = new ArrayList<View>();
 
 		public InfoPagerAdapter() {
-			addTab(getString(R.string.about_title), Html.fromHtml(readAboutText(InfoActivity.this)));
-			addTab(getString(R.string.changes_title), RecentChanges.readRecentChanges(InfoActivity.this));
-			addTab(getString(R.string.license_title), Eula.readEula(InfoActivity.this));
+			addTab(getString(R.string.about_title), createTextView(Html.fromHtml(readAboutText(InfoActivity.this))));
+			addTab(getString(R.string.changes_title), createWebView(RecentChanges.readRecentChanges(InfoActivity.this)));
+			addTab(getString(R.string.license_title), createTextView(Eula.readEula(InfoActivity.this)));
 		}
 
-		private void addTab(String title, CharSequence content) {
+		private void addTab(String title, View contentView) {
 			itemLabels.add(title);
-			View view = getLayoutInflater().inflate(R.layout.info_tab, null);
-			TextView tabContent = (TextView) view.findViewById(R.id.info_tab_content);
+			ScrollView view = (ScrollView) getLayoutInflater().inflate(R.layout.info_tab, null);
+			view.addView(contentView);
+			itemViews.add(view);
+		}
+
+		private TextView createTextView(CharSequence content) {
+			TextView tabContent = (TextView) getLayoutInflater().inflate(R.layout.info_tab_textview, null);
 			tabContent.setText(content);
 			tabContent.setMovementMethod(LinkMovementMethod.getInstance());
-			itemViews.add(view);
+			return tabContent;
+		}
+
+		private WebView createWebView(String content) {
+			WebView webView = new WebView(InfoActivity.this);
+			webView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
+			return webView;
 		}
 
 		@Override

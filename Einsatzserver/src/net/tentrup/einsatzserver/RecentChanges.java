@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.webkit.WebView;
 
 /**
  * Shows recent changes as a dialog.
@@ -54,9 +55,11 @@ public class RecentChanges {
 		if (!hasBeenShown) {
 			// Show recent changes
 			String title = m_parent.getString(R.string.recent_changes_title);
+			WebView webView = new WebView(m_parent);
+			webView.loadDataWithBaseURL(null, readRecentChanges(m_parent), "text/html", "UTF-8", null);
 			AlertDialog.Builder builder = new AlertDialog.Builder(m_parent)
 			.setTitle(title)
-			.setMessage(readRecentChanges(m_parent))
+			.setView(webView)
 			.setCancelable(false)
 			.setPositiveButton(R.string.ok,
 					new Dialog.OnClickListener() {
