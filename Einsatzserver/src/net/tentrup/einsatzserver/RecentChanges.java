@@ -57,6 +57,7 @@ public class RecentChanges {
 			String title = m_parent.getString(R.string.recent_changes_title);
 			WebView webView = new WebView(m_parent);
 			webView.loadDataWithBaseURL(null, readRecentChanges(m_parent), "text/html", "UTF-8", null);
+//			webView.setBackgroundColor(0x00000000);
 			AlertDialog.Builder builder = new AlertDialog.Builder(m_parent)
 			.setTitle(title)
 			.setView(webView)
