@@ -245,10 +245,10 @@ public class HtmlParser {
 				String surname = getStringForXpath(node, "td[4]");
 				String bookingStateString = getStringForXpath(node, "td[1]");
 				BookingState bookingState = BookingState.parseShortText(bookingStateString);
-				String comment = getStringForXpath(node, "td[8]");
+				String comment = getStringForXpath(node, "td[9]");
 				String division = getStringForXpath(node, "td[2]");
-				LocalTime startTime = parseTime(getStringForXpath(node, "td[5]"));
-				LocalTime endTime = parseTime(getStringForXpath(node, "td[6]"));
+				LocalTime startTime = parseTime(getStringForXpath(node, "td[6]"));
+				LocalTime endTime = parseTime(getStringForXpath(node, "td[7]"));
 				Person person = new Person();
 				person.setName(name);
 				person.setSurname(surname);
