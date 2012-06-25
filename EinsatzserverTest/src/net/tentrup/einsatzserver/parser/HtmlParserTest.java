@@ -96,20 +96,20 @@ public class HtmlParserTest {
 		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append(System.getProperty("line.separator"));
 		List<Person> personnel = new ArrayList<Person>();
-		personnel.add(getPerson("D.", "M.", BookingState.CONFIRMED));
-		personnel.add(getPerson("E.", "F.", BookingState.CONFIRMED));
-		personnel.add(getPerson("F.", "T.", BookingState.CONFIRMED));
-		personnel.add(getPerson("H.", "S.", BookingState.REQUESTED));
-		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("N.", "M.", BookingState.CONFIRMED));
-		personnel.add(getPerson("N.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("S.", "F.", BookingState.CONFIRMED));
-		personnel.add(getPerson("S.", "T.", BookingState.CONFIRMED));
-		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("W.", "B.", BookingState.CONFIRMED));
-		personnel.add(getPerson("W.", "K.", BookingState.CONFIRMED));
+		personnel.add(getPerson("D.", "M.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("E.", "F.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("F.", "T.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("H.", "S.", BookingState.REQUESTED, null, "Mitte", null, null));
+		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("K.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("N.", "M.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("N.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("S.", "F.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("S.", "T.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("W.", "B.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("W.", "K.", BookingState.CONFIRMED, null, "Mitte", null, null));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 9, 25), new LocalTime(20, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 9, 25), new LocalTime(13, 0), false, commentBuilder.toString(), personnel);
 	}
 
@@ -128,11 +128,11 @@ public class HtmlParserTest {
 		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append("2 H. O.");
 		List<Person> personnel = new ArrayList<Person>();
-		personnel.add(getPerson("A.", "B.", BookingState.ABSENT));
-		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("S.", "H. J.", BookingState.CONFIRMED));
-		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED));
-		personnel.add(getPerson("W.", "B.", BookingState.CONFIRMED));
+		personnel.add(getPerson("A.", "B.", BookingState.ABSENT, "Test1", "Mitte", new LocalTime(16, 0), new LocalTime(23, 0)));
+		personnel.add(getPerson("L.", "S.", BookingState.CONFIRMED, "Test2", "Mitte", null, null));
+		personnel.add(getPerson("S.", "H. J.", BookingState.CONFIRMED, null, "Mitte", new LocalTime(17, 0), new LocalTime(20, 0)));
+		personnel.add(getPerson("T.", "S.", BookingState.CONFIRMED, null, "Mitte", null, null));
+		personnel.add(getPerson("W.", "B.", BookingState.CONFIRMED, null, "Mitte", null, null));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 3), new LocalTime(23, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 3), new LocalTime(15, 15), true, commentBuilder.toString(), personnel);
 	}
 
@@ -147,7 +147,7 @@ public class HtmlParserTest {
 		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8152, null, null, new LocalDate(2012, 7, 8), null, "B. 2012 -V.-", "A. P.", 0, 1, 0);
 		List<Person> personnel = new ArrayList<Person>(); 	 
-		personnel.add(getPerson("T.", "T.", BookingState.CONFIRMED));
+		personnel.add(getPerson("T.", "T.", BookingState.CONFIRMED, null, "FmD", null, null));
 		checkOperationDetails(operationDetails, new LocalDate(2012, 7, 8), null, "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2012, 7, 8), null, false, null, personnel);
 	}
 
@@ -176,18 +176,22 @@ public class HtmlParserTest {
 		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.", 0, 0, 4);
 		List<Person> personnel = new ArrayList<Person>(); 	 
-		personnel.add(getPerson("M", "H", BookingState.REQUESTED));
-		personnel.add(getPerson("R", "R", BookingState.REQUESTED));
-		personnel.add(getPerson("T", "S", BookingState.REQUESTED));
-		personnel.add(getPerson("V", "K", BookingState.REQUESTED));
+		personnel.add(getPerson("M", "H", BookingState.REQUESTED, null, "Mitte", null, null));
+		personnel.add(getPerson("R", "R", BookingState.REQUESTED, null, "Mitte", null, null));
+		personnel.add(getPerson("T", "S", BookingState.REQUESTED, null, "Mitte", null, null));
+		personnel.add(getPerson("V", "K", BookingState.REQUESTED, null, "Mitte", null, null));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 9), new LocalTime(22, 0), "D-Z", new LocalDate(2011, 12, 9), new LocalTime(19, 30), false, null, personnel);
 	}
 
-	private Person getPerson(String name, String surname, BookingState bookingState) {
+	private Person getPerson(String name, String surname, BookingState bookingState, String comment, String division, LocalTime startTime, LocalTime endTime) {
 		Person person = new Person();
 		person.setName(name);
 		person.setSurname(surname);
 		person.setBookingState(bookingState);
+		person.setComment(comment);
+		person.setDivision(division);
+		person.setStartTime(startTime);
+		person.setEndTime(endTime);
 		return person;
 	}
 
@@ -223,6 +227,10 @@ public class HtmlParserTest {
 			Assert.assertEquals("name is wrong.", expected.getName(), actual.getName());
 			Assert.assertEquals("surname is wrong.", expected.getSurname(), actual.getSurname());
 			Assert.assertEquals("bookingState is wrong.", expected.getBookingState(), actual.getBookingState());
+			Assert.assertEquals("comment is wrong", expected.getComment(), actual.getComment());
+			Assert.assertEquals("division is wrong", expected.getDivision(), actual.getDivision());
+			Assert.assertEquals("startTime is wrong", expected.getStartTime(), actual.getStartTime());
+			Assert.assertEquals("endTime is wrong", expected.getEndTime(), actual.getEndTime());
 		}
 	}
 }

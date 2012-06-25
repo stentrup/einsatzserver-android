@@ -245,10 +245,18 @@ public class HtmlParser {
 				String surname = getStringForXpath(node, "td[4]");
 				String bookingStateString = getStringForXpath(node, "td[1]");
 				BookingState bookingState = BookingState.parseShortText(bookingStateString);
+				String comment = getStringForXpath(node, "td[8]");
+				String division = getStringForXpath(node, "td[2]");
+				LocalTime startTime = parseTime(getStringForXpath(node, "td[5]"));
+				LocalTime endTime = parseTime(getStringForXpath(node, "td[6]"));
 				Person person = new Person();
 				person.setName(name);
 				person.setSurname(surname);
 				person.setBookingState(bookingState);
+				person.setComment(comment);
+				person.setDivision(division);
+				person.setStartTime(startTime);
+				person.setEndTime(endTime);
 				personnel.add(person);
 			}
 			Collections.sort(personnel, new Comparator<Person>() {
@@ -310,10 +318,14 @@ public class HtmlParser {
 			return null;
 		}
 		String resultText = result.getTextContent();
-		if (resultText == null || resultText.trim().length() < 1) {
+		if (resultText == null) {
 			return null;
 		}
+		resultText = resultText.replace("\u00a0", "");
 		resultText = resultText.replaceAll("\\r\\n|\\r|\\n", System.getProperty("line.separator"));
+		if (resultText.trim().length() < 1) {
+			return null;
+		}
 		return resultText;
 	}
 
