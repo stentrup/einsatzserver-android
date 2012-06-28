@@ -212,7 +212,11 @@ public class OperationDetailsActivity extends GDActivity {
 		StringBuilder builder = new StringBuilder();
 		for (Person person : personnel) {
 			builder.append(person.getName()).append(", ").append(person.getSurname());
-			builder.append(" (").append(getString(person.getBookingState().getResourceId())).append(")");
+			builder.append(" (").append(getString(person.getBookingState().getResourceId()));
+			if (person.getComment() != null) {
+				builder.append(", \"").append(person.getComment()).append("\"");
+			}
+			builder.append(")");
 			builder.append(System.getProperty("line.separator"));
 		}
 		return builder.substring(0, Math.max(builder.length() - System.getProperty("line.separator").length(), 0));
