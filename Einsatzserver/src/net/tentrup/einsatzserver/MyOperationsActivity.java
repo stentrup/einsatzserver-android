@@ -2,7 +2,7 @@ package net.tentrup.einsatzserver;
 
 import java.util.List;
 
-import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
 import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
@@ -24,7 +24,7 @@ public class MyOperationsActivity extends AbstractOperationsActivity {
 
 	@Override
 	protected ResultWrapper<List<Operation>> getActivityResult() {
-		return new Communicator(getApplicationContext()).getMyOperations();
+		return CommunicatorSingleton.getCommunicator(getApplicationContext()).getMyOperations();
 	}
 
 	@Override

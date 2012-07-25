@@ -6,7 +6,7 @@ import greendroid.widget.NormalActionBarItem;
 
 import java.util.List;
 
-import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
 import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.ResultWrapper;
@@ -39,7 +39,7 @@ public class AllOperationsActivity extends AbstractOperationsActivity {
 
 	@Override
 	protected ResultWrapper<List<Operation>> getActivityResult() {
-		return new Communicator(getApplicationContext()).getAllOperations();
+		return CommunicatorSingleton.getCommunicator(getApplicationContext()).getAllOperations();
 	}
 
 	@Override

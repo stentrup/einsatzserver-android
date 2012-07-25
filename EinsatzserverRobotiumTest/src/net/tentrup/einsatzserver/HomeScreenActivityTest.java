@@ -5,6 +5,12 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
 
+/**
+ * Robotium-Test für die {@link HomeScreenActivity}.
+ *
+ * @author Tentrup
+ *
+ */
 public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<HomeScreenActivity> {
 
 	private Solo solo;
@@ -16,6 +22,11 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Hom
 	@Override
 	public void setUp() throws Exception {
 		solo = new Solo(getInstrumentation(), getActivity());
+	}
+
+	@Override
+	public void tearDown() throws Exception {
+		solo.finishOpenedActivities();
 	}
 
 	public void testDashboard() {
@@ -50,10 +61,5 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Hom
 	public void testAboutActivity() {
 		solo.clickOnImageButton(0);
 		solo.assertCurrentActivity("Expected Info activity", InfoActivity.class);
-	}
-
-	@Override
-	public void tearDown() throws Exception {
-		solo.finishOpenedActivities();
 	}
 }

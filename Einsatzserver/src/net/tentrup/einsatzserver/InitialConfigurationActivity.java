@@ -3,6 +3,7 @@ package net.tentrup.einsatzserver;
 import greendroid.app.GDActivity;
 import greendroid.widget.ActionBar;
 import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
 import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
 import android.app.AlertDialog;
@@ -231,7 +232,7 @@ public class InitialConfigurationActivity extends GDActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			m_result = new Communicator(getApplicationContext()).login(m_username, m_password);
+			m_result = CommunicatorSingleton.getCommunicator(getApplicationContext()).login(m_username, m_password);
 			return null;
 		}
 

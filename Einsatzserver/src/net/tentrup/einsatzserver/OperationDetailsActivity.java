@@ -7,7 +7,7 @@ import greendroid.widget.NormalActionBarItem;
 
 import java.util.List;
 
-import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
 import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
@@ -499,7 +499,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			m_result = new Communicator(getApplicationContext()).getOperationDetails(m_operation);
+			m_result = CommunicatorSingleton.getCommunicator(getApplicationContext()).getOperationDetails(m_operation);
 			return null;
 		}
 
@@ -554,7 +554,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			m_result = new Communicator(getApplicationContext()).executeBooking(m_inputOperation, m_comment);
+			m_result = CommunicatorSingleton.getCommunicator(getApplicationContext()).executeBooking(m_inputOperation, m_comment);
 			return null;
 		}
 		
