@@ -40,23 +40,22 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 		super(MyOperationsActivity.class);
 	}
 
+	private Operation createOperation(int id, String description, String date, BookingState bookingState) {
+		Operation operation = new Operation();
+		operation.setId(id);
+		operation.setDescription(description);
+		operation.setDate(LocalDate.parse(date));
+		operation.setBookingState(bookingState);
+		return operation;
+	}
+
 	@Override
 	public void setUp() throws Exception {
 		mockedCommunicator = Mockito.mock(Communicator.class);
 		when(mockedCommunicator.login(Mockito.anyString(), Mockito.anyString())).thenReturn(ResultStateEnum.SUCCESSFUL);
 		List<Operation> result = new ArrayList<Operation>();
-		Operation operation1 = new Operation();
-		operation1.setId(1);
-		operation1.setDescription("Testeintrag 1");
-		operation1.setDate(LocalDate.parse("2012-07-25"));
-		operation1.setBookingState(BookingState.CONFIRMED);
-		result.add(operation1);
-		Operation operation2 = new Operation();
-		operation2.setId(1);
-		operation2.setDescription("Testeintrag 2");
-		operation2.setDate(LocalDate.parse("2012-07-30"));
-		operation2.setBookingState(BookingState.CONFIRMED);
-		result.add(operation2);
+		result.add(createOperation(1, "Testeintrag 1", "2012-07-25", BookingState.CONFIRMED));
+		result.add(createOperation(2, "Testeintrag 2", "2012-07-30", BookingState.CONFIRMED));
 		when(mockedCommunicator.getMyOperations()).thenReturn(new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL));
 		CommunicatorSingleton.setCommunictor(mockedCommunicator);
 		solo = new Solo(getInstrumentation(), getActivity());
@@ -82,11 +81,13 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 			}
 		}
 		assertEquals(2, tableRows.size());
-		TableRow tableRow1 = tableRows.get(0);
-		TextView descriptionTextView1 = (TextView)tableRow1.findViewById(R.id.cell_description);
-		assertEquals("Testeintrag 1", descriptionTextView1.getText());
-		TableRow tableRow2 = tableRows.get(1);
-		TextView descriptionTextView2 = (TextView)tableRow2.findViewById(R.id.cell_description);
-		assertEquals("Testeintrag 2", descriptionTextView2.getText());
+		checkOperationTableRow(tableRows, 0, "Testeintrag 1");
+		checkOperationTableRow(tableRows, 1, "Testeintrag 2");
+	}
+
+	private void checkOperationTableRow(List<TableRow> tableRows, int index, String description) {
+		TableRow tableRow = tableRows.get(index);
+		TextView descriptionTextView = (TextView)tableRow.findViewById(R.id.cell_description);
+		assertEquals(description, descriptionTextView.getText());
 	}
 }
