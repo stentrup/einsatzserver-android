@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -81,13 +82,22 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 			}
 		}
 		assertEquals(2, tableRows.size());
-		checkOperationTableRow(tableRows, 0, "Testeintrag 1");
-		checkOperationTableRow(tableRows, 1, "Testeintrag 2");
+		checkOperationTableRow(tableRows, 0, LocalDate.parse("2012-07-25"), "Testeintrag 1");
+		checkOperationTableRow(tableRows, 1, LocalDate.parse("2012-07-30"), "Testeintrag 2");
 	}
 
-	private void checkOperationTableRow(List<TableRow> tableRows, int index, String description) {
+	private void checkOperationTableRow(List<TableRow> tableRows, int index, LocalDate date, String description) {
 		TableRow tableRow = tableRows.get(index);
 		TextView descriptionTextView = (TextView)tableRow.findViewById(R.id.cell_description);
 		assertEquals(description, descriptionTextView.getText());
+		TextView dayOfWeekView = (TextView)tableRow.findViewById(R.id.cell_day_of_week);
+		assertEquals(date.toString("EE"), dayOfWeekView.getText());
+		TextView dateTextView = (TextView)tableRow.findViewById(R.id.cell_date);
+		assertEquals(date.toString("dd.MM.yy"), dateTextView.getText());
+		ImageView stateImageView = (ImageView)tableRow.findViewById(R.id.cell_state_image);
+		assertNotNull(stateImageView.getDrawable());
+		assertEquals(View.VISIBLE, stateImageView.getVisibility());
+		TextView stateTextView = (TextView) tableRow.findViewById(R.id.cell_state_text);
+		assertEquals(View.GONE, stateTextView.getVisibility());
 	}
 }
