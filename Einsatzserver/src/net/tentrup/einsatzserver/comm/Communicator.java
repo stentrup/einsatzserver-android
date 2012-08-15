@@ -84,30 +84,30 @@ public class Communicator {
 		return new HtmlParser().parseMyOperationsPage(response);
 	}
 
-	public ResultWrapper<OperationDetails> getOperationDetails(int operationId) {
+	public ResultWrapper<OperationDetails> getOperationDetails(Operation inputOperation) {
 		ResultStateEnum loginResult = login();
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
-		String response = executeHttpGetRequest(getBaseUrl() + URL_OPERATION_DETAILS + operationId);
+		String response = executeHttpGetRequest(getBaseUrl() + URL_OPERATION_DETAILS + inputOperation.getId());
 		if (response == null) {
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 		}
-		return new HtmlParser().parseOperationDetailsPage(operationId, response);
+		return new HtmlParser().parseOperationDetailsPage(inputOperation, response);
 	}
 
-	public ResultWrapper<OperationDetails> executeBooking(int operationId, String comment) {
+	public ResultWrapper<OperationDetails> executeBooking(Operation inputOperation, String comment) {
 		ResultStateEnum loginResult = login();
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
 		try {
 			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
-			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + operationId));
+			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + inputOperation.getId()));
 			if (response == null) {
 				return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 			}
-			return new HtmlParser().parseOperationDetailsPage(operationId, response);
+			return new HtmlParser().parseOperationDetailsPage(inputOperation, response);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);

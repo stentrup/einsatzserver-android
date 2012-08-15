@@ -9,6 +9,7 @@ import java.util.List;
 
 import net.tentrup.einsatzserver.comm.Communicator;
 import net.tentrup.einsatzserver.config.PreferenceKeys;
+import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
@@ -62,13 +63,13 @@ public class OperationDetailsActivity extends GDActivity {
 	private ActionBarItem m_calendarAction;
 	private ActionBarItem m_bookingAction;
 	private int m_dialogShown;
-	private int m_operationId;
+	private Operation m_inputOperation;
 	private ResultWrapper<OperationDetails> m_resultWrapper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		m_operationId = getIntent().getIntExtra(AbstractOperationsActivity.OPERATION_ID, -1);
+		m_inputOperation = (Operation) getIntent().getSerializableExtra(AbstractOperationsActivity.OPERATION);
 		setActionBarContentView(R.layout.operation_details);
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.GONE);
@@ -86,7 +87,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 	private void startLoadingTask() {
 		Log.i(TAG, "Creating new background task.");
-		m_task = new LoadingTask(this, m_operationId);
+		m_task = new LoadingTask(this, m_inputOperation);
 		m_task.execute();
 	}
 
@@ -168,6 +169,13 @@ public class OperationDetailsActivity extends GDActivity {
 		addDetailsItem(layout, R.string.operation_personnel_count, personnelBookingCountBuilder.toString(), false);
 		addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), false);
 		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), false);
+		if (operationDetails.getLatestChangeDate() != null) {
+			String latestChangeText = Operation.printDateTime(operationDetails.getLatestChangeDate()) + " " +
+				getString(R.string.operation_oclock) + 
+				System.getProperty("line.separator") + 
+				operationDetails.getLatestChangeAuthor();
+			addDetailsItem(layout, R.string.operation_latestChange, latestChangeText, false);
+		}
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.VISIBLE);
 		// Populate action bar
@@ -459,7 +467,7 @@ public class OperationDetailsActivity extends GDActivity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				Editable value = input.getText();
 				String comment = value.toString();
-				m_task = new BookingTask(OperationDetailsActivity.this, m_operationId, comment);
+				m_task = new BookingTask(OperationDetailsActivity.this, m_inputOperation, comment);
 				m_task.execute();
 			}
 		});
@@ -482,16 +490,16 @@ public class OperationDetailsActivity extends GDActivity {
 		private OperationDetailsActivity m_activity;
 		private ResultWrapper<OperationDetails> m_result;
 		private boolean m_completed;
-		private final int m_operationId;
+		private final Operation m_operation;
 
-		private LoadingTask(OperationDetailsActivity activity, int operationId) {
+		private LoadingTask(OperationDetailsActivity activity, Operation operation) {
 			m_activity = activity;
-			m_operationId = operationId;
+			m_operation = operation;
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			m_result = new Communicator(getApplicationContext()).getOperationDetails(m_operationId);
+			m_result = new Communicator(getApplicationContext()).getOperationDetails(m_operation);
 			return null;
 		}
 
@@ -529,13 +537,13 @@ public class OperationDetailsActivity extends GDActivity {
 	private class BookingTask extends ActivityTask {
 
 		private OperationDetailsActivity m_activity;
-		private final int m_operationId;
+		private final Operation m_inputOperation;
 		private final String m_comment;
 		private ResultWrapper<OperationDetails> m_result;
 
-		public BookingTask(OperationDetailsActivity activity, int operationId, String comment) {
+		public BookingTask(OperationDetailsActivity activity, Operation inputOperation, String comment) {
 			m_activity = activity;
-			m_operationId = operationId;
+			m_inputOperation = inputOperation;
 			m_comment = comment;
 		}
 
@@ -546,7 +554,7 @@ public class OperationDetailsActivity extends GDActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			m_result = new Communicator(getApplicationContext()).executeBooking(m_operationId, m_comment);
+			m_result = new Communicator(getApplicationContext()).executeBooking(m_inputOperation, m_comment);
 			return null;
 		}
 		

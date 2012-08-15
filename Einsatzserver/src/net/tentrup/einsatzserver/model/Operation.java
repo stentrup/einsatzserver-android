@@ -1,8 +1,11 @@
 package net.tentrup.einsatzserver.model;
 
+import java.io.Serializable;
+
 import net.tentrup.einsatzserver.R;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
 import android.content.Context;
@@ -14,7 +17,9 @@ import android.content.Context;
  * @author Tentrup
  * 
  */
-public class Operation {
+public class Operation implements Serializable {
+
+	private static final long serialVersionUID = 4470751009754229314L;
 
 	private static final String DATE_FORMAT = "dd.MM.yy";
 	private static final String DAY_OF_WEEK_PREFIX = "EE";
@@ -31,6 +36,8 @@ public class Operation {
 	private int m_personnelRequested;
 	private int m_personnelBookingConfirmed;
 	private int m_personnelBookingRequested;
+	private LocalDateTime m_latestChangeDate;
+	private String m_latestChangeAuthor;
 
 	public int getId() {
 		return m_id;
@@ -131,6 +138,22 @@ public class Operation {
 		m_personnelBookingRequested = personnelBookingRequested;
 	}
 
+	public LocalDateTime getLatestChangeDate() {
+		return m_latestChangeDate;
+	}
+
+	public void setLatestChangeDate(LocalDateTime latestChangeDate) {
+		m_latestChangeDate = latestChangeDate;
+	}
+
+	public String getLatestChangeAuthor() {
+		return m_latestChangeAuthor;
+	}
+
+	public void setLatestChangeAuthor(String latestChangeAuthor) {
+		m_latestChangeAuthor = latestChangeAuthor;
+	}
+
 	public static String printDate(LocalDate localDate, boolean includeDayOfWeek, boolean longFormat) {
 		String format = DATE_FORMAT;
 		if (includeDayOfWeek) {
@@ -148,5 +171,12 @@ public class Operation {
 
 	public static String printTime(LocalTime localTime) {
 		return localTime.toString(TIME_FORMAT);
+	}
+
+	public static String printDateTime(LocalDateTime localDateTime) {
+		if (localDateTime == null) {
+			return "";
+		}
+		return printDate(localDateTime.toLocalDate(), false, true) + " " + printTime(localDateTime.toLocalTime());
 	}
 }

@@ -17,6 +17,8 @@ import android.content.Context;
  */
 public class OperationDetails extends Operation {
 
+	private static final long serialVersionUID = 8929560939219880159L;
+
 	private LocalDate m_endDate;
 	private LocalTime m_endTime;
 	private String m_reportLocation;

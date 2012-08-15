@@ -43,7 +43,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 	private static final int ALERT_DIALOG_PARSE_ERROR = 3;
 	private static final int ALERT_DIALOG_NO_OPERATIONS = 4;
 	private static final int COLUMNS_DIALOG = 5;
-	public static final String OPERATION_ID = "operationId";
+	public static final String OPERATION = "operation";
 
 	private ListRefresher m_task;
 	private boolean m_shownDialog;
@@ -158,7 +158,7 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 						Intent intent = new Intent(AbstractOperationsActivity.this, OperationDetailsActivity.class);
 						int operationId = operation.getId();
 						Log.i(TAG, "Details for operation id " + operationId);
-						intent.putExtra(OPERATION_ID, operationId);
+						intent.putExtra(OPERATION, operation);
 						startActivity(intent);
 					}
 				});

@@ -26,6 +26,7 @@ import org.htmlcleaner.DomSerializer;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.XPatherException;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -44,6 +45,7 @@ public class HtmlParser {
 
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy");
 	private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH:mm");
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("dd.MM.yyyy HH:mm");
 
 	private String parseName(String htmlContent) {
 		try {
@@ -141,6 +143,15 @@ public class HtmlParser {
 				} else {
 					operation.setDescription(infoNode.getTextContent());
 				}
+				Node latestChangeNode = cells.item(8);
+				NodeList latestChangeNodeChildren = latestChangeNode.getChildNodes();
+				if (latestChangeNodeChildren.getLength() > 2) {
+					operation.setLatestChangeAuthor(latestChangeNodeChildren.item(0).getTextContent());
+					String string = latestChangeNodeChildren.item(2).getTextContent();
+					String parseString = parseString(string);
+					LocalDateTime parseDateTime = parseDateTime(parseString);
+					operation.setLatestChangeDate(parseDateTime);
+				}
 			}
 		} catch (XPathException exc) {
 			exc.printStackTrace();
@@ -218,9 +229,11 @@ public class HtmlParser {
 		return new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL);
 	}
 
-	public ResultWrapper<OperationDetails> parseOperationDetailsPage(int operationId, String htmlContent) {
+	public ResultWrapper<OperationDetails> parseOperationDetailsPage(Operation inputOperation, String htmlContent) {
 		OperationDetails result = new OperationDetails();
-		result.setId(operationId);
+		result.setId(inputOperation.getId());
+		result.setLatestChangeAuthor(inputOperation.getLatestChangeAuthor());
+		result.setLatestChangeDate(inputOperation.getLatestChangeDate());
 		try {
 			Document root = new DomSerializer(new CleanerProperties()).createDOM(new HtmlCleaner().clean(htmlContent));
 			result.setDescription(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Bezeichnung\"]/../../td[2]"));
@@ -312,6 +325,13 @@ public class HtmlParser {
 		return TIME_FORMATTER.parseLocalTime(timeString);
 	}
 
+	private LocalDateTime parseDateTime(String dateTimeString) {
+		if (dateTimeString == null) {
+			return null;
+		}
+		return DATE_TIME_FORMATTER.parseLocalDateTime(dateTimeString);
+	}
+
 	private String getStringForXpath(Node root, String xpathExpression) throws XPatherException, XPathExpressionException, ParserConfigurationException {
 		Node result = getNodeForXpath(root, xpathExpression);
 		if (result == null) {
@@ -321,7 +341,12 @@ public class HtmlParser {
 		if (resultText == null) {
 			return null;
 		}
-		resultText = resultText.replace("\u00a0", "");
+		return parseString(resultText);
+	}
+
+	private String parseString(String inputString) {
+		String resultText = inputString.replace("\u00a0", " ");
+		resultText = resultText.replace("&nbsp;"," ");
 		resultText = resultText.replaceAll("\\r\\n|\\r|\\n", System.getProperty("line.separator"));
 		if (resultText.trim().length() < 1) {
 			return null;

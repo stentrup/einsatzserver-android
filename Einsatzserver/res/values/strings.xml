@@ -34,6 +34,7 @@
     <string name="operation.catering">Verpflegung wird gestellt</string>
     <string name="operation.catering.true">Ja</string>
     <string name="operation.catering.false">Nein</string>
+    <string name="operation.latestChange">Letzte Bearbeitung</string>
     <string name="bookingstate.requested">vorgemerkt</string>
     <string name="bookingstate.confirmed">gebucht</string>
     <string name="bookingstate.absent">abwesend</string>
