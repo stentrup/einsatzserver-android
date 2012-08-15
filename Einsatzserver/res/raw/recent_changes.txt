@@ -6,6 +6,13 @@
 </p>
 
 <p>
+<b>Version 0.7.2</b>
+<ul>
+<li>Falsche Darstellung von Umlauten in der Einsatzliste korrigiert</li>
+</ul>
+</p>
+
+<p>
 <b>Version 0.7</b>
 <ul>
 <li>Kompatibilität mit Android 3 und 4 verbessert</li>

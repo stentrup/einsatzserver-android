@@ -24,7 +24,6 @@ import net.tentrup.einsatzserver.model.ResultWrapper;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.DomSerializer;
 import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -39,6 +38,7 @@ import org.w3c.dom.NodeList;
  * 
  * @author Tentrup
  * 
+ * TODO Gemeinsamkeiten der Methoden parseAllOperations und parseMyOperations zusammenfassen
  */
 public class HtmlParser {
 
@@ -76,24 +76,22 @@ public class HtmlParser {
 
 	public ResultWrapper<List<Operation>> parseAllOperationsPage(String htmlContent) {
 		List<Operation> result = new ArrayList<Operation>();
-		HtmlCleaner cleaner = new HtmlCleaner();
-		TagNode node = cleaner.clean(htmlContent);
-		String expression = "//div[@id='rechtesFenster']/table/tbody";
 		try {
-			Object[] evaluateXPath = node.evaluateXPath(expression);
-			if (evaluateXPath == null || evaluateXPath.length < 1) {
-				return new ResultWrapper<List<Operation>>(null, ResultStateEnum.PARSE_ERROR);
+			Document root = new DomSerializer(new CleanerProperties()).createDOM(new HtmlCleaner().clean(htmlContent));
+			XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//div[@id='rechtesFenster']/table/tbody");
+			Node tbody = (Node) xpath.evaluate(root, XPathConstants.NODE);
+			if (tbody == null) {
+				return new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL);
 			}
-			TagNode tbody = (TagNode) evaluateXPath[0];
-			
-			TagNode[] rows = tbody.getAllElements(false);
-			for (int i = 1; i < rows.length; i++) {
+			NodeList rows = tbody.getChildNodes();
+
+			for (int i = 1; i < rows.getLength(); i++) {
 				Operation operation = new Operation();
 				result.add(operation);
-				TagNode[] cells = rows[i].getAllElements(false);
-				TagNode idNode = cells[0];
-				TagNode idANode = idNode.getAllElements(false)[0];
-				String href = idANode.getAttributeByName("href");
+				NodeList cells = rows.item(i).getChildNodes();
+				Node idNode = cells.item(0);
+				Node idANode = idNode.getChildNodes().item(0);
+				String href = idANode.getAttributes().getNamedItem("href").getTextContent();
 				// einsatz_uebersicht.php?einsatz_id=1234
 				int startIndex = href.lastIndexOf("einsatz_id=");
 				if (startIndex > 0) {
@@ -107,11 +105,11 @@ public class HtmlParser {
 					}
 					operation.setId(Integer.parseInt(idString));
 				}
-				TagNode typeNode = cells[1];
-				operation.setType(typeNode.getText().toString());
-				TagNode personnelCountNode = cells[3];
+				Node typeNode = cells.item(1);
+				operation.setType(typeNode.getTextContent());
+				Node personnelCountNode = cells.item(3);
 				Pattern personnelCountPattern = Pattern.compile("(\\((\\d+)\\)\\s)?(\\d+)/(\\d+)");
-				Matcher personnelCountMatcher = personnelCountPattern.matcher(personnelCountNode.getText().toString());
+				Matcher personnelCountMatcher = personnelCountPattern.matcher(personnelCountNode.getTextContent());
 				if (personnelCountMatcher.find()) {
 					String personnelBookingRequested = personnelCountMatcher.group(2);
 					operation.setPersonnelBookingRequested(parseInt(personnelBookingRequested));
@@ -120,33 +118,36 @@ public class HtmlParser {
 					String personnelRequested = personnelCountMatcher.group(4);
 					operation.setPersonnelRequested(parseInt(personnelRequested));
 				}
-				TagNode datumNode = cells[5];
-				operation.setDate(parseDate(datumNode.getText().toString()));
-				TagNode uhrzeitNode = cells[6];
-				List uhrzeitNodeChildren = uhrzeitNode.getChildren();
-				if (uhrzeitNodeChildren.size() > 2) {
-					Object uhrzeitVonNode = uhrzeitNodeChildren.get(0);
-					operation.setStartTime(parseTime(uhrzeitVonNode.toString()));
+				Node datumNode = cells.item(5);
+				operation.setDate(parseDate(datumNode.getTextContent()));
+				Node uhrzeitNode = cells.item(6);
+				NodeList uhrzeitNodeChildren = uhrzeitNode.getChildNodes();
+				if (uhrzeitNodeChildren.getLength() > 2) {
+					Node uhrzeitVonNode = uhrzeitNodeChildren.item(0);
+					operation.setStartTime(parseTime(uhrzeitVonNode.getTextContent()));
 				} else {
-					String startTime = uhrzeitNode.getText().toString();
+					String startTime = uhrzeitNode.getTextContent();
 					if (startTime.trim().length() > 0) {
 						operation.setStartTime(parseTime(startTime));
 					}
 				}
-				TagNode infoNode = cells[7];
-				List infoNodeChildren = infoNode.getChildren();
-				if (infoNodeChildren.size() > 2) {
-					Object beschreibungNode = infoNodeChildren.get(0);
-					Object ortNode = infoNodeChildren.get(2);
-					operation.setDescription(beschreibungNode.toString());
-					operation.setLocation(ortNode.toString());
+				Node infoNode = cells.item(7);
+				NodeList infoNodeChildren = infoNode.getChildNodes();
+				if (infoNodeChildren.getLength() > 2) {
+					Node beschreibungNode = infoNodeChildren.item(0);
+					Node ortNode = infoNodeChildren.item(2);
+					operation.setDescription(beschreibungNode.getTextContent());
+					operation.setLocation(ortNode.getTextContent());
 				} else {
-					operation.setDescription(infoNode.getText().toString());
+					operation.setDescription(infoNode.getTextContent());
 				}
 			}
-		} catch (XPatherException e) {
-			e.printStackTrace();
+		} catch (XPathException exc) {
+			exc.printStackTrace();
 			return new ResultWrapper<List<Operation>>(null, ResultStateEnum.PARSE_ERROR);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+			new ResultWrapper<List<Operation>>(null, ResultStateEnum.PARSE_ERROR);
 		}
 		return new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL);
 	}
