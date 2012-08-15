@@ -1,5 +1,6 @@
 package net.tentrup.einsatzserver;
 
+import static net.tentrup.einsatzserver.TestUtil.createOperation;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -43,15 +44,6 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 
 	public MyOperationsActivityTest() {
 		super(MyOperationsActivity.class);
-	}
-
-	private Operation createOperation(int id, String description, String date, BookingState bookingState) {
-		Operation operation = new Operation();
-		operation.setId(id);
-		operation.setDescription(description);
-		operation.setDate(LocalDate.parse(date));
-		operation.setBookingState(bookingState);
-		return operation;
 	}
 
 	@Override

@@ -1,6 +1,21 @@
 package net.tentrup.einsatzserver;
 
+import static net.tentrup.einsatzserver.TestUtil.createOperation;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
+import net.tentrup.einsatzserver.comm.Communicator;
+import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
+import net.tentrup.einsatzserver.model.BookingState;
+import net.tentrup.einsatzserver.model.Operation;
+import net.tentrup.einsatzserver.model.ResultStateEnum;
+import net.tentrup.einsatzserver.model.ResultWrapper;
+
+import org.mockito.Mockito;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -14,6 +29,7 @@ import com.jayway.android.robotium.solo.Solo;
 public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<HomeScreenActivity> {
 
 	private Solo solo;
+	private Communicator mockedCommunicator;
 
 	public HomeScreenActivityTest() {
 		super(HomeScreenActivity.class);
@@ -21,6 +37,16 @@ public class HomeScreenActivityTest extends ActivityInstrumentationTestCase2<Hom
 
 	@Override
 	public void setUp() throws Exception {
+		mockedCommunicator = Mockito.mock(Communicator.class);
+		when(mockedCommunicator.login(Mockito.anyString(), Mockito.anyString())).thenReturn(ResultStateEnum.SUCCESSFUL);
+		List<Operation> result = new ArrayList<Operation>();
+		Operation operation1 = createOperation(1, "Testeintrag 1", "2012-07-25", BookingState.CONFIRMED);
+		result.add(operation1);
+		Operation operation2 = createOperation(2, "Testeintrag 2", "2012-07-30", BookingState.CONFIRMED);
+		result.add(operation2);
+		when(mockedCommunicator.getMyOperations()).thenReturn(new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL));
+		when(mockedCommunicator.getAllOperations()).thenReturn(new ResultWrapper<List<Operation>>(result, ResultStateEnum.SUCCESSFUL));
+		CommunicatorSingleton.setCommunictor(mockedCommunicator);
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
