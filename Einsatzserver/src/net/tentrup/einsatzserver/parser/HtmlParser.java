@@ -337,17 +337,30 @@ public class HtmlParser {
 		if (result == null) {
 			return null;
 		}
-		String resultText = result.getTextContent();
-		if (resultText == null) {
-			return null;
+		StringBuilder builder = new StringBuilder();
+		concatTextFromNode(builder, result.getFirstChild());
+		String resultText = parseString(builder.toString());
+		return resultText;
+	}
+
+	private void concatTextFromNode(StringBuilder builder, Node node) {
+		if (node != null) {
+			if ("#text".equals(node.getNodeName())) {
+				builder.append(removeLineSeparators(node.getTextContent()));
+			} else if ("br".equals(node.getNodeName())) {
+				builder.append(System.getProperty("line.separator"));
+			}
+			concatTextFromNode(builder, node.getNextSibling());
 		}
-		return parseString(resultText);
+	}
+
+	private String removeLineSeparators(String inputString) {
+		return inputString.replaceAll("\\r\\n|\\r|\\n", "");
 	}
 
 	private String parseString(String inputString) {
-		String resultText = inputString.replace("\u00a0", " ");
-		resultText = resultText.replace("&nbsp;"," ");
-		resultText = resultText.replaceAll("\\r\\n|\\r|\\n", System.getProperty("line.separator"));
+		String resultText = inputString;
+		resultText = inputString.replace("\u00a0", " ");
 		if (resultText.trim().length() < 1) {
 			return null;
 		}

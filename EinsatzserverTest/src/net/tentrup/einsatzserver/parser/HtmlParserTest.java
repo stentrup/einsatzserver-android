@@ -88,15 +88,10 @@ public class HtmlParserTest {
 		commentBuilder.append("....");
 		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append(System.getProperty("line.separator"));
-		commentBuilder.append(System.getProperty("line.separator"));
-		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append("abc");
 		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append(System.getProperty("line.separator"));
-		commentBuilder.append(System.getProperty("line.separator"));
-		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append("..:");
-		commentBuilder.append(System.getProperty("line.separator"));
 		commentBuilder.append(System.getProperty("line.separator"));
 		List<Person> personnel = new ArrayList<Person>();
 		personnel.add(getPerson("D.", "M.", BookingState.CONFIRMED, null, "Mitte", null, null));
