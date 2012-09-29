@@ -24,7 +24,6 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -58,6 +57,7 @@ public class OperationDetailsActivity extends GDActivity {
 	private static final int ALERT_DIALOG_LOADING_ERROR = 5;
 	private static final int ALERT_DIALOG_PARSE_ERROR = 6;
 	private static final int ALERT_DIALOG_BOOKING_FAILED = 7;
+	public static final String OPERATION_DETAILS = "operationDetails";
 
 	private ActivityTask m_task;
 	private ActionBarItem m_calendarAction;
@@ -144,19 +144,21 @@ public class OperationDetailsActivity extends GDActivity {
 
 	private void setOperationDetails(final ResultWrapper<OperationDetails> result) {
 		m_resultWrapper = result;
-		OperationDetails operationDetails = result.getResult();
+		final OperationDetails operationDetails = result.getResult();
 		LinearLayout layout = (LinearLayout) findViewById(R.id.operation_details_layout);
 		layout.removeAllViews();
-		addDetailsItem(layout, R.string.operation_description, operationDetails.getDescription(), false);
-		addDetailsItem(layout, R.string.operation_location, operationDetails.getLocation(), true);
-		addDetailsItem(layout, R.string.operation_begin, operationDetails.getBegin(this, true), false);
-		addDetailsItem(layout, R.string.operation_end, operationDetails.getEnd(this, true), false);
-		addDetailsItem(layout, R.string.operation_report_location, operationDetails.getReportLocation(), true);
-		addDetailsItem(layout, R.string.operation_report_time, operationDetails.getReportDateComplete(this, true), false);
+		addDetailsItem(layout, R.string.operation_description, operationDetails.getDescription(), null);
+		String locationText = operationDetails.getLocation();
+		addDetailsItem(layout, R.string.operation_location, locationText, new MapsButton(this, locationText));
+		addDetailsItem(layout, R.string.operation_begin, operationDetails.getBegin(this, true), null);
+		addDetailsItem(layout, R.string.operation_end, operationDetails.getEnd(this, true), null);
+		String reportLocationText = operationDetails.getReportLocation();
+		addDetailsItem(layout, R.string.operation_report_location, reportLocationText, new MapsButton(this, reportLocationText));
+		addDetailsItem(layout, R.string.operation_report_time, operationDetails.getReportDateComplete(this, true), null);
 		if (operationDetails.getComment() != null) {
-			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), false);
+			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), null);
 		}
-		addDetailsItem(layout, R.string.operation_personnel_requested, "" + operationDetails.getPersonnelRequested(), false);
+		addDetailsItem(layout, R.string.operation_personnel_requested, "" + operationDetails.getPersonnelRequested(), null);
 		StringBuilder personnelBookingCountBuilder = new StringBuilder();
 		personnelBookingCountBuilder.append(operationDetails.getPersonnelBookingConfirmed());
 		if (operationDetails.getPersonnelBookingRequested() > 0) {
@@ -166,15 +168,32 @@ public class OperationDetailsActivity extends GDActivity {
 			personnelBookingCountBuilder.append(getString(R.string.bookingstate_requested));
 			personnelBookingCountBuilder.append(")");
 		}
-		addDetailsItem(layout, R.string.operation_personnel_count, personnelBookingCountBuilder.toString(), false);
-		addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), false);
-		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), false);
+		addDetailsItem(layout, R.string.operation_personnel_count, personnelBookingCountBuilder.toString(), null);
+		if (operationDetails.getPersonnel().size() > 0) {
+			addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), new ImageButtonDefinition() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(OperationDetailsActivity.this, OperationPersonnelActivity.class);
+					int operationId = operationDetails.getId();
+					Log.i(TAG, "Personnel for operation id " + operationId);
+					intent.putExtra(OPERATION_DETAILS, operationDetails);
+					startActivity(intent);
+				}
+				
+				@Override
+				public int getImageResourceId() {
+					return R.drawable.magnifier;
+				}
+			});
+		}
+		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), null);
 		if (operationDetails.getLatestChangeDate() != null) {
 			String latestChangeText = Operation.printDateTime(operationDetails.getLatestChangeDate()) + " " +
 				getString(R.string.operation_oclock) + 
 				System.getProperty("line.separator") + 
 				operationDetails.getLatestChangeAuthor();
-			addDetailsItem(layout, R.string.operation_latestChange, latestChangeText, false);
+			addDetailsItem(layout, R.string.operation_latestChange, latestChangeText, null);
 		}
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.VISIBLE);
@@ -187,32 +206,19 @@ public class OperationDetailsActivity extends GDActivity {
 		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);
 	}
 
-	private void addDetailsItem(ViewGroup parent, int labelResourceId, final String text, boolean includeMapsLink) {
+	private void addDetailsItem(ViewGroup parent, int labelResourceId, final String text, ImageButtonDefinition btnDefinition) {
 		RelativeLayout itemLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.operation_details_item, null);
 		parent.addView(itemLayout);
 		TextView labelView = (TextView) itemLayout.findViewById(R.id.operation_details_item_label);
 		labelView.setText(labelResourceId);
 		TextView textView = (TextView) itemLayout.findViewById(R.id.operation_details_item_text);
 		textView.setText(text);
-		ImageButton linkButton = (ImageButton) itemLayout.findViewById(R.id.operation_details_item_image);
-		if (includeMapsLink) {
-			linkButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					showOnMap(text);
-				}
-			});
+		ImageButton actionButton = (ImageButton) itemLayout.findViewById(R.id.operation_details_item_image);
+		if (btnDefinition != null) {
+			actionButton.setImageResource(btnDefinition.getImageResourceId());
+			actionButton.setOnClickListener(btnDefinition);
 		} else {
-			linkButton.setVisibility(View.GONE);
-		}
-	}
-
-	private void showOnMap(String location) {
-		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + location));
-		try {
-			startActivity(intent);
-		} catch (ActivityNotFoundException exc) {
-			Toast.makeText(this, R.string.alert_map_error, Toast.LENGTH_LONG).show();
+			actionButton.setVisibility(View.GONE);
 		}
 	}
 

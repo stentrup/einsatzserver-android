@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:src="@drawable/map_marker" />

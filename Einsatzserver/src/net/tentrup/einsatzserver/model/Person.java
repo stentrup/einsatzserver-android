@@ -1,8 +1,12 @@
 package net.tentrup.einsatzserver.model;
 
+import java.io.Serializable;
+
 import org.joda.time.LocalTime;
 
-public class Person {
+public class Person implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String m_name;
 	private String m_surname;
