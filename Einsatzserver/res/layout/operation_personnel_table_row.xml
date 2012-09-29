@@ -4,29 +4,37 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
     <TextView
+        android:id="@+id/person_state"
+        style="@style/Font.Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp" />
+    <TextView
         android:id="@+id/person_division"
-        android:background="@drawable/table_cell"
+        style="@style/Font.Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp" />
+    <TextView
+        android:id="@+id/person_surname"
         style="@style/Font.Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp" />
     <TextView
         android:id="@+id/person_name"
-        android:background="@drawable/table_cell"
         style="@style/Font.Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp" />
     <TextView
-        android:id="@+id/person_state"
-        android:background="@drawable/table_cell"
+        android:id="@+id/person_qualification"
         style="@style/Font.Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp" />
     <TextView
         android:id="@+id/person_comment"
-        android:background="@drawable/table_cell"
         style="@style/Font.Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

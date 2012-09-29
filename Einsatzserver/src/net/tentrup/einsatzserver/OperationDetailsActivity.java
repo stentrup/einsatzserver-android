@@ -225,7 +225,7 @@ public class OperationDetailsActivity extends GDActivity {
 	private String toText(List<Person> personnel) {
 		StringBuilder builder = new StringBuilder();
 		for (Person person : personnel) {
-			builder.append(person.getName()).append(", ").append(person.getSurname());
+			builder.append(person.getSurname()).append(", ").append(person.getName());
 			builder.append(" (").append(getString(person.getBookingState().getResourceId())).append(")");
 			builder.append(System.getProperty("line.separator"));
 		}

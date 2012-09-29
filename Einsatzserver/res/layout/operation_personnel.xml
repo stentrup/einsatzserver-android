@@ -20,7 +20,6 @@
         android:padding="4dp" >
 <TableLayout
     android:id="@+id/personnelTableLayout"
-    android:background="@drawable/table_cell"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     <TableRow
@@ -28,32 +27,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
         <TextView
-            android:id="@+id/tableHeaderDivision"
-            android:background="@drawable/table_cell"
-            style="@style/Font.Details.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@string/operation.personnel.division" />
-        <TextView
-            android:id="@+id/tableHeaderName"
-            android:background="@drawable/table_cell"
-            style="@style/Font.Details.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@string/operation.personnel.name" />
-        <TextView
             android:id="@+id/tableHeaderState"
-            android:background="@drawable/table_cell"
             style="@style/Font.Details.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.state" />
         <TextView
+            android:id="@+id/tableHeaderDivision"
+            style="@style/Font.Details.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/operation.personnel.division" />
+        <TextView
+            android:id="@+id/tableHeaderSurname"
+            style="@style/Font.Details.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/operation.personnel.surname" />
+        <TextView
+            android:id="@+id/tableHeaderName"
+            style="@style/Font.Details.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/operation.personnel.name" />
+        <TextView
+            android:id="@+id/tableHeaderQualification"
+            style="@style/Font.Details.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/operation.personnel.qualification" />
+        <TextView
             android:id="@+id/tableHeaderComment"
-            android:background="@drawable/table_cell"
             style="@style/Font.Details.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

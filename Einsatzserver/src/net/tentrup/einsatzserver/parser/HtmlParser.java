@@ -254,8 +254,9 @@ public class HtmlParser {
 			NodeList nodeList = getNodeListForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Dienststunden:\"]/../../../../following-sibling::table/tbody/tr");
 			for (int i = 1; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);
-				String name = getStringForXpath(node, "td[3]");
-				String surname = getStringForXpath(node, "td[4]");
+				String surname = getStringForXpath(node, "td[3]");
+				String name = getStringForXpath(node, "td[4]");
+				String qualification = getStringForXpath(node, "td[5]");
 				String bookingStateString = getStringForXpath(node, "td[1]");
 				BookingState bookingState = BookingState.parseShortText(bookingStateString);
 				String comment = getStringForXpath(node, "td[9]");
@@ -270,22 +271,23 @@ public class HtmlParser {
 				person.setDivision(division);
 				person.setStartTime(startTime);
 				person.setEndTime(endTime);
+				person.setQualification(qualification);
 				personnel.add(person);
 			}
 			Collections.sort(personnel, new Comparator<Person>() {
 				@Override
 				public int compare(Person lhs, Person rhs) {
-					if (lhs.getName() == null || rhs.getName() == null) {
-						return 0;
-					}
-					int nameCompare = lhs.getName().compareTo(rhs.getName());
-					if (nameCompare != 0) {
-						return nameCompare;
-					}
 					if (lhs.getSurname() == null || rhs.getSurname() == null) {
 						return 0;
 					}
-					return lhs.getSurname().compareTo(rhs.getSurname());
+					int nameCompare = lhs.getSurname().compareTo(rhs.getSurname());
+					if (nameCompare != 0) {
+						return nameCompare;
+					}
+					if (lhs.getName() == null || rhs.getName() == null) {
+						return 0;
+					}
+					return lhs.getName().compareTo(rhs.getName());
 				}
 			});
 			int bookingRequestedCount = 0;

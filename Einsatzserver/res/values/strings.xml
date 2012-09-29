@@ -32,8 +32,10 @@
     <string name="operation.comment">Bemerkung</string>
     <string name="operation.personnel">Einsatzkräfte</string>
     <string name="operation.personnel.division">Ber.</string>
-    <string name="operation.personnel.name">Name</string>
-    <string name="operation.personnel.state">Status</string>
+    <string name="operation.personnel.surname">Name</string>
+    <string name="operation.personnel.name">Vorname</string>
+    <string name="operation.personnel.state">St.</string>
+    <string name="operation.personnel.qualification">Ausb.</string>
     <string name="operation.personnel.comment">Bemerkungen</string>
     <string name="operation.catering">Verpflegung wird gestellt</string>
     <string name="operation.catering.true">Ja</string>

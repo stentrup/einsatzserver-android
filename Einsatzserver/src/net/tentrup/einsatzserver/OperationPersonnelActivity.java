@@ -24,12 +24,18 @@ public class OperationPersonnelActivity extends GDActivity {
 		setActionBarContentView(R.layout.operation_personnel);
 		TableLayout layout = (TableLayout) findViewById(R.id.personnelTableLayout);
 		for (Person person : details.getPersonnel()) {
+			TextView textView = new TextView(this);
+			textView.setBackgroundResource(R.color.color_hr);
+			textView.setHeight(1);
+			layout.addView(textView);
 			TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.operation_personnel_table_row, null);
 			layout.addView(tableRow);
 			setTextForView(tableRow, person.getDivision(), R.id.person_division);
-			setTextForView(tableRow, person.getName() + ", " + person.getSurname(), R.id.person_name);
-			setTextForView(tableRow, getString(person.getBookingState().getResourceId()), R.id.person_state);
+			setTextForView(tableRow, person.getSurname(), R.id.person_surname);
+			setTextForView(tableRow, person.getName(), R.id.person_name);
+			setTextForView(tableRow, getString(person.getBookingState().getResourceIdShort()), R.id.person_state);
 			setTextForView(tableRow, person.getComment(), R.id.person_comment);
+			setTextForView(tableRow, person.getQualification(), R.id.person_qualification);
 		}
 	}
 

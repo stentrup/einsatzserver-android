@@ -15,6 +15,7 @@ public class Person implements Serializable {
 	private String m_comment;
 	private LocalTime m_startTime;
 	private LocalTime m_endTime;
+	private String m_qualification;
 
 	public String getName() {
 		return m_name;
@@ -57,5 +58,11 @@ public class Person implements Serializable {
 	}
 	public void setEndTime(LocalTime endTime) {
 		m_endTime = endTime;
+	}
+	public String getQualification() {
+		return m_qualification;
+	}
+	public void setQualification(String qualification) {
+		m_qualification = qualification;
 	}
 }
