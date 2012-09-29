@@ -33,6 +33,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.state" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderDivision"
             style="@style/Font.Details.Bold"
@@ -40,6 +44,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.division" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderSurname"
             style="@style/Font.Details.Bold"
@@ -47,6 +55,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.surname" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderName"
             style="@style/Font.Details.Bold"
@@ -54,6 +66,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.name" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderQualification"
             style="@style/Font.Details.Bold"
@@ -61,6 +77,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.qualification" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderComment"
             style="@style/Font.Details.Bold"
