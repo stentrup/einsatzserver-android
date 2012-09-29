@@ -37,6 +37,10 @@ public class OperationPersonnelActivity extends GDActivity {
 			setTextForView(tableRow, person.getComment(), R.id.person_comment);
 			setTextForView(tableRow, person.getQualification(), R.id.person_qualification);
 		}
+		TextView textView = new TextView(this);
+		textView.setBackgroundResource(R.color.color_hr);
+		textView.setHeight(1);
+		layout.addView(textView);
 	}
 
 	private void setTextForView(View parent, String text, int viewResourceId) {

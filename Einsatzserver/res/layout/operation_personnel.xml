@@ -22,10 +22,17 @@
     android:id="@+id/personnelTableLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_hr"/>
     <TableRow
         android:id="@+id/tableHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
         <TextView
             android:id="@+id/tableHeaderState"
             style="@style/Font.Details.Bold"
@@ -88,6 +95,10 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@string/operation.personnel.comment" />
+	    <View 
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:background="@color/color_hr"/>
     </TableRow>
 </TableLayout>
     </LinearLayout>

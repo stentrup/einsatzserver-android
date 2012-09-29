@@ -3,6 +3,10 @@
     android:id="@+id/tableRow"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
+    <View 
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@color/color_hr"/>
     <TextView
         android:id="@+id/person_state"
         style="@style/Font.Details"
@@ -59,4 +63,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp" />
+    <View 
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@color/color_hr"/>
 </TableRow>
