@@ -113,7 +113,26 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 		assertTrue(solo.waitForText(getActivity().getString(R.string.details_title)));
 		verify(mockedCommunicator).getOperationDetails(Mockito.any(Operation.class));
 		verifyNoMoreInteractions(mockedCommunicator);
-		//TODO: Details testen
+		//Einsatzdetails testen
+		checkOperationDetailsItem(R.string.operation_description, "Testeintrag 1");
+		checkOperationDetailsItem(R.string.operation_location, "Düsseldorf");
+		checkOperationDetailsItem(R.string.operation_begin, "Mi. 25.07.2012 13:00 Uhr");
+		checkOperationDetailsItem(R.string.operation_end, "Mi. 25.07.2012 20:00 Uhr");
+		checkOperationDetailsItem(R.string.operation_report_location, "Treffpunkt");
+		checkOperationDetailsItem(R.string.operation_report_time, "Mi. 25.07.2012 12:30 Uhr");
+		checkOperationDetailsItem(R.string.operation_personnel_requested, "4");
+		checkOperationDetailsItem(R.string.operation_personnel_count, "0");
+		checkOperationDetailsItem(R.string.operation_latestChange, "30.06.2012 21:30 Uhr" + System.getProperty("line.separator") + "Mr. X");
+		checkOperationDetailsItem(R.string.operation_catering, "Nein");
+	}
+
+	private void checkOperationDetailsItem(int labelResourceId, String expectedText) {
+		assertTrue(solo.searchText(getActivity().getString(labelResourceId), true));
+		TextView labelTextView = solo.getText(getActivity().getString(labelResourceId), true);
+		assertNotNull(labelTextView);
+		View parent = (View) labelTextView.getParent();
+		TextView textView = (TextView) parent.findViewById(R.id.operation_details_item_text);
+		assertEquals(expectedText, textView.getText());
 	}
 
 	private List<TableRow> getTableRows() {
