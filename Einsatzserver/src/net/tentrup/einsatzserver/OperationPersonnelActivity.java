@@ -3,6 +3,9 @@ package net.tentrup.einsatzserver;
 import greendroid.app.GDActivity;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
+
+import org.joda.time.LocalTime;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TableLayout;
@@ -36,6 +39,8 @@ public class OperationPersonnelActivity extends GDActivity {
 			setTextForView(tableRow, getString(person.getBookingState().getResourceIdShort()), R.id.person_state);
 			setTextForView(tableRow, person.getComment(), R.id.person_comment);
 			setTextForView(tableRow, person.getQualification(), R.id.person_qualification);
+			setTextForView(tableRow, person.getStartTime(), R.id.person_startTime);
+			setTextForView(tableRow, person.getEndTime(), R.id.person_endTime);
 		}
 		TextView textView = new TextView(this);
 		textView.setBackgroundResource(R.color.color_hr);
@@ -46,5 +51,13 @@ public class OperationPersonnelActivity extends GDActivity {
 	private void setTextForView(View parent, String text, int viewResourceId) {
 		TextView textView = (TextView) parent.findViewById(viewResourceId);
 		textView.setText(text);
+	}
+
+	private void setTextForView(View parent, LocalTime time, int viewResourceId) {
+		String text = "";
+		if (time != null) {
+			text = time.toString("HH:mm") + " " + getString(R.string.operation_oclock);
+		}
+		setTextForView(parent, text, viewResourceId);
 	}
 }

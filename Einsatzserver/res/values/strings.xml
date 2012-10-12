@@ -36,6 +36,8 @@
     <string name="operation.personnel.name">Vorname</string>
     <string name="operation.personnel.state">St.</string>
     <string name="operation.personnel.qualification">Ausb.</string>
+    <string name="operation.personnel.startTime">Dienstbeginn</string>
+    <string name="operation.personnel.endTime">Dienstende</string>
     <string name="operation.personnel.comment">Bemerkungen</string>
     <string name="operation.catering">Verpflegung wird gestellt</string>
     <string name="operation.catering.true">Ja</string>

@@ -58,6 +58,26 @@
         android:layout_height="fill_parent"
         android:background="@color/color_hr"/>
     <TextView
+        android:id="@+id/person_startTime"
+        style="@style/Font.Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp" />
+    <View 
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@color/color_hr"/>
+    <TextView
+        android:id="@+id/person_endTime"
+        style="@style/Font.Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp" />
+    <View 
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@color/color_hr"/>
+    <TextView
         android:id="@+id/person_comment"
         style="@style/Font.Details"
         android:layout_width="wrap_content"
