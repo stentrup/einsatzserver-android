@@ -136,6 +136,7 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 	}
 
 	private List<TableRow> getTableRows() {
+		solo.waitForText(getActivity().getString(R.string.my_title));
 		TableLayout table = (TableLayout)solo.getView(R.id.operations_table);
 		List<TableRow> tableRows = new ArrayList<TableRow>();
 		for (int i = 0; i < table.getChildCount(); i++) {
