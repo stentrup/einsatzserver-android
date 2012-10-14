@@ -64,7 +64,9 @@
     <string name="operation.personnel_short">EK</string>
     <string name="configuration.calendar">Kalender-Einstellungen</string>
     <string name="configuration.calendar.location">Ort</string>
+    <string name="configuration.calendar.location.summary">Meldeort oder Einsatzort als Ort für den Kalendereintrag festlegen</string>
     <string name="configuration.calendar.starttime">Anfangszeit</string>
+    <string name="configuration.calendar.starttime.summary">Meldezeitpunkt oder Einsatzbeginn als Anfangszeit für den Kalendereintrag festlegen</string>
     <string name="eula.accept">Annehmen</string>
     <string name="eula.reject">Ablehnen</string>
     <string name="eula.title">Endbenutzer-Lizenzvereinbarung</string>

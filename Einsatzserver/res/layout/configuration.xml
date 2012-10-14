@@ -14,12 +14,14 @@
 	    <ListPreference
             android:key="configuration.calendar.location"
             android:title="@string/configuration.calendar.location"
+            android:summary="@string/configuration.calendar.location.summary"
             android:defaultValue="report"
             android:entries="@array/location"
             android:entryValues="@array/locationValues" />
 	    <ListPreference
             android:key="configuration.calendar.starttime"
             android:title="@string/configuration.calendar.starttime"
+            android:summary="@string/configuration.calendar.starttime.summary"
             android:defaultValue="report"
             android:entries="@array/starttime"
             android:entryValues="@array/starttimeValues" />	  
