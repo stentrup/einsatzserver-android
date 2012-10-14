@@ -1,2 +1,4 @@
 bin
 /user.properties
+/gen
+/target
