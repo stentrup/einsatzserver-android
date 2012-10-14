@@ -81,12 +81,9 @@
     <string name="button.login">Anmelden</string>
     <string name="initial_configuration.introduction">Bitte geben Sie Ihre Zugangsdaten für den Einsatzserver ein.</string>
     <string name="initial_configuration">Initiale Konfiguration</string>
-    <string name="configuration.ui">Ansicht</string>
     <string name="configuration.ui.showRequestedBookingsCount">Vormerkungen</string>
-    <string name="configuration.ui.showRequestedBookingsCountSummary">Anzahl der Vormerkungen in der Einsatzliste anzeigen</string>
-    <string name="alert.map_error">Keine geeignete Applikation gefunden!</string>
     <string name="configuration.ui.showDayOfWeek">Wochentag</string>
-    <string name="configuration.ui.showDayOfWeekSummary">Wochentag in der Einsatzliste anzeigen</string>
+    <string name="alert.map_error">Keine geeignete Applikation gefunden!</string>
     <string name="visible_columns">Sichtbare Spalten</string>
     <string name="license.title">Lizenz</string>
     <string name="changes.title">Neu</string>
