@@ -27,6 +27,8 @@ public class OperationDetails extends Operation {
 	private boolean m_catering;
 	private String m_comment;
 	private List<Person> m_personnel;
+	private String m_contactPerson;
+	private String m_contactPersonPhone;
 
 	public LocalDate getEndDate() {
 		return m_endDate;
@@ -104,6 +106,22 @@ public class OperationDetails extends Operation {
 
 	public void setPersonnel(List<Person> personnel) {
 		m_personnel = personnel;
+	}
+
+	public String getContactPerson() {
+		return m_contactPerson;
+	}
+
+	public void setContactPerson(String contactPerson) {
+		m_contactPerson = contactPerson;
+	}
+
+	public String getContactPersonPhone() {
+		return m_contactPersonPhone;
+	}
+
+	public void setContactPersonPhone(String contactPersonPhone) {
+		m_contactPersonPhone = contactPersonPhone;
 	}
 
 	public String getReportDateComplete(Context context, boolean includeDayOfWeek) {

@@ -7,23 +7,19 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
-public class MapsButton implements ImageButtonDefinition {
+public class CallButton implements ImageButtonDefinition {
 
-	private final String m_text;
+	private final String m_phoneNumber;
 	private final Activity m_parent;
 
-	public MapsButton(Activity parent, String text) {
+	public CallButton(Activity parent, String phoneNumber) {
+		m_phoneNumber = phoneNumber;
 		m_parent = parent;
-		m_text = text;
 	}
 
 	@Override
 	public void onClick(View v) {
-		showOnMap(m_text);
-	}
-
-	private void showOnMap(String location) {
-		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + location));
+		Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("tel:" + m_phoneNumber));
 		try {
 			m_parent.startActivity(intent);
 		} catch (ActivityNotFoundException exc) {
@@ -33,6 +29,6 @@ public class MapsButton implements ImageButtonDefinition {
 
 	@Override
 	public int getImageResourceId() {
-		return R.drawable.map_marker;
+		return R.drawable.call;
 	}
 }

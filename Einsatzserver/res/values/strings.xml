@@ -62,6 +62,8 @@
     <string name="operation.personnel_requested">Einsatzkräfteanforderung</string>
     <string name="operation.personnel_count">Einsatzkräftezahl</string>
     <string name="operation.personnel_short">EK</string>
+    <string name="operation.contactPerson">Ansprechpartner</string>
+    <string name="operation.contactPersonPhone">Rufnummer</string>
     <string name="configuration.calendar">Kalender-Einstellungen</string>
     <string name="configuration.calendar.location">Ort</string>
     <string name="configuration.calendar.location.summary">Meldeort oder Einsatzort als Ort für den Kalendereintrag festlegen</string>
@@ -85,7 +87,7 @@
     <string name="initial_configuration">Initiale Konfiguration</string>
     <string name="configuration.ui.showRequestedBookingsCount">Vormerkungen</string>
     <string name="configuration.ui.showDayOfWeek">Wochentag</string>
-    <string name="alert.map_error">Keine geeignete Applikation gefunden!</string>
+    <string name="alert.intent_error">Keine geeignete Applikation gefunden!</string>
     <string name="visible_columns">Sichtbare Spalten</string>
     <string name="license.title">Lizenz</string>
     <string name="changes.title">Neu</string>

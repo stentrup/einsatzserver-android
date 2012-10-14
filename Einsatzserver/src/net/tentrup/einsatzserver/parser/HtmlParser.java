@@ -249,6 +249,8 @@ public class HtmlParser {
 			result.setPersonnelBookingConfirmed(getIntForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"anforderung:\"]/../../td[4]"));
 			result.setCatering(getBooleanForXpath(root, "//div[@id='rechtesFenster']//b[contains(., 'Verpflegung')]/../../td[4]/input/@checked"));
 			result.setComment(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Bemerkung\"]/../../td[2]"));
+			result.setContactPerson(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Ansprechpartner\"]/../../td[2]"));
+			result.setContactPersonPhone(getStringForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Rufnummer\"]/../../td[2]"));
 			List<Person> personnel = new ArrayList<Person>();
 			result.setPersonnel(personnel);
 			NodeList nodeList = getNodeListForXpath(root, "//div[@id='rechtesFenster']//b[text()=\"Dienststunden:\"]/../../../../following-sibling::table/tbody/tr");
@@ -307,6 +309,9 @@ public class HtmlParser {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);
 		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.PARSE_ERROR);
 		}

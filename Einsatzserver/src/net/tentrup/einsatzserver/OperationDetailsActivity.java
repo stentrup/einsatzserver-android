@@ -155,6 +155,12 @@ public class OperationDetailsActivity extends GDActivity {
 		String reportLocationText = operationDetails.getReportLocation();
 		addDetailsItem(layout, R.string.operation_report_location, reportLocationText, new MapsButton(this, reportLocationText));
 		addDetailsItem(layout, R.string.operation_report_time, operationDetails.getReportDateComplete(this, true), null);
+		if (operationDetails.getContactPerson() != null) {
+			addDetailsItem(layout, R.string.operation_contactPerson, operationDetails.getContactPerson(), null);
+		}
+		if (operationDetails.getContactPersonPhone() != null) {
+			addDetailsItem(layout, R.string.operation_contactPersonPhone, operationDetails.getContactPersonPhone(), new CallButton(this, operationDetails.getContactPersonPhone()));
+		}
 		if (operationDetails.getComment() != null) {
 			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), null);
 		}

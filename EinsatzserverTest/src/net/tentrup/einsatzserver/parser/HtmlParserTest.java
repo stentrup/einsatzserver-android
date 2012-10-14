@@ -108,7 +108,7 @@ public class HtmlParserTest {
 		personnel.add(getPerson("T.", "S.", "A", BookingState.CONFIRMED, null, "Mitte", null, null));
 		personnel.add(getPerson("W.", "B.", "A", BookingState.CONFIRMED, null, "Mitte", null, null));
 		personnel.add(getPerson("W.", "K.", "A", BookingState.CONFIRMED, null, "Mitte", null, null));
-		checkOperationDetails(operationDetails, new LocalDate(2011, 9, 25), new LocalTime(20, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 9, 25), new LocalTime(13, 0), false, commentBuilder.toString(), personnel);
+		checkOperationDetails(operationDetails, new LocalDate(2011, 9, 25), new LocalTime(20, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 9, 25), new LocalTime(13, 0), false, commentBuilder.toString(), null, null, personnel);
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class HtmlParserTest {
 		personnel.add(getPerson("S.", "H. J.", "A", BookingState.CONFIRMED, null, "Mitte", new LocalTime(17, 0), new LocalTime(20, 0)));
 		personnel.add(getPerson("T.", "S.", "A", BookingState.CONFIRMED, null, "Mitte", null, null));
 		personnel.add(getPerson("W.", "B.", "A", BookingState.CONFIRMED, null, "Mitte", null, null));
-		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 3), new LocalTime(23, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 3), new LocalTime(15, 15), true, commentBuilder.toString(), personnel);
+		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 3), new LocalTime(23, 0), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 3), new LocalTime(15, 15), true, commentBuilder.toString(), "Kontaktperson", "0211/123", personnel);
 	}
 
 	@Test
@@ -150,7 +150,7 @@ public class HtmlParserTest {
 		checkOperation(operationDetails, 8152, null, null, new LocalDate(2012, 7, 8), null, "B. 2012 -V.-", "A. P.", 0, 1, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("T.", "T.", "A", BookingState.CONFIRMED, null, "FmD", null, null));
-		checkOperationDetails(operationDetails, new LocalDate(2012, 7, 8), null, "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2012, 7, 8), null, false, null, personnel);
+		checkOperationDetails(operationDetails, new LocalDate(2012, 7, 8), null, "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2012, 7, 8), null, false, null, null, null, personnel);
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class HtmlParserTest {
 		OperationDetails operationDetails = resultWrapper.getResult();
 		checkOperation(operationDetails, 8690, null, null, new LocalDate(2011, 12, 16), new LocalTime(16, 0), "F. gegen P.", "Arena, Arena-Str.", 4, 0, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>(); 	 
-		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, personnel);
+		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, null, null, personnel);
 	}
 
 	@Test
@@ -186,7 +186,7 @@ public class HtmlParserTest {
 		personnel.add(getPerson("R", "R", "A", BookingState.REQUESTED, null, "Mitte", null, null));
 		personnel.add(getPerson("T", "S", "A", BookingState.REQUESTED, null, "Mitte", null, null));
 		personnel.add(getPerson("V", "K", "A", BookingState.REQUESTED, null, "Mitte", null, null));
-		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 9), new LocalTime(22, 0), "D-Z", new LocalDate(2011, 12, 9), new LocalTime(19, 30), false, null, personnel);
+		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 9), new LocalTime(22, 0), "D-Z", new LocalDate(2011, 12, 9), new LocalTime(19, 30), false, null, null, null, personnel);
 	}
 
 	private Person getPerson(String surname, String name, String qualification, BookingState bookingState, String comment, String division, LocalTime startTime, LocalTime endTime) {
@@ -217,7 +217,7 @@ public class HtmlParserTest {
 		Assert.assertEquals("latest change author is wrong.", latestChangeAuthor, operation.getLatestChangeAuthor());
 	}
 
-	private void checkOperationDetails(OperationDetails operationDetails, LocalDate endDate, LocalTime endTime, String reportLocation, LocalDate reportDate, LocalTime reportTime, boolean catering, String comment, List<Person> personnel) {
+	private void checkOperationDetails(OperationDetails operationDetails, LocalDate endDate, LocalTime endTime, String reportLocation, LocalDate reportDate, LocalTime reportTime, boolean catering, String comment, String contactPerson, String contactPersonPhone, List<Person> personnel) {
 		Assert.assertEquals("endDate is wrong.", endDate, operationDetails.getEndDate());
 		Assert.assertEquals("endTime is wrong.", endTime, operationDetails.getEndTime());
 		Assert.assertEquals("reportLocation is wrong.", reportLocation, operationDetails.getReportLocation());
@@ -225,6 +225,8 @@ public class HtmlParserTest {
 		Assert.assertEquals("reportTime is wrong.", reportTime, operationDetails.getReportTime());
 		Assert.assertEquals("catering is wrong.", catering, operationDetails.isCatering());
 		Assert.assertEquals("comment is wrong.", comment, operationDetails.getComment());
+		Assert.assertEquals("contactPerson is wrong.", contactPerson, operationDetails.getContactPerson());
+		Assert.assertEquals("contactPersonPhone is wrong.", contactPersonPhone, operationDetails.getContactPersonPhone());
 		checkPersonnel(operationDetails, personnel);
 	}
 
