@@ -31,11 +31,14 @@
     <string name="operation.oclock">Uhr</string>
     <string name="operation.comment">Bemerkung</string>
     <string name="operation.personnel">Einsatzkräfte</string>
-    <string name="operation.personnel.division">Ber.</string>
+    <string name="operation.personnel.division.short">Ber.</string>
+    <string name="operation.personnel.division">Bereitschaft</string>
     <string name="operation.personnel.surname">Name</string>
     <string name="operation.personnel.name">Vorname</string>
-    <string name="operation.personnel.state">St.</string>
-    <string name="operation.personnel.qualification">Ausb.</string>
+    <string name="operation.personnel.state.short">St.</string>
+    <string name="operation.personnel.state">Status</string>
+    <string name="operation.personnel.qualification.short">Ausb.</string>
+    <string name="operation.personnel.qualification">Ausbildung</string>
     <string name="operation.personnel.startTime">Dienstbeginn</string>
     <string name="operation.personnel.endTime">Dienstende</string>
     <string name="operation.personnel.comment">Bemerkungen</string>
