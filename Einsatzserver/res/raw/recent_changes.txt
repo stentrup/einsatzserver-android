@@ -1,6 +1,9 @@
 <p>
-<b>Version 0.8</b>
+<b>Version 1.0</b>
 <ul>
+<li>Weitere Einsatzdetails anzeigen: Letzte Bearbeitung, Ansprechpartner, Rufnummer</li>
+<li>Details zu Einsatzkräften anzeigen: Bereitschaft, Ausbildung, Bemerkung, Dienstbeginn und -ende</li>
+<li>Verarbeitung von Zeilenumbrüchen in Text "Bemerkung" korrigiert</li>
 <li>Informationen zur App erweitert</li>
 </ul>
 </p>
