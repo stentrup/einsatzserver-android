@@ -12,7 +12,9 @@
     <string name="my.title">Meine Einsätze</string>
     <string name="all.title">Alle Einsätze</string>
     <string name="menu.about">Über</string>
-    <string name="loading">Lade. Bitte warten...</string>
+    <string name="loading.operationslist">Einsatzliste wird geladen. Bitte warten...</string>
+    <string name="loading.operationdetails">Einsatzdetails werden geladen. Bitte warten...</string>
+    <string name="loading.login">Anmeldung wird durchgeführt. Bitte warten...</string>
     <string name="about.title">Über</string>
     <string name="details.title">Einsatzdetails</string>
     <string name="alert.no_operations">Keine Einsätze vorhanden.</string>
@@ -74,7 +76,7 @@
     <string name="eula.title">Endbenutzer-Lizenzvereinbarung</string>
     <string name="alert.loading_error">Fehler beim Laden</string>
     <string name="alert.parse_error">Fehler bei der Verarbeitung</string>
-    <string name="booking.progress">Merke vor. Bitte warten...</string>
+    <string name="booking.progress">Sie werden für den Einsatz vorgemerkt. Bitte warten...</string>
     <string name="alert.booking_failed">Vormerken fehlgeschlagen!</string>
     <string name="menu.help">Hilfe</string>
     <string name="help.title">Hilfe</string>

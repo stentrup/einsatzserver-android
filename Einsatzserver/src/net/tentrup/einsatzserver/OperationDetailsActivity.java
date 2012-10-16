@@ -249,7 +249,7 @@ public class OperationDetailsActivity extends GDActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == LOADING_PROGRESS_DIALOG) {
-			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading));
+			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading_operationdetails));
 		} else if (id == BOOKING_PROGRESS_DIALOG) {
 			return new AsyncTaskProgressDialog(this, m_task, getString(R.string.booking_progress));
 		} else if (id == ALERT_DIALOG_CALENDAR_ENTRY) {

@@ -152,7 +152,7 @@ public class InitialConfigurationActivity extends GDActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == LOADING_DIALOG) {
-			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading));
+			return new OperationsLoadingProgressDialog(this, m_task, getString(R.string.loading_login));
 		} else if (id == ALERT_DIALOG_LOGIN_FAILED) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_login_failed)
