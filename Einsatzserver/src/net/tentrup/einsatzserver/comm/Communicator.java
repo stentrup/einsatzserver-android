@@ -115,6 +115,7 @@ public class Communicator {
 	}
 
 	private ResultStateEnum login() {
+		m_httpClient.getCookieStore().clear();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
 		return login(prefs.getString(PreferenceKeys.CONFIGURATION_USERNAME, ""), prefs.getString(PreferenceKeys.CONFIGURATION_PASSWORD, ""));
 	}
