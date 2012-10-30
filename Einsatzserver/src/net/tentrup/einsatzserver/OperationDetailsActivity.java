@@ -73,8 +73,12 @@ public class OperationDetailsActivity extends GDActivity {
 		setActionBarContentView(R.layout.operation_details);
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.GONE);
-		m_bookingAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_checkmark));
-		m_calendarAction = getActionBar().newActionBarItem(NormalActionBarItem.class).setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_calendar));
+		m_bookingAction = getActionBar().newActionBarItem(NormalActionBarItem.class)
+		.setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_checkmark))
+		.setContentDescription(R.string.details_book);
+		m_calendarAction = getActionBar().newActionBarItem(NormalActionBarItem.class)
+		.setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_calendar))
+		.setContentDescription(R.string.details_add_to_calendar);
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ActivityTask) {
 			Log.i(TAG, "Reclaiming previous background task.");

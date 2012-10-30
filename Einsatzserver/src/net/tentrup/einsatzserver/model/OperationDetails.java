@@ -162,7 +162,7 @@ public class OperationDetails extends Operation {
 			return false;
 		}
 		for (Person person : m_personnel) {
-			if (aName.equals(person.getName() + ", " + person.getSurname())) {
+			if (aName.equals(person.getSurname() + ", " + person.getName())) {
 				return true;
 			}
 		}

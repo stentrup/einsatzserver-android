@@ -5,6 +5,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import greendroid.widget.ActionBar;
+import greendroid.widget.ActionBarItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,15 +70,23 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 		operationDetails.setLatestChangeAuthor("Mr. X");
 		operationDetails.setLatestChangeDate(LocalDateTime.parse("2012-06-30T21:30:23"));
 		operationDetails.setLocation("Düsseldorf");
-		operationDetails.setPersonnel(new ArrayList<Person>());
-		operationDetails.setPersonnelBookingConfirmed(0);
+		List<Person> personnel = new ArrayList<Person>();
+		Person person = new Person();
+		person.setBookingState(BookingState.CONFIRMED);
+		person.setDivision("Div");
+		person.setName("Max");
+		person.setSurname("Mustermann");
+		person.setQualification("Quali");
+		personnel.add(person);
+		operationDetails.setPersonnel(personnel);
+		operationDetails.setPersonnelBookingConfirmed(1);
 		operationDetails.setPersonnelBookingRequested(0);
 		operationDetails.setPersonnelRequested(4);
 		operationDetails.setReportDate(operation1.getStartDate());
 		operationDetails.setReportTime(LocalTime.parse("12:30:00"));
 		operationDetails.setReportLocation("Treffpunkt");
 		operationDetails.setStartTime(LocalTime.parse("13:00:00"));
-		when(mockedCommunicator.getOperationDetails(Mockito.any(Operation.class))).thenReturn(new ResultWrapper<OperationDetails>(operationDetails, ResultStateEnum.SUCCESSFUL));
+		when(mockedCommunicator.getOperationDetails(Mockito.any(Operation.class))).thenReturn(new ResultWrapper<OperationDetails>(operationDetails, ResultStateEnum.SUCCESSFUL, "Mustermann, Max"));
 		CommunicatorSingleton.setCommunictor(mockedCommunicator);
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
@@ -121,9 +132,13 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 		checkOperationDetailsItem(R.string.operation_report_location, "Treffpunkt");
 		checkOperationDetailsItem(R.string.operation_report_time, "Mi. 25.07.2012 12:30 Uhr");
 		checkOperationDetailsItem(R.string.operation_personnel_requested, "4");
-		checkOperationDetailsItem(R.string.operation_personnel_count, "0");
+		checkOperationDetailsItem(R.string.operation_personnel_count, "1");
 		checkOperationDetailsItem(R.string.operation_latestChange, "30.06.2012 21:30 Uhr" + System.getProperty("line.separator") + "Mr. X");
 		checkOperationDetailsItem(R.string.operation_catering, "Nein");
+		ActionBar actionBar = (ActionBar) solo.getView(R.id.gd_action_bar);
+		ActionBarItem item = actionBar.getItem(0);
+		assertEquals(getActivity().getString(R.string.details_add_to_calendar), item.getContentDescription());
+		assertEquals(R.id.action_bar_calendar, item.getItemId());
 	}
 
 	private void checkOperationDetailsItem(int labelResourceId, String expectedText) {
