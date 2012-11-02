@@ -156,34 +156,40 @@ public class InitialConfigurationActivity extends GDActivity {
 		} else if (id == ALERT_DIALOG_LOGIN_FAILED) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_login_failed)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			        	   dialog.dismiss();
-			           }
-			       });
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.dismiss();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == ALERT_DIALOG_LOADING_ERROR) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_loading_error)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			        	   dialog.dismiss();
-			           }
-			       });
+			.setCancelable(false)
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			})
+			.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					performLogin();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == ALERT_DIALOG_PARSE_ERROR) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_parse_error)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                dialog.dismiss();
-			           }
-			       });
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.dismiss();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		}

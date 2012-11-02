@@ -20,6 +20,8 @@
     <string name="alert.no_operations">Keine Einsätze vorhanden.</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
     <string name="alert.login_failed">Anmeldung fehlgeschlagen</string>
     <string name="details.add_to_calendar">In Kalender eintragen</string>
     <string name="details.calendar_error">Kalender-Eintrag konnte nicht erstellt werden</string>
@@ -74,7 +76,7 @@
     <string name="eula.accept">Annehmen</string>
     <string name="eula.reject">Ablehnen</string>
     <string name="eula.title">Endbenutzer-Lizenzvereinbarung</string>
-    <string name="alert.loading_error">Fehler beim Laden</string>
+    <string name="alert.loading_error">Fehler beim Laden. Erneut versuchen?</string>
     <string name="alert.parse_error">Fehler bei der Verarbeitung</string>
     <string name="booking.progress">Sie werden für den Einsatz vorgemerkt. Bitte warten...</string>
     <string name="alert.booking_failed">Vormerken fehlgeschlagen!</string>

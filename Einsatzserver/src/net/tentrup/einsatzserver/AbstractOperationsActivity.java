@@ -203,45 +203,51 @@ public abstract class AbstractOperationsActivity extends GDActivity {
 		} else if (id == ALERT_DIALOG_LOGIN_FAILED) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_login_failed)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                AbstractOperationsActivity.this.finish();
-			           }
-			       });
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					AbstractOperationsActivity.this.finish();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == ALERT_DIALOG_LOADING_ERROR) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_loading_error)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                AbstractOperationsActivity.this.finish();
-			           }
-			       });
+			.setCancelable(false)
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					AbstractOperationsActivity.this.finish();
+				}
+			})
+			.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					startBackgroundTask();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == ALERT_DIALOG_PARSE_ERROR) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_parse_error)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                AbstractOperationsActivity.this.finish();
-			           }
-			       });
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					AbstractOperationsActivity.this.finish();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == ALERT_DIALOG_NO_OPERATIONS) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(R.string.alert_no_operations)
-			       .setCancelable(false)
-			       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                AbstractOperationsActivity.this.finish();
-			           }
-			       });
+			.setCancelable(false)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					AbstractOperationsActivity.this.finish();
+				}
+			});
 			AlertDialog alert = builder.create();
 			return alert;
 		} else if (id == COLUMNS_DIALOG) {
