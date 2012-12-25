@@ -210,7 +210,7 @@ public class OperationDetailsActivity extends GDActivity {
 		// Populate action bar
 		getActionBar().removeItem(m_bookingAction);
 		getActionBar().removeItem(m_calendarAction);
-		if (!m_resultWrapper.getResult().isInPersonnel(m_resultWrapper.getUsername())) {
+		if (!m_resultWrapper.getResult().isInPersonnel()) {
 			addActionBarItem(m_bookingAction, R.id.action_bar_check);
 		}
 		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);

@@ -6,18 +6,9 @@ public class ResultWrapper<E> {
 
 	private final ResultStateEnum m_state;
 
-	private final String m_username;
-
-	public ResultWrapper(E result, ResultStateEnum state, String username) {
-		m_result = result;
-		m_state = state;
-		m_username = username;
-	}
-
 	public ResultWrapper(E result, ResultStateEnum state) {
 		m_result = result;
 		m_state = state;
-		m_username = null;
 	}
 
 	public E getResult() {
@@ -27,9 +18,4 @@ public class ResultWrapper<E> {
 	public ResultStateEnum getState() {
 		return m_state;
 	}
-
-	public String getUsername() {
-		return m_username;
-	}
-
 }

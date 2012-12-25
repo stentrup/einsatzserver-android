@@ -8,7 +8,6 @@ import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
-import net.tentrup.einsatzserver.model.ResultWrapper;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -80,9 +79,8 @@ public class HtmlParserTest {
 		String content = new String(byteContent);
 		Operation inputOperation = new Operation();
 		inputOperation.setId(7894);
-		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(inputOperation, content);
-		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
-		OperationDetails operationDetails = resultWrapper.getResult();
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(inputOperation, content).getResult();
+		Assert.assertEquals("Tentrup, Stephan", operationDetails.getUsername());
 		checkOperation(operationDetails, 7894, null, null, new LocalDate(2011, 9, 25), new LocalTime(13, 0), "B. Düsseldorf", "Düsseldorf", 15, 13, 1, null, null);
 		StringBuilder commentBuilder = new StringBuilder();
 		commentBuilder.append("....");
@@ -119,9 +117,8 @@ public class HtmlParserTest {
 		String content = new String(byteContent);
 		Operation inputOperation = new Operation();
 		inputOperation.setId(8516);
-		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(inputOperation, content);
-		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
-		OperationDetails operationDetails = resultWrapper.getResult();
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(inputOperation, content).getResult();
+		Assert.assertEquals("Tentrup, Stephan", operationDetails.getUsername());
 		checkOperation(operationDetails, 8516, null, null, new LocalDate(2011, 12, 3), new LocalTime(16, 0), "E/W:R. o. C.", "E. A.", 4, 4, 0, null, null);
 		StringBuilder commentBuilder = new StringBuilder();
 		commentBuilder.append("2 H. EH");
@@ -144,9 +141,8 @@ public class HtmlParserTest {
 		String content = new String(byteContent);
 		Operation inputOperation = new Operation();
 		inputOperation.setId(8152);
-		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(inputOperation, content);
-		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
-		OperationDetails operationDetails = resultWrapper.getResult();
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(inputOperation, content).getResult();
+		Assert.assertEquals("Tentrup, Stephan", operationDetails.getUsername());
 		checkOperation(operationDetails, 8152, null, null, new LocalDate(2012, 7, 8), null, "B. 2012 -V.-", "A. P.", 0, 1, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("T.", "T.", "A", BookingState.CONFIRMED, null, "FmD", null, null));
@@ -161,9 +157,8 @@ public class HtmlParserTest {
 		String content = new String(byteContent);
 		Operation inputOperation = new Operation();
 		inputOperation.setId(8690);
-		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(inputOperation, content);
-		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
-		OperationDetails operationDetails = resultWrapper.getResult();
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(inputOperation, content).getResult();
+		Assert.assertEquals("Tentrup, Stephan", operationDetails.getUsername());
 		checkOperation(operationDetails, 8690, null, null, new LocalDate(2011, 12, 16), new LocalTime(16, 0), "F. gegen P.", "Arena, Arena-Str.", 4, 0, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, null, null, personnel);
@@ -177,9 +172,8 @@ public class HtmlParserTest {
 		String content = new String(byteContent);
 		Operation inputOperation = new Operation();
 		inputOperation.setId(8560);
-		ResultWrapper<OperationDetails> resultWrapper = new HtmlParser().parseOperationDetailsPage(inputOperation, content);
-		Assert.assertEquals("Tentrup, Stephan", resultWrapper.getUsername());
-		OperationDetails operationDetails = resultWrapper.getResult();
+		OperationDetails operationDetails = new HtmlParser().parseOperationDetailsPage(inputOperation, content).getResult();
+		Assert.assertEquals("Tentrup, Stephan", operationDetails.getUsername());
 		checkOperation(operationDetails, 8560, null, null, new LocalDate(2011, 12, 9), new LocalTime(20, 0), "W: Gr.", "Z. W.", 0, 0, 4, null, null);
 		List<Person> personnel = new ArrayList<Person>(); 	 
 		personnel.add(getPerson("M", "H", "A", BookingState.REQUESTED, null, "Mitte", null, null));

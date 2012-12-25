@@ -30,6 +30,8 @@ public class OperationDetails extends Operation {
 	private String m_contactPerson;
 	private String m_contactPersonPhone;
 
+	private String m_username;
+
 	public LocalDate getEndDate() {
 		return m_endDate;
 	}
@@ -124,6 +126,14 @@ public class OperationDetails extends Operation {
 		m_contactPersonPhone = contactPersonPhone;
 	}
 
+	public String getUsername() {
+		return m_username;
+	}
+
+	public void setUsername(String username) {
+		m_username = username;
+	}
+
 	public String getReportDateComplete(Context context, boolean includeDayOfWeek) {
 		StringBuilder builder = new StringBuilder();
 		if (getReportDate() != null) {
@@ -157,12 +167,12 @@ public class OperationDetails extends Operation {
 		return textBuilder.toString(); 
 	}
 
-	public boolean isInPersonnel(String aName) {
-		if (aName == null) {
+	public boolean isInPersonnel() {
+		if (m_username == null) {
 			return false;
 		}
 		for (Person person : m_personnel) {
-			if (aName.equals(person.getSurname() + ", " + person.getName())) {
+			if (m_username.equals(person.getSurname() + ", " + person.getName())) {
 				return true;
 			}
 		}

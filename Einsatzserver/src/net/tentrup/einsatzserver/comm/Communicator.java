@@ -26,8 +26,11 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Communicator {
+
+	private static final String TAG = Communicator.class.getSimpleName();
 
 	/**
 	 * Shared Preferences Key
@@ -65,10 +68,12 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<List<Operation>>(null, loginResult);
 		}
+		Log.i(TAG, "Execute all operations request.");
 		String response = executeHttpGetRequest(getBaseUrl() + URL_ALL_OPERATIONS);
 		if (response == null) {
 			return new ResultWrapper<List<Operation>>(null, ResultStateEnum.LOADING_ERROR);
 		}
+		Log.i(TAG, "Parse all operations response.");
 		return new HtmlParser().parseAllOperationsPage(response);
 	}
 
@@ -77,10 +82,12 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<List<Operation>>(null, loginResult);
 		}
+		Log.i(TAG, "Execute my operations request.");
 		String response = executeHttpGetRequest(getBaseUrl() + URL_MY_OPERATIONS);
 		if (response == null) {
 			return new ResultWrapper<List<Operation>>(null, ResultStateEnum.LOADING_ERROR);
 		}
+		Log.i(TAG, "Parse my operations response.");
 		return new HtmlParser().parseMyOperationsPage(response);
 	}
 
@@ -89,10 +96,12 @@ public class Communicator {
 		if (loginResult != ResultStateEnum.SUCCESSFUL) {
 			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
+		Log.i(TAG, "Execute operation details request.");
 		String response = executeHttpGetRequest(getBaseUrl() + URL_OPERATION_DETAILS + inputOperation.getId());
 		if (response == null) {
 			return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 		}
+		Log.i(TAG, "Parse operation details response.");
 		return new HtmlParser().parseOperationDetailsPage(inputOperation, response);
 	}
 
@@ -103,10 +112,12 @@ public class Communicator {
 		}
 		try {
 			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
+			Log.i(TAG, "Execute booking request.");
 			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + inputOperation.getId()));
 			if (response == null) {
 				return new ResultWrapper<OperationDetails>(null, ResultStateEnum.LOADING_ERROR);
 			}
+			Log.i(TAG, "Parse booking response.");
 			return new HtmlParser().parseOperationDetailsPage(inputOperation, response);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -115,6 +126,7 @@ public class Communicator {
 	}
 
 	private ResultStateEnum login() {
+		Log.i(TAG, "Start login.");
 		m_httpClient.getCookieStore().clear();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
 		return login(prefs.getString(PreferenceKeys.CONFIGURATION_USERNAME, ""), prefs.getString(PreferenceKeys.CONFIGURATION_PASSWORD, ""));

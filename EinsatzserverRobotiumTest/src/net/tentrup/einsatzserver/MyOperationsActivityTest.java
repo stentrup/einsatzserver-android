@@ -86,7 +86,8 @@ public class MyOperationsActivityTest extends ActivityInstrumentationTestCase2<M
 		operationDetails.setReportTime(LocalTime.parse("12:30:00"));
 		operationDetails.setReportLocation("Treffpunkt");
 		operationDetails.setStartTime(LocalTime.parse("13:00:00"));
-		when(mockedCommunicator.getOperationDetails(Mockito.any(Operation.class))).thenReturn(new ResultWrapper<OperationDetails>(operationDetails, ResultStateEnum.SUCCESSFUL, "Mustermann, Max"));
+		operationDetails.setUsername("Mustermann, Max");
+		when(mockedCommunicator.getOperationDetails(Mockito.any(Operation.class))).thenReturn(new ResultWrapper<OperationDetails>(operationDetails, ResultStateEnum.SUCCESSFUL));
 		CommunicatorSingleton.setCommunictor(mockedCommunicator);
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
