@@ -95,4 +95,6 @@
     <string name="visible_columns">Sichtbare Spalten</string>
     <string name="license.title">Lizenz</string>
     <string name="changes.title">Neu</string>
+    <string name="sort.ascending"> \u2191</string>
+    <string name="sort.descending"> \u2193</string>
 </resources>

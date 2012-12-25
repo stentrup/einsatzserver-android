@@ -1,9 +1,16 @@
 package net.tentrup.einsatzserver;
 
+import static org.apache.commons.lang3.StringUtils.defaultString;
 import greendroid.app.GDActivity;
 import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.NormalActionBarItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
 
@@ -16,6 +23,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +38,11 @@ import android.widget.TextView;
  *
  */
 public class OperationPersonnelActivity extends GDActivity {
+
+	private static final String CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_ASCENDING = "configuration.ui.operation.personnel.sortAscending";
+	private static final String CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_COLUMN = "configuration.ui.operation.personnel.sortColumn";
+
+	private static final String TAG = OperationPersonnelActivity.class.getSimpleName();
 
 	private static final int COLUMNS_DIALOG = 1;
 
@@ -104,24 +119,66 @@ public class OperationPersonnelActivity extends GDActivity {
 	}
 
 	private void updateView() {
+		OperationDetails details = (OperationDetails) getIntent().getSerializableExtra(OperationDetailsActivity.OPERATION_DETAILS);
+		List<Person> personnelSorted = new ArrayList<Person>(details.getPersonnel());
 		TableLayout layout = (TableLayout) findViewById(R.id.personnelTableLayout);
 		layout.removeAllViews();
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		addHorizontalLine(layout);
 		TableRow tableHeader = (TableRow) getLayoutInflater().inflate(R.layout.operation_personnel_table_row, null);
 		layout.addView(tableHeader);
-		for (SwitchableTableColumn column : columns) {
+		final String sortColumn = sharedPreferences.getString(CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_COLUMN, "configuration.ui.operation.personnel.surname");
+		final boolean sortAscending = sharedPreferences.getBoolean(CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_ASCENDING, true);
+		for (final SwitchableTableColumn column : columns) {
+			String tableHeaderName = column.getTableHeaderName(this);
+			String tableHeaderText = tableHeaderName;
+			if (sortColumn.equals(column.getPreferenceKey())) {
+				if (sortAscending) {
+					tableHeaderText += " " + getString(R.string.sort_ascending);
+					Collections.sort(personnelSorted, new Comparator<Person>() {
+						@Override
+						public int compare(Person person1, Person person2) {
+							return defaultString(column.getText(person1)).compareTo(defaultString(column.getText(person2)));
+						}
+					});
+				} else {
+					tableHeaderText += " " + getString(R.string.sort_descending);
+					Collections.sort(personnelSorted, new Comparator<Person>() {
+						@Override
+						public int compare(Person person1, Person person2) {
+							return defaultString(column.getText(person2)).compareTo(defaultString(column.getText(person1)));
+						}
+					});
+				}
+			}
 			if (sharedPreferences.getBoolean(column.getPreferenceKey(), column.getPreferenceDefaultValue())) {
 				addVerticalLine(tableHeader);
 				TextView headerCell = (TextView) getLayoutInflater().inflate(R.layout.operation_personnel_table_header_cell, null);
-				headerCell.setText(column.getTableHeaderName(this));
+				headerCell.setText(tableHeaderText);
+				headerCell.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						final boolean sortAscendingNew;
+						if (sortColumn.equals(column.getPreferenceKey())) {
+							sortAscendingNew = !sortAscending;
+						} else {
+							sortAscendingNew = true;
+						}
+						final String sortColumnNew = column.getPreferenceKey();
+						Editor prefEditor = sharedPreferences.edit();
+						prefEditor.putString(CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_COLUMN, sortColumnNew);
+						prefEditor.putBoolean(CONFIGURATION_UI_OPERATION_PERSONNEL_SORT_ASCENDING, sortAscendingNew);
+						prefEditor.commit();
+						Log.i(TAG, "Sorting changed to column '" + column.getDialogName(getApplicationContext()) + (sortAscendingNew ? "' ascending" : " descending"));
+						updateView();
+					}
+				});
 				tableHeader.addView(headerCell);
 			}
 		}
 		addVerticalLine(tableHeader);
 
-		OperationDetails details = (OperationDetails) getIntent().getSerializableExtra(OperationDetailsActivity.OPERATION_DETAILS);
-		for (Person person : details.getPersonnel()) {
+		for (Person person : personnelSorted) {
 			addHorizontalLine(layout);
 			TableRow tableRow = (TableRow) getLayoutInflater().inflate(R.layout.operation_personnel_table_row, null);
 			layout.addView(tableRow);
