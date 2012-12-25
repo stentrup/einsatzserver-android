@@ -1,4 +1,13 @@
 <p>
+<b>Version 1.1</b>
+<ul>
+<li>Performance verbessert</li>
+<li>Liste der Einsatzkräfte sortierbar nach den einzelnen Spalten</li>
+<li>Fehlerkorrekturen</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.0</b>
 <ul>
 <li>Weitere Einsatzdetails anzeigen: Letzte Bearbeitung, Ansprechpartner, Rufnummer</li>
