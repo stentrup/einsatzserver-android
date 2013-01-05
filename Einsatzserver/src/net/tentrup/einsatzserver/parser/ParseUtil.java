@@ -26,21 +26,21 @@ public class ParseUtil {
 	}
 
 	public static LocalDate parseDate(String dateString) {
-		if (dateString == null) {
+		if (dateString == null || dateString.trim().length() == 0) {
 			return null;
 		}
 		return DATE_FORMATTER.parseLocalDate(dateString);
 	}
 
 	public static LocalTime parseTime(String timeString) {
-		if (timeString == null) {
+		if (timeString == null || timeString.trim().length() == 0) {
 			return null;
 		}
 		return TIME_FORMATTER.parseLocalTime(timeString);
 	}
 
 	public static LocalDateTime parseDateTime(String dateTimeString) {
-		if (dateTimeString == null) {
+		if (dateTimeString == null || dateTimeString.trim().length() == 0) {
 			return null;
 		}
 		return DATE_TIME_FORMATTER.parseLocalDateTime(dateTimeString);

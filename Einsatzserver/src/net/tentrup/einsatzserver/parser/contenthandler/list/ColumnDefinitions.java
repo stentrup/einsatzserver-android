@@ -63,9 +63,7 @@ public class ColumnDefinitions {
 		ALL_OPERATIONS_COLUMNS.put("Zeit", new TextContentHandler() {
 			@Override
 			public void setTextContent(Operation operation, String[] content) {
-				if (content[0].trim().length() > 0) {
-					operation.setStartTime(parseTime(content[0]));
-				}
+				operation.setStartTime(parseTime(content[0]));
 			}
 		});
 		ALL_OPERATIONS_COLUMNS.put("Letzte Bearbeitung", new TextContentHandler() {

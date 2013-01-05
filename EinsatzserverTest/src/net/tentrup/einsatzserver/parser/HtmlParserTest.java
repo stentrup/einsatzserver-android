@@ -33,8 +33,10 @@ public class HtmlParserTest {
 		Assert.assertEquals("wrong number of rows.", 3, operations.size());
 		Operation first = operations.get(0);
 		checkOperation(first, 7714, "DIE", null, new LocalDate(2011, 9, 18), new LocalTime(12, 30), "Fortuna II gegen Schalke 04 II", "Paul-Janes-Stadion, Flinger Broich", 5, 0, 1, new LocalDateTime(2011, 8, 16, 11, 16), "L, M");
-		Operation last = operations.get(operations.size() - 1);
-		checkOperation(last, 7507, "DIE", null, new LocalDate(2011, 9, 20), new LocalTime(14, 0), "Schützenfest Unterrath", "Festplatz Karthäuser Straße", 1, 1, 0, new LocalDateTime(2011, 9, 13, 20, 52), "M, T");
+		Operation second = operations.get(1);
+		checkOperation(second, 7505, "DIE", null, new LocalDate(2011, 9, 19), null, "Schützenfest Unterrath", "Festplatz Karthäuser Straße", 2, 2, 0, new LocalDateTime(2011, 9, 13, 20, 52), "M, T");
+		Operation third = operations.get(2);
+		checkOperation(third, 7507, "DIE", null, new LocalDate(2011, 9, 20), new LocalTime(14, 0), "Schützenfest Unterrath", "Festplatz Karthäuser Straße", 1, 1, 0, new LocalDateTime(2011, 9, 13, 20, 52), "M, T");
 	}
 
 	@Test
@@ -44,9 +46,11 @@ public class HtmlParserTest {
 		inputStream.read(byteContent);
 		String content = new String(byteContent);
 		List<Operation> operations = new HtmlParser().parseMyOperationsPage(content).getResult();
-		Assert.assertEquals("wrong number of rows.", 1, operations.size());
+		Assert.assertEquals("wrong number of rows.", 2, operations.size());
 		Operation first = operations.get(0);
 		checkOperation(first, 7878, "GEM", BookingState.REQUESTED, new LocalDate(2011, 9, 16), new LocalTime(19, 30), "Gr.", "Zugheim Wersten", 0, 0, 0, null, null);
+		Operation second = operations.get(1);
+		checkOperation(second, 7879, "GEM", BookingState.REQUESTED, new LocalDate(2011, 9, 17), null, "Test", "Zugheim Wersten", 0, 0, 0, null, null);
 	}
 
 	@Test
