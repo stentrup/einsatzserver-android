@@ -1,4 +1,11 @@
 <p>
+<b>Version 1.2</b>
+<ul>
+<li>Fehlerkorrektur für Einsätze ohne Angabe von Dienstbeginn oder -ende</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.1</b>
 <ul>
 <li>Performance verbessert</li>
