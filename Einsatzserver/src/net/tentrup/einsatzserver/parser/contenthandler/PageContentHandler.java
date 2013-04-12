@@ -45,7 +45,7 @@ public abstract class PageContentHandler extends BaseContentHandler {
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String content = new String(ch, start, length);
-		content = content.replaceAll("\\n", "").replaceAll("\\r", "");
+		content = content.replaceAll("\\n", "").replaceAll("\\r", "").trim();
 		m_tagStack.toString();
 		if (("body".equals(m_tagStack.peek()) || "div".equals(m_tagStack.peek())) && content.startsWith("Name: ")) {
 			String username = content.substring("Name: ".length());
