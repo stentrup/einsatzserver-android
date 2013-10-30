@@ -55,13 +55,13 @@ public class PersonnelTableContentHandler extends OperationDetailsTableContentHa
 				person.setQualification(content);
 			}
 		});
-		LABEL_TO_HANDLER_MAP.put("Dienst-\nbeginn", new TableCellContentHandler<Person>() {
+		LABEL_TO_HANDLER_MAP.put("Dienst-" + System.getProperty("line.separator") + "beginn", new TableCellContentHandler<Person>() {
 			@Override
 			public void setCellContent(Person person, String content) {
 				person.setStartTime(ParseUtil.parseTime(content));
 			}
 		});
-		LABEL_TO_HANDLER_MAP.put("Dienst-\nende", new TableCellContentHandler<Person>() {
+		LABEL_TO_HANDLER_MAP.put("Dienst-" + System.getProperty("line.separator") + "ende", new TableCellContentHandler<Person>() {
 			@Override
 			public void setCellContent(Person person, String content) {
 				person.setEndTime(ParseUtil.parseTime(content));

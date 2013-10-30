@@ -12,6 +12,7 @@ import net.tentrup.einsatzserver.config.PreferenceKeys;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
+import net.tentrup.einsatzserver.model.Resource;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
 
@@ -180,7 +181,7 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 		addDetailsItem(layout, R.string.operation_personnel_count, personnelBookingCountBuilder.toString(), null);
 		if (operationDetails.getPersonnel().size() > 0) {
-			addDetailsItem(layout, R.string.operation_personnel, toText(operationDetails.getPersonnel()), new ImageButtonDefinition() {
+			addDetailsItem(layout, R.string.operation_personnel, personnelToText(operationDetails.getPersonnel()), new ImageButtonDefinition() {
 				
 				@Override
 				public void onClick(View v) {
@@ -196,6 +197,9 @@ public class OperationDetailsActivity extends GDActivity {
 					return R.drawable.magnifier;
 				}
 			});
+		}
+		if (operationDetails.getResources().size() > 0) {
+			addDetailsItem(layout, R.string.operation_resources, resourcesToText(operationDetails.getResources()), null);
 		}
 		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), null);
 		if (operationDetails.getLatestChangeDate() != null) {
@@ -232,11 +236,22 @@ public class OperationDetailsActivity extends GDActivity {
 		}
 	}
 
-	private String toText(List<Person> personnel) {
+	private String personnelToText(List<Person> personnel) {
 		StringBuilder builder = new StringBuilder();
 		for (Person person : personnel) {
 			builder.append(person.getSurname()).append(", ").append(person.getName());
 			builder.append(" (").append(getString(person.getBookingState().getResourceId())).append(")");
+			builder.append(System.getProperty("line.separator"));
+		}
+		return builder.substring(0, Math.max(builder.length() - System.getProperty("line.separator").length(), 0));
+	}
+
+	private String resourcesToText(List<Resource> resources) {
+		StringBuilder builder = new StringBuilder();
+		for (Resource resource : resources) {
+			String resourceName = resource.getName();
+			resourceName = resourceName.replaceAll(System.getProperty("line.separator"), " ");
+			builder.append(resourceName);
 			builder.append(System.getProperty("line.separator"));
 		}
 		return builder.substring(0, Math.max(builder.length() - System.getProperty("line.separator").length(), 0));

@@ -46,6 +46,7 @@
     <string name="operation.personnel.startTime">Dienstbeginn</string>
     <string name="operation.personnel.endTime">Dienstende</string>
     <string name="operation.personnel.comment">Bemerkungen</string>
+    <string name="operation.resources">Einsatzmittel</string>
     <string name="operation.catering">Verpflegung wird gestellt</string>
     <string name="operation.catering.true">Ja</string>
     <string name="operation.catering.false">Nein</string>

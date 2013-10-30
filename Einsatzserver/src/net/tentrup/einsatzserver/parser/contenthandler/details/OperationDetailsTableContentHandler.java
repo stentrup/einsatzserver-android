@@ -53,7 +53,7 @@ public abstract class OperationDetailsTableContentHandler<T> extends OperationDe
 				m_tableCellCount++;
 				m_cellContentBuilder = new StringBuilder();
 			} else if ("br".equals(localName)) {
-				m_cellContentBuilder.append("\n");
+				m_cellContentBuilder.append(System.getProperty("line.separator"));
 			}
 		}
 	}

@@ -167,9 +167,9 @@ public class HtmlParserTest {
 		checkOperation(operationDetails, 8690, null, null, new LocalDate(2011, 12, 16), new LocalTime(16, 0), "F. gegen P.", "Arena, Arena-Str.", 4, 0, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>();
 		List<Resource> resources = new ArrayList<Resource>();
-		resources.add(getResource("22-85-10\n22-KTW-10"));
-		resources.add(getResource("22-83-02\n22-ITW-02"));
-		resources.add(getResource("08-19-01\n08-MTF-01"));
+		resources.add(getResource("22-85-10" + System.getProperty("line.separator") + "22-KTW-10"));
+		resources.add(getResource("22-83-02" + System.getProperty("line.separator") + "22-ITW-02"));
+		resources.add(getResource("08-19-01" + System.getProperty("line.separator") + "08-MTF-01"));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, null, null, personnel, resources);
 	}
 
