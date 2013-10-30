@@ -29,6 +29,7 @@ public class OperationDetails extends Operation {
 	private List<Person> m_personnel;
 	private String m_contactPerson;
 	private String m_contactPersonPhone;
+	private List<Resource> m_resources;
 
 	private String m_username;
 
@@ -132,6 +133,14 @@ public class OperationDetails extends Operation {
 
 	public void setUsername(String username) {
 		m_username = username;
+	}
+
+	public List<Resource> getResources() {
+		return m_resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		m_resources = resources;
 	}
 
 	public String getReportDateComplete(Context context, boolean includeDayOfWeek) {

@@ -121,6 +121,7 @@ public class OperationDetailsContentHandler extends OperationDetailsBaseContentH
 			}
 		});
 		m_handlerMap.put("Einsatzkräfte", new PersonnelTableContentHandler(operationDetails));
+		m_handlerMap.put("Einsatzmittel", new ResourcesTableContentHandler(operationDetails));
 	}
 
 	@Override

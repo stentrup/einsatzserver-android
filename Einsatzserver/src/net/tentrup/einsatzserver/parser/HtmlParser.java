@@ -11,6 +11,7 @@ import net.tentrup.einsatzserver.model.BookingState;
 import net.tentrup.einsatzserver.model.Operation;
 import net.tentrup.einsatzserver.model.OperationDetails;
 import net.tentrup.einsatzserver.model.Person;
+import net.tentrup.einsatzserver.model.Resource;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
 import net.tentrup.einsatzserver.parser.contenthandler.details.OperationDetailsPageContentHandler;
@@ -62,6 +63,7 @@ public class HtmlParser {
 		result.setLatestChangeDate(inputOperation.getLatestChangeDate());
 		List<Person> personnel = new ArrayList<Person>();
 		result.setPersonnel(personnel);
+		result.setResources(new ArrayList<Resource>());
 		try {
 			//use TagSoup
 			Parser parser = new Parser();
