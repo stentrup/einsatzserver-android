@@ -167,9 +167,9 @@ public class HtmlParserTest {
 		checkOperation(operationDetails, 8690, null, null, new LocalDate(2011, 12, 16), new LocalTime(16, 0), "F. gegen P.", "Arena, Arena-Str.", 4, 0, 0, null, null);
 		List<Person> personnel = new ArrayList<Person>();
 		List<Resource> resources = new ArrayList<Resource>();
-		resources.add(getResource("22-85-10" + System.getProperty("line.separator") + "22-KTW-10"));
-		resources.add(getResource("22-83-02" + System.getProperty("line.separator") + "22-ITW-02"));
-		resources.add(getResource("08-19-01" + System.getProperty("line.separator") + "08-MTF-01"));
+		resources.add(getResource("22-85-10" + System.getProperty("line.separator") + "22-KTW-10", null));
+		resources.add(getResource("22-83-02", null));
+		resources.add(getResource("08-19-01" + System.getProperty("line.separator") + "08-MTF-01", "+ Anhänger"));
 		checkOperationDetails(operationDetails, new LocalDate(2011, 12, 16), new LocalTime(21, 30), "DRK-Einsatzzentrum, Erkrather Str. 208", new LocalDate(2011, 12, 16), new LocalTime(15, 0), false, null, null, null, personnel, resources);
 	}
 
@@ -205,9 +205,10 @@ public class HtmlParserTest {
 		return person;
 	}
 
-	private Resource getResource(String name) {
+	private Resource getResource(String name, String comment) {
 		Resource resource = new Resource();
 		resource.setName(name);
+		resource.setComment(comment);
 		return resource;
 	}
 
@@ -248,10 +249,10 @@ public class HtmlParserTest {
 			Assert.assertEquals("name is wrong.", expected.getName(), actual.getName());
 			Assert.assertEquals("surname is wrong.", expected.getSurname(), actual.getSurname());
 			Assert.assertEquals("bookingState is wrong.", expected.getBookingState(), actual.getBookingState());
-			Assert.assertEquals("comment is wrong", expected.getComment(), actual.getComment());
-			Assert.assertEquals("division is wrong", expected.getDivision(), actual.getDivision());
-			Assert.assertEquals("startTime is wrong", expected.getStartTime(), actual.getStartTime());
-			Assert.assertEquals("endTime is wrong", expected.getEndTime(), actual.getEndTime());
+			Assert.assertEquals("comment is wrong.", expected.getComment(), actual.getComment());
+			Assert.assertEquals("division is wrong.", expected.getDivision(), actual.getDivision());
+			Assert.assertEquals("startTime is wrong.", expected.getStartTime(), actual.getStartTime());
+			Assert.assertEquals("endTime is wrong.", expected.getEndTime(), actual.getEndTime());
 			Assert.assertEquals("qualification is wrong.", expected.getQualification(), actual.getQualification());
 		}
 	}
@@ -261,7 +262,8 @@ public class HtmlParserTest {
 		for (int i = 0; i < resources.size(); i++) {
 			Resource expected = resources.get(i);
 			Resource actual = operationDetails.getResources().get(i);
-			Assert.assertEquals("name is wrong", expected.getName(), actual.getName());
+			Assert.assertEquals("name is wrong.", expected.getName(), actual.getName());
+			Assert.assertEquals("comment is wrong.", expected.getComment(), actual.getComment());
 		}
 	}
 }

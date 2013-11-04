@@ -29,6 +29,12 @@ public class ResourcesTableContentHandler extends OperationDetailsTableContentHa
 				resource.setName(content);
 			}
 		});
+		LABEL_TO_HANDLER_MAP.put("Bemerkung", new TableCellContentHandler<Resource>() {
+			@Override
+			public void setCellContent(Resource resource, String content) {
+				resource.setComment(content);
+			}
+		});
 	}
 
 	@Override

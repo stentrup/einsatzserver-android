@@ -250,8 +250,12 @@ public class OperationDetailsActivity extends GDActivity {
 		StringBuilder builder = new StringBuilder();
 		for (Resource resource : resources) {
 			String resourceName = resource.getName();
-			resourceName = resourceName.replaceAll(System.getProperty("line.separator"), " ");
+			resourceName = resourceName.replaceAll(System.getProperty("line.separator"), " / ");
 			builder.append(resourceName);
+			String resourceComment = resource.getComment();
+			if (resourceComment != null) {
+				builder.append(" (").append(resourceComment).append(")");
+			}
 			builder.append(System.getProperty("line.separator"));
 		}
 		return builder.substring(0, Math.max(builder.length() - System.getProperty("line.separator").length(), 0));
