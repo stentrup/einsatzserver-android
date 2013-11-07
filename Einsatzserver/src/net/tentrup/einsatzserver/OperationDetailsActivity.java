@@ -160,6 +160,9 @@ public class OperationDetailsActivity extends GDActivity {
 		String reportLocationText = operationDetails.getReportLocation();
 		addDetailsItem(layout, R.string.operation_report_location, reportLocationText, new MapsButton(this, reportLocationText));
 		addDetailsItem(layout, R.string.operation_report_time, operationDetails.getReportDateComplete(this, true), null);
+		if (operationDetails.getResources().size() > 0) {
+			addDetailsItem(layout, R.string.operation_resources, resourcesToText(operationDetails.getResources()), null);
+		}
 		if (operationDetails.getContactPerson() != null) {
 			addDetailsItem(layout, R.string.operation_contactPerson, operationDetails.getContactPerson(), null);
 		}
@@ -197,9 +200,6 @@ public class OperationDetailsActivity extends GDActivity {
 					return R.drawable.magnifier;
 				}
 			});
-		}
-		if (operationDetails.getResources().size() > 0) {
-			addDetailsItem(layout, R.string.operation_resources, resourcesToText(operationDetails.getResources()), null);
 		}
 		addDetailsItem(layout, R.string.operation_catering, toText(operationDetails.isCatering()), null);
 		if (operationDetails.getLatestChangeDate() != null) {
