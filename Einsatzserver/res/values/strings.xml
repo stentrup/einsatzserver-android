@@ -68,7 +68,6 @@
     <string name="operation.personnel_count">Einsatzkräftezahl</string>
     <string name="operation.personnel_short">EK</string>
     <string name="operation.contactPerson">Ansprechpartner</string>
-    <string name="operation.contactPersonPhone">Rufnummer</string>
     <string name="configuration.calendar">Kalender-Einstellungen</string>
     <string name="configuration.calendar.location">Ort</string>
     <string name="configuration.calendar.location.summary">Meldeort oder Einsatzort als Ort für den Kalendereintrag festlegen</string>

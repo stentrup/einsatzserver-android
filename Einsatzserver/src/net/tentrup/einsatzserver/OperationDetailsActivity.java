@@ -163,11 +163,21 @@ public class OperationDetailsActivity extends GDActivity {
 		if (operationDetails.getResources().size() > 0) {
 			addDetailsItem(layout, R.string.operation_resources, resourcesToText(operationDetails.getResources()), null);
 		}
-		if (operationDetails.getContactPerson() != null) {
-			addDetailsItem(layout, R.string.operation_contactPerson, operationDetails.getContactPerson(), null);
-		}
-		if (operationDetails.getContactPersonPhone() != null) {
-			addDetailsItem(layout, R.string.operation_contactPersonPhone, operationDetails.getContactPersonPhone(), new CallButton(this, operationDetails.getContactPersonPhone()));
+		if (operationDetails.getContactPerson() != null || operationDetails.getContactPersonPhone() != null) {
+			String contactText = "";
+			if (operationDetails.getContactPerson() != null) {
+				contactText += operationDetails.getContactPerson();
+				if (operationDetails.getContactPersonPhone() != null) {
+					contactText += " (" + operationDetails.getContactPersonPhone() + ")";
+				}
+			} else {
+				contactText += operationDetails.getContactPersonPhone();
+			}
+			if (operationDetails.getContactPersonPhone() != null) {
+				addDetailsItem(layout, R.string.operation_contactPerson, contactText, new CallButton(this, operationDetails.getContactPersonPhone()));
+			} else {
+				addDetailsItem(layout, R.string.operation_contactPerson, contactText, null);
+			}
 		}
 		if (operationDetails.getComment() != null) {
 			addDetailsItem(layout, R.string.operation_comment, operationDetails.getComment(), null);
