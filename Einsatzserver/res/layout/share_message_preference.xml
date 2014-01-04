@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/share_message_et"
+        android:inputType="textMultiLine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/share_message_placeholder_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configuration.share.message.placeholder"
+        android:textColor="@color/text_color_white" />
+
+	<org.apmem.tools.layouts.FlowLayout
+	    android:id="@+id/share_message_buttons_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/share_message_preview_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_white" />
+
+</LinearLayout>

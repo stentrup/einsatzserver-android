@@ -18,6 +18,7 @@ public class PreferenceKeys {
 	public static final String CONFIGURATION_UI_DAY_OF_WEEK = "configuration.ui.showDayOfWeek";
 	public static final String CONFIGURATION_CALENDAR_LOCATION = "configuration.calendar.location";
 	public static final String CONFIGURATION_CALENDAR_STARTTIME = "configuration.calendar.starttime";
+	public static final String CONFIGURATION_SHARE_MESSAGE = "configuration.share.message";
 
 	// other preferences
 	public static final String CONFIGURATION_FILTER_OCCUPIED_OPERATIONS = "configuration.filter.occupied_operations";

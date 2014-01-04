@@ -15,6 +15,7 @@ import net.tentrup.einsatzserver.model.Person;
 import net.tentrup.einsatzserver.model.Resource;
 import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
+import net.tentrup.einsatzserver.util.Template;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -65,6 +66,7 @@ public class OperationDetailsActivity extends GDActivity {
 	private ActivityTask m_task;
 	private ActionBarItem m_calendarAction;
 	private ActionBarItem m_bookingAction;
+	private ActionBarItem m_shareAction;
 	private int m_dialogShown;
 	private Operation m_inputOperation;
 	private ResultWrapper<OperationDetails> m_resultWrapper;
@@ -82,6 +84,9 @@ public class OperationDetailsActivity extends GDActivity {
 		m_calendarAction = getActionBar().newActionBarItem(NormalActionBarItem.class)
 		.setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_calendar))
 		.setContentDescription(R.string.details_add_to_calendar);
+		m_shareAction = getActionBar().newActionBarItem(NormalActionBarItem.class)
+		.setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_share))
+		.setContentDescription(R.string.details_share);
 		Object retained = getLastNonConfigurationInstance();
 		if (retained instanceof ActivityTask) {
 			Log.i(TAG, "Reclaiming previous background task.");
@@ -229,6 +234,12 @@ public class OperationDetailsActivity extends GDActivity {
 				}
 			});
 		}
+		addActionButton(layout, R.string.details_share, R.drawable.ic_action_bar_share, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				share();
+			}
+		});
 		addActionButton(layout, R.string.details_add_to_calendar, R.drawable.ic_action_bar_calendar, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -239,10 +250,12 @@ public class OperationDetailsActivity extends GDActivity {
 		scrollView.setVisibility(View.VISIBLE);
 		// Populate action bar
 		getActionBar().removeItem(m_bookingAction);
+		getActionBar().removeItem(m_shareAction);
 		getActionBar().removeItem(m_calendarAction);
 		if (!m_resultWrapper.getResult().isInPersonnel()) {
 			addActionBarItem(m_bookingAction, R.id.action_bar_check);
 		}
+		addActionBarItem(m_shareAction, R.id.action_bar_share);
 		addActionBarItem(m_calendarAction, R.id.action_bar_calendar);
 	}
 
@@ -415,6 +428,9 @@ public class OperationDetailsActivity extends GDActivity {
         case R.id.action_bar_check:
         	book();
         	return true;
+        case R.id.action_bar_share:
+        	share();
+        	return true;
         default:
             return super.onHandleActionBarItemClick(item, position);
         }
@@ -551,6 +567,18 @@ public class OperationDetailsActivity extends GDActivity {
 		});
 
 		alert.show();
+	}
+
+	private void share() {
+		Log.i(TAG, "Share");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String message = prefs.getString(PreferenceKeys.CONFIGURATION_SHARE_MESSAGE, getString(R.string.configuration_share_message_default));
+		OperationDetails operationDetails = m_resultWrapper.getResult();
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, new Template(message).apply(operationDetails.getDescription(), operationDetails.getLocation(), Operation.printDate(getStartDate(operationDetails), false, false)));
+		sendIntent.setType("text/plain");
+		startActivity(Intent.createChooser(sendIntent, getString(R.string.details_share_chooser_title)));
 	}
 
 	private abstract class ActivityTask extends AsyncTask<Void, Void, Void> {

@@ -27,4 +27,11 @@
             android:entries="@array/starttime"
             android:entryValues="@array/starttimeValues" />	  
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/configuration.share">
+		<net.tentrup.einsatzserver.ShareMessagePreference
+			android:key="configuration.share.message"
+			android:defaultValue="@string/configuration.share.message.default"
+			android:title="@string/configuration.share.message"
+			android:summary="@string/configuration.share.message.summary" />
+	</PreferenceCategory>
 </PreferenceScreen>
