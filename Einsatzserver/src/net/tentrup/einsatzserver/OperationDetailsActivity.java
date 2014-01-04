@@ -32,7 +32,9 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -219,6 +221,20 @@ public class OperationDetailsActivity extends GDActivity {
 				operationDetails.getLatestChangeAuthor();
 			addDetailsItem(layout, R.string.operation_latestChange, latestChangeText, null);
 		}
+		if (!m_resultWrapper.getResult().isInPersonnel()) {
+			addActionButton(layout, R.string.details_book, R.drawable.ic_action_bar_checkmark, new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					book();
+				}
+			});
+		}
+		addActionButton(layout, R.string.details_add_to_calendar, R.drawable.ic_action_bar_calendar, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				addToCalendar();
+			}
+		});
 		ScrollView scrollView = (ScrollView) findViewById(R.id.operation_details_scrollview);
 		scrollView.setVisibility(View.VISIBLE);
 		// Populate action bar
@@ -244,6 +260,15 @@ public class OperationDetailsActivity extends GDActivity {
 		} else {
 			actionButton.setVisibility(View.GONE);
 		}
+	}
+
+	private void addActionButton(ViewGroup parent, int labelResourceId, int imageResourceId, OnClickListener onClickListener) {
+		RelativeLayout actionLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.operation_details_action, null);
+		parent.addView(actionLayout);
+		Button actionButton = (Button) actionLayout.findViewById(R.id.operation_details_action_button);
+		actionButton.setText(labelResourceId);
+		actionButton.setCompoundDrawablesWithIntrinsicBounds(imageResourceId, 0, 0, 0);
+		actionButton.setOnClickListener(onClickListener);
 	}
 
 	private String personnelToText(List<Person> personnel) {
