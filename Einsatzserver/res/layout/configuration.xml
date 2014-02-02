@@ -3,12 +3,13 @@
 	<PreferenceCategory android:title="@string/configuration.login">
 		<EditTextPreference
 			android:key="configuration.username"
-			android:title="@string/configuration.username" />
+			android:title="@string/configuration.username"
+			android:inputType="textNoSuggestions|textVisiblePassword" />
 		<EditTextPreference
 			android:key="configuration.password"
 			android:title="@string/configuration.password"
 			android:singleLine="true"
-			android:password="true" />
+			android:inputType="textPassword" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/configuration.calendar">
 	    <ListPreference
