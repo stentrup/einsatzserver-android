@@ -1,4 +1,13 @@
 <p>
+<b>Version 1.4</b>
+<ul>
+<li>Einsatz weiterempfehlen</li>
+<li>Buttons zusätzlich unterhalb der Einsatzdetails</li>
+<li>Ansprechpartner und Rufnummer zusammenfassen</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.3</b>
 <ul>
 <li>Einsatzmittel (Fahrzeuge) in Einsatzdetails anzeigen</li>
