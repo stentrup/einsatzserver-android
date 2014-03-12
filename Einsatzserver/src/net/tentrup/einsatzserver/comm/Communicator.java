@@ -148,6 +148,7 @@ public class Communicator {
 			tempRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse response = m_httpClient.execute(tempRequest);
 			if (response.getStatusLine().getStatusCode() != 200) {
+				Log.e(TAG, "Login HTTP status code " + response.getStatusLine().getStatusCode());
 				return ResultStateEnum.LOADING_ERROR;
 			}
 			String responseText = getTextFromResponse(response);
@@ -167,6 +168,7 @@ public class Communicator {
 		ByteArrayOutputStream tempByteStream = null;
 		try {
 			if (aResponse.getStatusLine().getStatusCode() != 200) {
+				Log.e(TAG, "HTTP status code " + aResponse.getStatusLine().getStatusCode());
 				return null;
 			}
 			tempContentStream = aResponse.getEntity().getContent();
