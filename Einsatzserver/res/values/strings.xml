@@ -80,6 +80,7 @@
     <string name="configuration.share.message.summary">Text, der beim Empfehlen eines Dienstes verschickt werden soll</string>
     <string name="configuration.share.message.preview">Vorschau: %1$s</string>
     <string name="configuration.share.message.placeholder">Platzhalter einfügen:</string>
+    <string name="configuration.share.message.reset">Auf Standardtext zurücksetzen</string>
     <string name="configuration.share.message.default">Hast Du Lust, am {$Datum} Dienst bei {$Bezeichnung} zu machen?</string>
     <string name="configuration.share.message.example.operation">Beispieleinsatz</string>
     <string name="configuration.share.message.example.location">Beispielort</string>

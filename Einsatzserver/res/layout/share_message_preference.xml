@@ -27,5 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_white" />
+    
+    <Button android:id="@+id/share_message_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configuration.share.message.reset"/>
 
 </LinearLayout>

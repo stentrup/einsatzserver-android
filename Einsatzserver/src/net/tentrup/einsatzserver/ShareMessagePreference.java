@@ -23,16 +23,18 @@ public class ShareMessagePreference extends DialogPreference {
 	
 	private EditText text;
 	private String textValue;
+	private final String defaultText;
 
 	public ShareMessagePreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setDialogLayoutResource(R.layout.share_message_preference);
+		defaultText = context.getString(R.string.configuration_share_message_default);
 	}
 
 	@Override
 	protected void onAttachedToHierarchy(PreferenceManager preferenceManager) {
 		super.onAttachedToHierarchy(preferenceManager);
-		textValue = getPersistedString(getContext().getString(R.string.configuration_share_message_default));
+		textValue = getPersistedString(defaultText);
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class ShareMessagePreference extends DialogPreference {
 
 	@Override
 	protected void onBindDialogView(final View view) {
-		text = (EditText)view.findViewById(R.id.share_message_et);
+		text = (EditText) view.findViewById(R.id.share_message_et);
 		text.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -93,6 +95,14 @@ public class ShareMessagePreference extends DialogPreference {
 			@Override
 			public void onClick(View v) {
 				insert(text, "{$" + Template.ORT + "}");
+			}
+		});
+
+		Button btnReset = (Button) view.findViewById(R.id.share_message_reset);
+		btnReset.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				text.setText(defaultText);
 			}
 		});
 		super.onBindDialogView(view);
