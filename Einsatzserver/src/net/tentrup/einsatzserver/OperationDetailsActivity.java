@@ -30,7 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
-import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -543,14 +543,26 @@ public class OperationDetailsActivity extends GDActivity {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle(R.string.booking_title);
 		alert.setMessage(R.string.booking_description);
-
-		// Set an EditText view to get user input
-		final EditText input = new EditText(this);
-		InputFilter[] filters = new InputFilter[1];
-		filters[0] = new InputFilter.LengthFilter(40);
-		input.setFilters(filters);
-		alert.setView(input);
-
+		View layout = getLayoutInflater().inflate(R.layout.book_dialog, null);
+		final EditText input = (EditText) layout.findViewById(R.id.comment);
+		final TextView remaining = (TextView) layout.findViewById(R.id.chars_remaining);
+		remaining.setText(getString(R.string.booking_remaining, 40));
+		input.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// NoOp
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				// NoOp
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				int length = s.length();
+				remaining.setText(getString(R.string.booking_remaining, 40 - length));
+			}
+		});
+		alert.setView(layout);
 		alert.setPositiveButton(R.string.booking_ok, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				Editable value = input.getText();
@@ -559,13 +571,11 @@ public class OperationDetailsActivity extends GDActivity {
 				m_task.execute();
 			}
 		});
-
 		alert.setNegativeButton(R.string.booking_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// Canceled.
 			}
 		});
-
 		alert.show();
 	}
 

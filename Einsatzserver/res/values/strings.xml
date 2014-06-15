@@ -62,7 +62,8 @@
     <string name="bookingstate.absent.short">abw.</string>
     <string name="bookingstate.unknown.short">unbek.</string>
     <string name="booking.title">Verbindlich vormerken</string>
-    <string name="booking.description">Bemerkung (optional, max. 40 Zeichen)</string>
+    <string name="booking.description">Bemerkung (optional)</string>
+    <string name="booking.remaining">%1$s Zeichen übrig</string>
     <string name="booking.ok">Vormerken</string>
     <string name="booking.cancel">Abbrechen</string>
     <string name="booking.successful">Teilnahme vorgemerkt</string>
