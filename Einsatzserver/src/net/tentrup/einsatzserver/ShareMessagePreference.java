@@ -62,7 +62,7 @@ public class ShareMessagePreference extends DialogPreference {
 				String previewTextValue = template.apply(
 						getContext().getString(R.string.configuration_share_message_example_operation),
 						getContext().getString(R.string.configuration_share_message_example_location),
-						Operation.printDate(new LocalDate(), false, false));
+						Operation.printDate(new LocalDate(), true, false));
 				preview.setText(getContext().getString(R.string.configuration_share_message_preview, previewTextValue));
 				template.adjustSpans(s); 
 			}

@@ -576,7 +576,7 @@ public class OperationDetailsActivity extends GDActivity {
 		OperationDetails operationDetails = m_resultWrapper.getResult();
 		Intent sendIntent = new Intent();
 		sendIntent.setAction(Intent.ACTION_SEND);
-		sendIntent.putExtra(Intent.EXTRA_TEXT, new Template(message).apply(operationDetails.getDescription(), operationDetails.getLocation(), Operation.printDate(getStartDate(operationDetails), false, false)));
+		sendIntent.putExtra(Intent.EXTRA_TEXT, new Template(message).apply(operationDetails.getDescription(), operationDetails.getLocation(), Operation.printDate(getStartDate(operationDetails), true, false)));
 		sendIntent.setType("text/plain");
 		startActivity(Intent.createChooser(sendIntent, getString(R.string.details_share_chooser_title)));
 	}
