@@ -1,4 +1,13 @@
 <p>
+<b>Version 1.5</b>
+<ul>
+<li>Verschlüsselte Datenübertragung (HTTPS)</li>
+<li>Verbleibende Zeichen für den Kommentar beim Vormerken anzeigen</li>
+<li>Wochentag beim Teilen hinzufügen</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.4</b>
 <ul>
 <li>Einsatz weiterempfehlen</li>
