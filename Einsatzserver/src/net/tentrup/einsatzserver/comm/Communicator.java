@@ -178,7 +178,7 @@ public class Communicator {
 				tempByteStream.write(tempContentByte);
 			}
 			byte[] tempContentByteArray = tempByteStream.toByteArray();
-			String tempResult = new String(tempContentByteArray, "Cp1252");
+			String tempResult = new String(tempContentByteArray, "UTF-8");
 			return tempResult;
 		} finally {
 			if (tempContentStream != null) {
