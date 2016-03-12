@@ -5,6 +5,7 @@ import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.NormalActionBarItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.tentrup.einsatzserver.comm.CommunicatorSingleton;
@@ -17,6 +18,7 @@ import net.tentrup.einsatzserver.model.ResultStateEnum;
 import net.tentrup.einsatzserver.model.ResultWrapper;
 import net.tentrup.einsatzserver.util.Template;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -287,7 +289,7 @@ public class OperationDetailsActivity extends GDActivity {
 	private String personnelToText(List<Person> personnel) {
 		StringBuilder builder = new StringBuilder();
 		for (Person person : personnel) {
-			builder.append(person.getSurname()).append(", ").append(person.getName());
+			builder.append(person.getSurnameAndName());
 			builder.append(" (").append(getString(person.getBookingState().getResourceId())).append(")");
 			builder.append(System.getProperty("line.separator"));
 		}

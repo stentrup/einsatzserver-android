@@ -1,7 +1,10 @@
 package net.tentrup.einsatzserver.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalTime;
 
 public class Person implements Serializable {
@@ -64,5 +67,16 @@ public class Person implements Serializable {
 	}
 	public void setQualification(String qualification) {
 		m_qualification = qualification;
+	}
+	
+	public String getSurnameAndName() {
+		List<String> name = new ArrayList<String>();
+		if (m_surname != null) {
+			name.add(m_surname);
+		}
+		if (m_name != null) {
+			name.add(m_name);
+		}
+		return StringUtils.join(name, ", ");
 	}
 }
