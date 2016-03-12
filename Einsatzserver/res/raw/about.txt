@@ -1,6 +1,6 @@
 <h3>Android-App für den Einsatzserver des DRK-Kreisverbandes Düsseldorf</h3>
 <p>
-<a href="http://code.google.com/p/einsatzserver-android/">Projektseite bei Google Code</a>
+<a href="https://github.com/stentrup/einsatzserver-android">Projektseite bei Github</a>
 </p>
 <p>
 <b>Feedback</b><br/><br/>
