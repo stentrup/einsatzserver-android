@@ -45,6 +45,8 @@ public class Communicator {
 	private static final String URL_OPERATION_DETAILS = "einsatz_uebersicht.php?einsatz_id=";
 	private static final String URL_BOOKING = "einsatz_uebersicht.php?bemerkung=%s&einsatz_id=%s&teilnahmewunsch=1&Vormerken=Vormerken";
 
+	private static final String ENCODING = "UTF-8";
+	
 	private final DefaultHttpClient m_httpClient;
 	private final Context m_context;
 
@@ -111,7 +113,7 @@ public class Communicator {
 			return new ResultWrapper<OperationDetails>(null, loginResult);
 		}
 		try {
-			String commentEncoded = URLEncoder.encode(comment, "ISO-8859-1");
+			String commentEncoded = URLEncoder.encode(comment, ENCODING);
 			Log.i(TAG, "Execute booking request.");
 			String response = executeHttpGetRequest(String.format(getBaseUrl() + URL_BOOKING, commentEncoded, "" + inputOperation.getId()));
 			if (response == null) {
@@ -145,7 +147,7 @@ public class Communicator {
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 
 		try {
-			tempRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			tempRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, ENCODING));
 			HttpResponse response = m_httpClient.execute(tempRequest);
 			if (response.getStatusLine().getStatusCode() != 200) {
 				Log.e(TAG, "Login HTTP status code " + response.getStatusLine().getStatusCode());
@@ -178,7 +180,7 @@ public class Communicator {
 				tempByteStream.write(tempContentByte);
 			}
 			byte[] tempContentByteArray = tempByteStream.toByteArray();
-			String tempResult = new String(tempContentByteArray, "UTF-8");
+			String tempResult = new String(tempContentByteArray, ENCODING);
 			return tempResult;
 		} finally {
 			if (tempContentStream != null) {
