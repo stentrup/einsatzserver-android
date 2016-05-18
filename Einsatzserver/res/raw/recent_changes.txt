@@ -1,4 +1,11 @@
 <p>
+<b>Version 1.5.2</b>
+<ul>
+<li>Korrektur für Umlaute und Sonderzeichen in Benutzername, Passwort und Kommentar.</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.5.1</b>
 <ul>
 <li>Korrektur für die Darstellung von Umlauten und Sonderzeichen</li>
