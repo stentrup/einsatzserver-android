@@ -37,7 +37,7 @@ public class Communicator {
 	 */
 	public static final String PREF_TESTMODE = "net.tentrup.einsatzserver.testmode";
 
-	private static final String URL_BASE = "https://www.drk-d.de/eis/";
+	private static final String URL_BASE = "https://www.drk-d.de/";
 	private static final String URL_BASE_TESTMODE = "http://www.tentrup.net/eis/";
 	private static final String URL_LOGIN = "index.php";
 	private static final String URL_ALL_OPERATIONS = "einsatz.php";
