@@ -1,4 +1,11 @@
 <p>
+<b>Version 1.5.3</b>
+<ul>
+<li>HTTPS-Domain geändert.</li>
+</ul>
+</p>
+
+<p>
 <b>Version 1.5.2</b>
 <ul>
 <li>Korrektur für Umlaute und Sonderzeichen in Benutzername, Passwort und Kommentar.</li>
